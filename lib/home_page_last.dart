@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:crowdfunding/core/config/contract_config.dart';
+import 'package:crowdfunding/core/config/keys_config.dart';
+import 'package:crowdfunding/core/config/urls_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
@@ -14,24 +17,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Akun 1
-  String address = "0x4994986400D969EeA1f90bE393A5F1B1b72a664A";
-  String privateKey =
-      "b8f06d9458c3d173fb25939ad8dbfd0e218ee2547f19fa05cf29d2519c361af2";
-
-  // Rinkbey provider
-  String rinkbeyProvider =
-      "https://rinkeby.infura.io/v3/08ac79d88b5d4aea961ca36af7ea6ee7";
-
-  // Ropsten provider
-  String ropstenProvider =
-      "https://ropsten.infura.io/v3/08ac79d88b5d4aea961ca36af7ea6ee7";
-
-  // Local provider
-  String localApiUrl = "http://10.0.2.2:7545/";
-
-  // Contract Address
-  String contractAddress = "0x4EE9aA39F40526F342725E77A6FBb9188319D4e9";
 
   Web3Client? web3Client;
   Client httpClient = Client();
@@ -40,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     // Connect web3Client with [provider] and httpClient
-    web3Client = Web3Client(ropstenProvider, httpClient);
+    web3Client = Web3Client(UrlsConfig.infuraRinkbeyProvider, httpClient);
     log("WEB3Client $web3Client");
     getBalance();
   }
@@ -49,11 +34,11 @@ class _HomePageState extends State<HomePage> {
   Future<void> getBalance() async {
     if (web3Client != null) {
       // Get ethereum Address from privateKey
-      EthPrivateKey ethPrivateKey = EthPrivateKey.fromHex(privateKey);
-      log("PrivateKey ${ethPrivateKey.address}");
+      // EthPrivateKey ethPrivateKey = EthPrivateKey.fromHex(KeysConfig.privateKeyAkun1);
+      // log("PrivateKey ${ethPrivateKey.address}");
       // Get balance from [address] or [privateKey]
       EtherAmount balance =
-          await web3Client!.getBalance(EthereumAddress.fromHex(address));
+          await web3Client!.getBalance(EthereumAddress.fromHex(KeysConfig.addressAkun1));
       log("Balance ${balance.getValueInUnit(EtherUnit.ether)}");
 
       loadContract();
@@ -68,12 +53,12 @@ class _HomePageState extends State<HomePage> {
   // Load Contract from abi file
   Future<void> loadContract() async {
     // Read the abi file
-    String abi = await rootBundle.loadString("assets/contracts/abi.json");
-    log("ABI $abi");
+    String campaignAbi = await rootBundle.loadString("assets/contracts/campaign.json");
+    log("Campaign Abi $campaignAbi");
 
     final DeployedContract contract = DeployedContract(
-      ContractAbi.fromJson(abi, "DStorage"),
-      EthereumAddress.fromHex(contractAddress),
+      ContractAbi.fromJson(campaignAbi, "Campaigns"),
+      EthereumAddress.fromHex(ContractConfig.crowdfunding),
     );
 
     log("Contract $contract");
@@ -126,7 +111,7 @@ class _HomePageState extends State<HomePage> {
     // Transaction function uploadFile
     try {
       final result = await web3Client!.sendTransaction(
-        EthPrivateKey.fromHex(privateKey),
+        EthPrivateKey.fromHex(KeysConfig.privateKeyAkun1),
         Transaction.callContract(
           contract: contract,
           function: contract.function('uploadFile'),
@@ -139,8 +124,6 @@ class _HomePageState extends State<HomePage> {
       // getTransactionByHash(result);
 
       log("UploadFile $result");
-
-      pendingTransaction(result);
     } catch (error) {
       log("Transaction uploadFile error $error");
     }
@@ -153,29 +136,6 @@ class _HomePageState extends State<HomePage> {
 
   // Opsinya stream data dari getTransactionByHash
   // Atau dicek berkala dari getTransactionByHash
-
-  StreamController<TransactionInformation>? streamController;
-
-  Future<void> pendingTransaction(String hash) async {
-    // try {
-    //   final pendingTransaction = web3Client!.pendingTransactions();
-
-    //   log("Pending Transaction ${pendingTransaction.first}");
-    // } catch (error) {
-    //   log("Pending Transaction error $error");
-    // }
-
-    final Stream<TransactionInformation> streamTransaction =
-        web3Client!.getTransactionByHash(hash).asStream();
-
-    setState(() {
-      streamController?.addStream(streamTransaction);
-    });
-
-    // streamTransaction.listen((info) {
-    // log("Transaction Info ${streamController.}");
-    // });
-  }
 
   // Check transaction by hash for transaction was mined
   Future<void> getTransactionByHash(String hash) async {
@@ -205,7 +165,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(streamController?.sink);
     return Container();
   }
 }

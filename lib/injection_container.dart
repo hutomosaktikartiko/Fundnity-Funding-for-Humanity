@@ -1,15 +1,18 @@
-import 'dart:io';
-
-import 'package:crowdfunding/core/error/interceptor_info.dart';
-import 'package:crowdfunding/core/network/network_info.dart';
-import 'package:crowdfunding/core/observer/firebase_analytics_observer_info.dart';
-import 'package:crowdfunding/core/update/update_info.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get_it/get_it.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:new_version/new_version.dart';
+import 'package:web3dart/web3dart.dart';
+
+import 'core/config/keys_config.dart';
+import 'core/config/urls_config.dart';
+import 'core/error/interceptor_info.dart';
+import 'core/network/network_info.dart';
+import 'core/observer/firebase_analytics_observer_info.dart';
+import 'core/update/update_info.dart';
 
 final sl = GetIt.instance;
 
@@ -34,7 +37,8 @@ Future<void> init() async {
       () => InternetConnectionChecker());
   sl.registerLazySingleton<ImagePicker>(() => ImagePicker());
   sl.registerLazySingleton<FirebaseAnalytics>(() => FirebaseAnalytics.instance);
-  // TODO => Http Register
+  sl.registerLazySingleton<Client>(() => Client());
+  sl.registerLazySingleton<Web3Client>(() => Web3Client(UrlsConfig.infuraRopstenProvider + KeysConfig.infuraPrivateKey, sl()));
   
   // TODO => DIO Client
   sl.registerLazySingleton<Dio>(() => Dio(
