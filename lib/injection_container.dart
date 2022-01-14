@@ -14,7 +14,9 @@ import 'core/network/network_info.dart';
 import 'core/observer/firebase_analytics_observer_info.dart';
 import 'core/update/update_info.dart';
 import 'data/datasources/locals/deployed_contract_local_data_source.dart';
+import 'data/datasources/remotes/campaign_remote_data_source.dart';
 import 'data/datasources/remotes/ethereum_remote_data_source.dart';
+import 'data/repositories/campaign_repository.dart';
 import 'data/repositories/deployed_contract_repository.dart';
 import 'data/repositories/ethereum_repository.dart';
 import 'presentation/cubit/cubits.dart';
@@ -25,13 +27,16 @@ Future<void> init() async {
   // Cubit
   sl.registerFactory(() => EthereumBalanceCubit(ethereumRepository: sl()));
   sl.registerFactory(() => DeployedContractCubit(deployedContractRepository: sl()));
+  sl.registerFactory(() => GetAllCampaignsCubit(campaignRepository: sl()));
 
   // Repositories
   sl.registerLazySingleton<EthereumRepository>(() => EthereumRepositoryImpl(ethereumRemoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<DeployedContractRepository>(() => DeployedContractRepositoryImpl(deployedContractLocalDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<CampaignRepository>(() => CampaignRepositoryImpl(networkInfo: sl(), campaignRemoteDataSource: sl()));
 
   // Datasources Remote
   sl.registerLazySingleton<EthereumRemoteDataSource>(() => EthereumRemoteDataSourceImpl(web3client: sl()));
+  sl.registerLazySingleton<CampaignRemoteDataSource>(() => CampaignRemoteDataSourceImpl());
 
   // Datasources Local
   sl.registerLazySingleton<DeployedContractLocalDataSource>(() => DeplotedContractLocalDataSourceImpl());
@@ -51,7 +56,7 @@ Future<void> init() async {
   sl.registerLazySingleton<ImagePicker>(() => ImagePicker());
   sl.registerLazySingleton<FirebaseAnalytics>(() => FirebaseAnalytics.instance);
   sl.registerLazySingleton<Client>(() => Client());
-  sl.registerLazySingleton<Web3Client>(() => Web3Client(UrlsConfig.infuraRopstenProvider + KeysConfig.infuraPrivateKey, sl()));
+  sl.registerLazySingleton<Web3Client>(() => Web3Client(UrlsConfig.infuraRinkbeyProvider + KeysConfig.infuraPrivateKey, sl()));
   
   // TODO => DIO Client
   sl.registerLazySingleton<Dio>(() => Dio(

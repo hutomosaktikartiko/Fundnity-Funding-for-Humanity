@@ -31,7 +31,7 @@ class DeployedContractCubit extends Cubit<DeployedContractState> {
     } else {
       emit(DeployedContractLoadingFailure(message: result.message));
     }
-
+    
     return ReturnValueModel(
       isSuccess: result.isSuccess,
       message: result.message,

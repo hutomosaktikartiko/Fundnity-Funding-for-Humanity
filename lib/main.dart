@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => di.sl<EthereumBalanceCubit>()),
         BlocProvider(create: (context) => di.sl<DeployedContractCubit>()),
+        BlocProvider(create: (context) => di.sl<GetAllCampaignsCubit>()),
       ],
       child: MaterialApp(
         home: SplashScreen(),
