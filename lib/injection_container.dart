@@ -7,8 +7,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:new_version/new_version.dart';
 import 'package:web3dart/web3dart.dart';
 
-import 'core/config/keys_config.dart';
-import 'core/config/urls_config.dart';
 import 'core/error/interceptor_info.dart';
 import 'core/network/network_info.dart';
 import 'core/observer/firebase_analytics_observer_info.dart';
@@ -29,6 +27,7 @@ Future<void> init() async {
   sl.registerFactory(() => CampaignDeployedContractCubit(deployedContractRepository: sl()));
   sl.registerFactory(() => GetAllCampaignsCubit(campaignRepository: sl()));
   sl.registerFactory(() => CampaignFactoryDeployedContractCubit(deployedContractRepository: sl()));
+  sl.registerFactory(() => Web3clientCubit(client: sl()));
 
   // Repositories
   sl.registerLazySingleton<EthereumRepository>(() => EthereumRepositoryImpl(ethereumRemoteDataSource: sl(), networkInfo: sl()));
@@ -57,7 +56,7 @@ Future<void> init() async {
   sl.registerLazySingleton<ImagePicker>(() => ImagePicker());
   sl.registerLazySingleton<FirebaseAnalytics>(() => FirebaseAnalytics.instance);
   sl.registerLazySingleton<Client>(() => Client());
-  sl.registerLazySingleton<Web3Client>(() => Web3Client(UrlsConfig.infuraRinkbeyProvider + KeysConfig.infuraPrivateKey, sl()));
+  sl.registerLazySingleton<Web3Client>(() => Web3Client(sl(), sl()));
   
   // TODO => DIO Client
   sl.registerLazySingleton<Dio>(() => Dio(

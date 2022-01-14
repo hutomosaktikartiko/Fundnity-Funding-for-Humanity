@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<CampaignDeployedContractCubit>()..getDeployedContract()),
         BlocProvider(create: (context) => di.sl<CampaignFactoryDeployedContractCubit>()..getDeployedContract()),
         BlocProvider(create: (context) => di.sl<GetAllCampaignsCubit>()),
+        BlocProvider(create: (context) => di.sl<Web3clientCubit>()),
       ],
       child: MaterialApp(
         home: SplashScreen(),
