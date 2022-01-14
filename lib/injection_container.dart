@@ -13,7 +13,9 @@ import 'core/error/interceptor_info.dart';
 import 'core/network/network_info.dart';
 import 'core/observer/firebase_analytics_observer_info.dart';
 import 'core/update/update_info.dart';
+import 'data/datasources/locals/deployed_contract_local_data_source.dart';
 import 'data/datasources/remotes/ethereum_remote_data_source.dart';
+import 'data/repositories/deployed_contract_repository.dart';
 import 'data/repositories/ethereum_repository.dart';
 import 'presentation/cubit/cubits.dart';
 
@@ -22,12 +24,17 @@ final sl = GetIt.instance;
 Future<void> init() async {
   // Cubit
   sl.registerFactory(() => EthereumBalanceCubit(ethereumRepository: sl()));
+  sl.registerFactory(() => DeployedContractCubit(deployedContractRepository: sl()));
 
   // Repositories
   sl.registerLazySingleton<EthereumRepository>(() => EthereumRepositoryImpl(ethereumRemoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<DeployedContractRepository>(() => DeployedContractRepositoryImpl(deployedContractLocalDataSource: sl(), networkInfo: sl()));
 
-  // Datasources
+  // Datasources Remote
   sl.registerLazySingleton<EthereumRemoteDataSource>(() => EthereumRemoteDataSourceImpl(web3client: sl()));
+
+  // Datasources Local
+  sl.registerLazySingleton<DeployedContractLocalDataSource>(() => DeplotedContractLocalDataSourceImpl());
 
   // Core
   sl.registerLazySingleton<NetworkInfo>(
