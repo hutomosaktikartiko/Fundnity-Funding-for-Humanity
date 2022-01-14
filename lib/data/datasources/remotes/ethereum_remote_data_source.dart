@@ -13,6 +13,10 @@ class EthereumRemoteDataSourceImpl implements EthereumRemoteDataSource {
 
   @override
   Future<EtherAmount> getBalance({required String address}) async {
-    return await web3client.getBalance(EthereumAddress.fromHex(address));
+    try {
+      return await web3client.getBalance(EthereumAddress.fromHex(address));
+    } catch (error) {
+      throw error;
+    }
   }
 }

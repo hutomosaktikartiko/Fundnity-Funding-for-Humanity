@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/config/theme_config.dart';
-import 'presentation/screens/splash/splash_screen.dart';
 import 'injection_container.dart' as di;
+import 'presentation/cubit/cubits.dart';
+import 'presentation/screens/splash/splash_screen.dart';
 
 void main() async {
-
   await di.init();
 
   runApp(MyApp());
@@ -16,9 +17,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SplashScreen(),
-      theme: ThemeConfig.defaultTheme,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => di.sl<EthereumBalanceCubit>()),
+      ],
+      child: MaterialApp(
+        home: SplashScreen(),
+        theme: ThemeConfig.defaultTheme,
+      ),
     );
   }
 }
