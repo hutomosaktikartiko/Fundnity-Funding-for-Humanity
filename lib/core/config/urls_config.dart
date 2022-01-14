@@ -7,4 +7,8 @@ class UrlsConfig {
 
   // Ganache Local Provider
   static const String ganacheLocalProvider = "http://10.0.2.2:7545/";
+
+  // Local Assets url
+  static const String campaignContractPath = "assets/contracts/campaign.json";
+  static const String campaignFactoryContractPath = "assets/contracts/campaign_factory.json";
 }

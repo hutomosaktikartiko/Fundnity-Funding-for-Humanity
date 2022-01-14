@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => di.sl<EthereumBalanceCubit>()),
-        BlocProvider(create: (context) => di.sl<DeployedContractCubit>()),
+        BlocProvider(create: (context) => di.sl<CampaignDeployedContractCubit>()..getDeployedContract()),
+        BlocProvider(create: (context) => di.sl<CampaignFactoryDeployedContractCubit>()..getDeployedContract()),
         BlocProvider(create: (context) => di.sl<GetAllCampaignsCubit>()),
       ],
       child: MaterialApp(
