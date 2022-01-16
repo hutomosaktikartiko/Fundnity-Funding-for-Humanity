@@ -16,16 +16,18 @@ class CampaignDeployedContractCubit
 
   final DeployedContractRepository deployedContractRepository;
 
-  Future<ReturnValueModel<bool>> getDeployedContract() async {
+  Future<ReturnValueModel<bool>> getDeployedContract({
+    required String address,
+  }) async {
     final ReturnValueModel<DeployedContract> result =
         await deployedContractRepository.getDeployedContract(
       contractName: campaignContractLocal.name,
-      contractAddress: campaignContractLocal.address,
+      contractAddress: address,
       contractLocalUrl: campaignContractLocal.path,
     );
 
-    if (result.isSuccess) {
-      emit(CampaignDeployedContractLoaded(deployedContract: result.value));
+    if (result.isSuccess && result.value != null) {
+      emit(CampaignDeployedContractLoaded(deployedContract: result.value!));
     } else {
       emit(CampaignDeployedContractLoadingFailure(message: result.message));
     }

@@ -10,7 +10,7 @@ abstract class CampaignDeployedContractState extends Equatable {
 class CampaignDeployedContractInitial extends CampaignDeployedContractState {}
 
 class CampaignDeployedContractLoaded extends CampaignDeployedContractState {
-  final DeployedContract? deployedContract;
+  final DeployedContract deployedContract;
 
   CampaignDeployedContractLoaded({required this.deployedContract});
 

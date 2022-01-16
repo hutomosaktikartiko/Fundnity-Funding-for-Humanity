@@ -25,9 +25,10 @@ Future<void> init() async {
   // Cubit
   sl.registerFactory(() => EthereumBalanceCubit(ethereumRepository: sl()));
   sl.registerFactory(() => CampaignDeployedContractCubit(deployedContractRepository: sl()));
-  sl.registerFactory(() => GetAllCampaignsCubit(campaignRepository: sl()));
+  sl.registerFactory(() => GetCampaignCubit(campaignRepository: sl()));
   sl.registerFactory(() => CampaignFactoryDeployedContractCubit(deployedContractRepository: sl()));
   sl.registerFactory(() => Web3clientCubit(client: sl()));
+  sl.registerFactory(() => GetAllAddressCampaignsCubit(campaignRepository: sl()));
 
   // Repositories
   sl.registerLazySingleton<EthereumRepository>(() => EthereumRepositoryImpl(ethereumRemoteDataSource: sl(), networkInfo: sl()));

@@ -9,6 +9,7 @@ import '../../../injection_container.dart';
 
 part 'web3client_state.dart';
 
+// ERROR => NOT WORK
 class Web3clientCubit extends Cubit<Web3clientState> {
   Web3clientCubit({
     required this.client,
@@ -16,7 +17,7 @@ class Web3clientCubit extends Cubit<Web3clientState> {
       : super(
           Web3clientState(
             web3client: Web3Client(
-              UrlsConfig.infuraRinkbeyProvider + KeysConfig.infuraPrivateKey,
+              UrlsConfig.infuraRopstenProvider + KeysConfig.infuraPrivateKey,
               sl<Client>(),
             ),
           ),

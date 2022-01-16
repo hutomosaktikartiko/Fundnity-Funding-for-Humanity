@@ -11,7 +11,7 @@ class CampaignFactoryDeployedContractInitial extends CampaignFactoryDeployedCont
 
 
 class CampaignFactoryDeployedContractLoaded extends CampaignFactoryDeployedContractState {
-  final DeployedContract? deployedContract;
+  final DeployedContract deployedContract;
 
   CampaignFactoryDeployedContractLoaded({required this.deployedContract});
 

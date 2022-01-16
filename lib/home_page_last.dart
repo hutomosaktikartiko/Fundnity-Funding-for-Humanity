@@ -9,14 +9,14 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomeLastPage extends StatefulWidget {
+  const HomeLastPage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeLastPageState createState() => _HomeLastPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeLastPageState extends State<HomeLastPage> {
 
   Web3Client? web3Client;
   Client httpClient = Client();
