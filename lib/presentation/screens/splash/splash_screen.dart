@@ -1,24 +1,27 @@
-import 'package:crowdfunding/presentation/cubit/cubits.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SplashScreen extends StatefulWidget {
+import '../../../core/config/size_config.dart';
+import '../../widgets/connection_screen.dart';
+import 'states/error.dart';
+import 'states/loaded.dart';
+import 'states/loading.dart';
+
+class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-
-  @override
-  void initState() {
-    super.initState();
-    context.read<WalletCubit>().getWallets(password: "password");
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    SizeConfig().init(context);
+
+    return ConnectionScreen(
+      internetConnectionConnected: () {
+        return Loaded();
+      },
+      internetConnectionDisconnected: () {
+        return Error();
+      },
+      loading: () {
+        return Loading();
+      },
+    );
   }
 }

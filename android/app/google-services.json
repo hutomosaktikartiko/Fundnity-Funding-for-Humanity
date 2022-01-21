@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "333235710422",
+    "project_id": "crowdfunding-app-decentralized",
+    "storage_bucket": "crowdfunding-app-decentralized.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333235710422:android:27f49ff4621b2c57481c77",
+        "android_client_info": {
+          "package_name": "com.crowdfunding.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333235710422-ng33vj7u5a5a95f0tpiaetjmdb4jhj0m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUnrNB56kzTyubgNz2pLt7aN06sHwCnEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333235710422-ng33vj7u5a5a95f0tpiaetjmdb4jhj0m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "333235710422-30ne472fl85h4bnegdq0cskf4ekgm11m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hutomosaktikartiko.crowdfunding"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333235710422:android:e60cab2043c606ae481c77",
+        "android_client_info": {
+          "package_name": "com.hutomosaktikartiko.crowdfunding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333235710422-ng33vj7u5a5a95f0tpiaetjmdb4jhj0m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUnrNB56kzTyubgNz2pLt7aN06sHwCnEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333235710422-ng33vj7u5a5a95f0tpiaetjmdb4jhj0m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "333235710422-30ne472fl85h4bnegdq0cskf4ekgm11m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hutomosaktikartiko.crowdfunding"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

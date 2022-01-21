@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.crowdfunding">
+    package="com.hutomosaktikartiko.crowdfunding">
    <application
         android:label="crowdfunding"
         android:usesCleartextTraffic="true"

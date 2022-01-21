@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 
-import '../../../../core/config/keys_config.dart';
-import '../../../../core/config/size_config.dart';
-import '../../../../core/config/urls_config.dart';
-import '../../../../injection_container.dart';
-import '../../../cubit/cubits.dart';
+import '../../../../../core/config/keys_config.dart';
+import '../../../../../core/config/size_config.dart';
+import '../../../../../core/config/urls_config.dart';
+import '../../../../../injection_container.dart';
+import '../../../../cubit/cubits.dart';
 import 'state/loaded.dart';
 
 class HomePage extends StatefulWidget {

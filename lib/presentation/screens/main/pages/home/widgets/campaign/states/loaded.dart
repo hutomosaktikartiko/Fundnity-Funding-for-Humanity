@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../core/config/size_config.dart';
-import '../../../../../../../data/models/campaign_model.dart';
-import '../../../../../../widgets/custom_boc_shadow.dart';
+import '../../../../../../../../core/config/size_config.dart';
+import '../../../../../../../../data/models/campaign_model.dart';
+import '../../../../../../../widgets/custom_box_shadow.dart';
 
 class Loaded extends StatelessWidget {
   const Loaded({

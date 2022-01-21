@@ -5,3 +5,5 @@ export 'get_campaign/get_campaign_cubit.dart';
 export 'web3client/web3client_cubit.dart';
 export 'get_all_address_campaigns/get_all_address_campaigns_cubit.dart';
 export 'wallet/wallet_cubit.dart';
+export 'connection_checker/connection_checker_cubit.dart';
+export 'selected_onboarding/selected_onboarding_cubit.dart';
