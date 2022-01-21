@@ -1,3 +1,5 @@
+import 'package:crowdfunding/data/datasources/locals/wallet_local_data_source.dart';
+import 'package:crowdfunding/data/repositories/wallet_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get_it/get_it.dart';
@@ -29,11 +31,13 @@ Future<void> init() async {
   sl.registerFactory(() => CampaignFactoryDeployedContractCubit(deployedContractRepository: sl()));
   sl.registerFactory(() => Web3clientCubit(client: sl()));
   sl.registerFactory(() => GetAllAddressCampaignsCubit(campaignRepository: sl()));
+  sl.registerFactory(() => WalletCubit(walletRepository: sl()));
 
   // Repositories
   sl.registerLazySingleton<EthereumRepository>(() => EthereumRepositoryImpl(ethereumRemoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<DeployedContractRepository>(() => DeployedContractRepositoryImpl(deployedContractLocalDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<CampaignRepository>(() => CampaignRepositoryImpl(networkInfo: sl(), campaignRemoteDataSource: sl()));
+  sl.registerLazySingleton<WalletRepository>(() => WalletRepositoryImpl(networkInfo: sl(), walletLocalDataSource: sl()));
 
   // Datasources Remote
   sl.registerLazySingleton<EthereumRemoteDataSource>(() => EthereumRemoteDataSourceImpl(web3client: sl()));
@@ -41,6 +45,7 @@ Future<void> init() async {
 
   // Datasources Local
   sl.registerLazySingleton<DeployedContractLocalDataSource>(() => DeplotedContractLocalDataSourceImpl());
+  sl.registerLazySingleton<WalletLocalDataSource>(() => WalletLocalDataSourceImpl());
 
   // Core
   sl.registerLazySingleton<NetworkInfo>(
