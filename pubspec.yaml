@@ -54,6 +54,8 @@ dependencies:
   firebase_analytics: ^9.0.4
   # Check Update app status
   new_version: ^0.2.3
+  # File picker
+  file_picker: ^4.3.2
 
 dev_dependencies:
   flutter_test:
@@ -66,4 +68,5 @@ flutter:
 
   assets:
     - assets/contracts/
-    - assets/wallet/
+    - assets/images/
+    - assets/images/onboarding/

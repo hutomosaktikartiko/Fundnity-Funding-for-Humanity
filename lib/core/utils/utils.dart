@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:image_picker/image_picker.dart';
@@ -38,5 +39,14 @@ class Utils {
       targetHeight:
           ((_properties.height ?? 1) * 600 / (_properties.width ?? 1)).round(),
     );
+  }
+
+  static Future<File?> selectFile() async {
+    // Selec file
+    final FilePickerResult? result = await sl<FilePicker>().pickFiles();
+    // if selectFile result == null return null
+    if (result == null) return null;
+    // selectFile result != null
+    return File(result.files.single.path!);
   }
 }

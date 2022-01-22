@@ -1,17 +1,32 @@
-import 'package:flutter/services.dart';
+import 'dart:io';
 import 'package:web3dart/web3dart.dart';
 
 abstract class WalletLocalDataSource {
-  Future<Wallet> getWallets({required String password});
+  // Create wallet (input password and generate random privateKey)
+
+  // Import Wallet json (json file and password)
+  Future<Wallet> importWallet({
+    required String password,
+    required File file,
+  });
+
+  // If local wallet is exist
+  // login with password
+  // Future<Wallet> login({required String password});
 }
 
 class WalletLocalDataSourceImpl implements WalletLocalDataSource {
-  @override
-  Future<Wallet> getWallets({required String password}) async {
+  Future<Wallet> importWallet({
+    required String password,
+    required File file,
+  }) async {
     try {
-      final String wallet = await rootBundle.loadString("assets/wallet/akun_2.json");
+      final String wallet = File(file.path).readAsStringSync();
+      final Wallet result = Wallet.fromJson(wallet, password,);
 
-      final Wallet result = Wallet.fromJson(wallet, password);
+      // TODO => Save json file to local device
+      // if result != null
+      // Save json file to local
 
       return result;
     } catch (error) {

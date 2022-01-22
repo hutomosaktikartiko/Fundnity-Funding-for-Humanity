@@ -24,6 +24,10 @@ class CustomDialog {
     );
   }
 
+  static CustomProgressDialog showCustomProgressDialog({required BuildContext context}) {
+    return CustomProgressDialog(context);
+  }
+
   static void showToast({
     required String? message,
     required BuildContext context,

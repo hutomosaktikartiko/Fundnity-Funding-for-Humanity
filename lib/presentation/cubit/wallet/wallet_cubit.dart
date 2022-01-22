@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:web3dart/web3dart.dart';
@@ -14,8 +16,14 @@ class WalletCubit extends Cubit<WalletState> {
 
   final WalletRepository walletRepository;
 
-  Future<ReturnValueModel<bool>> getWallets({required String password,}) async {
-    final ReturnValueModel<Wallet> result = await walletRepository.getWallets(password: password);
+  Future<ReturnValueModel<bool>> importWallet({
+    required String password,
+    required File file,
+  }) async {
+    final ReturnValueModel<Wallet> result = await walletRepository.importWallet(
+      password: password,
+      file: file,
+    );
 
     if (result.isSuccess && result.value != null) {
       emit(WalletLoaded(wallet: result.value!));

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:web3dart/web3dart.dart';
 
 import '../../core/config/label_config.dart';
@@ -6,7 +8,10 @@ import '../datasources/locals/wallet_local_data_source.dart';
 import '../models/return_value_model.dart';
 
 abstract class WalletRepository {
-  Future<ReturnValueModel<Wallet>> getWallets({required String password});
+  Future<ReturnValueModel<Wallet>> importWallet({
+    required String password,
+    required File file,
+  });
 }
 
 class WalletRepositoryImpl implements WalletRepository {
@@ -19,13 +24,16 @@ class WalletRepositoryImpl implements WalletRepository {
   });
 
   @override
-  Future<ReturnValueModel<Wallet>> getWallets({
+  Future<ReturnValueModel<Wallet>> importWallet({
     required String password,
+    required File file,
   }) async {
     if (await networkInfo.isConnected) {
       try {
-        final Wallet wallet =
-            await walletLocalDataSource.getWallets(password: password);
+        final Wallet wallet = await walletLocalDataSource.importWallet(
+          password: password,
+          file: file,
+        );
 
         return ReturnValueModel(
           isSuccess: true,
