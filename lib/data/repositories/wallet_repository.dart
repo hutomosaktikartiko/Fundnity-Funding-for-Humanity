@@ -12,6 +12,7 @@ abstract class WalletRepository {
     required String password,
     required File file,
   });
+  Future<ReturnValueModel<Wallet>> login({required String password});
 }
 
 class WalletRepositoryImpl implements WalletRepository {
@@ -47,6 +48,23 @@ class WalletRepositoryImpl implements WalletRepository {
     } else {
       return ReturnValueModel(
         message: LabelConfig.noInternet,
+      );
+    }
+  }
+
+  @override
+  Future<ReturnValueModel<Wallet>> login({required String password}) async {
+    try {
+      final Wallet result =
+          await walletLocalDataSource.login(password: password);
+
+      return ReturnValueModel(
+        isSuccess: true,
+        value: result,
+      );
+    } catch (error) {
+      return ReturnValueModel(
+        message: error.toString(),
       );
     }
   }

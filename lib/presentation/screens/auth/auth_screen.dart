@@ -1,3 +1,4 @@
+import 'package:crowdfunding/presentation/screens/auth/widgets/import_wallet.dart';
 import 'package:crowdfunding/presentation/screens/auth/widgets/login_body.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,7 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LoginBody(),
+      body: ImportWallet(),
     );
   }
 }

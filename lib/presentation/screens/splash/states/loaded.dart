@@ -49,8 +49,8 @@ class Loaded extends StatelessWidget {
             // Show onboarding
             ScreenNavigator.replaceScreen(context, OnBoardingScreen());
           } else {
-            // Check user is loggin with local token
-            if (sl<Preferences>().token != null) {
+            // Check user local wallet is exist
+            if (sl<Preferences>().wallet != null) {
               // User token available
               // Get user profile
               ReturnValueModel<bool> result =

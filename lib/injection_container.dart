@@ -64,7 +64,9 @@ Future<void> init() async {
   sl.registerLazySingleton<DeployedContractLocalDataSource>(
       () => DeplotedContractLocalDataSourceImpl());
   sl.registerLazySingleton<WalletLocalDataSource>(
-      () => WalletLocalDataSourceImpl());
+      () => WalletLocalDataSourceImpl(
+        preferences: sl()
+      ));
 
   // Core
   sl.registerLazySingleton<NetworkInfo>(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ndialog/ndialog.dart';
@@ -14,15 +16,16 @@ import '../../../widgets/custom_dialog.dart';
 import '../../../widgets/custom_text_field.dart';
 import '../../main/main_screen.dart';
 
-class LoginBody extends StatefulWidget {
-  const LoginBody({Key? key}) : super(key: key);
+class ImportWallet extends StatefulWidget {
+  const ImportWallet({Key? key}) : super(key: key);
 
   @override
-  _LoginBodyState createState() => _LoginBodyState();
+  _ImportWalletState createState() => _ImportWalletState();
 }
 
-class _LoginBodyState extends State<LoginBody> {
+class _ImportWalletState extends State<ImportWallet> {
   TextEditingController passwordController = TextEditingController();
+  File? walletFile;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +39,7 @@ class _LoginBodyState extends State<LoginBody> {
               SizedBox(
                 height: SizeConfig.screenHeight * 0.25,
               ),
+              CustomButtonLabel(label: "Import Json File", onTap: _selectFile),
               CustomTextField(controller: passwordController),
               CustomButtonLabel(label: "Masuk", onTap: _onLoading),
             ],
@@ -45,30 +49,44 @@ class _LoginBodyState extends State<LoginBody> {
     );
   }
 
+  void _selectFile() async {
+    // Select file
+    File? result = await Utils.selectFile();
+    // Check selectFile result
+    if (result != null) {
+      // Select File != null
+      // set result to walletFile
+      setState(() {
+        walletFile = result;
+      });
+    }
+  }
+
   void _onLoading() async {
-    // Check passwordController != ""
-    if (passwordController.text.trim() != "") {
+    // Check walletFile != null
+    // & passwordController != ""
+    if (walletFile != null && passwordController.text.trim() != "") {
       // hide keyBoard
       Utils.hideKeyboard(context);
       CustomProgressDialog progressDialog = CustomDialog.showCustomProgressDialog(context: context);
       // Show progressDialog
       progressDialog.show();
 
-      // Process login wallet
+      // Process importWallet
       final ReturnValueModel<Wallet> result = await context
           .read<WalletCubit>()
-          .login(password: passwordController.text);
+          .importWallet(file: walletFile!, password: passwordController.text);
 
       // Dimiss progressDialog
       progressDialog.dismiss();
 
       // Check result
       if (result.isSuccess) {
-        // Login wallet Success
+        // Import Wallet Success
         // Navigator to MainScreen
         ScreenNavigator.removeAllScreen(context, MainScreen());
       } else {
-        // Login wallet failed
+        // Import Wallet failed
         // Show toast
         CustomDialog.showToast(
           message: result.message,
