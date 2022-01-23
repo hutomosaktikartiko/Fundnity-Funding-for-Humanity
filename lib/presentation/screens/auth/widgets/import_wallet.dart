@@ -29,23 +29,15 @@ class _ImportWalletState extends State<ImportWallet> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: GestureDetector(
-        onTap: () => Utils.hideKeyboard(context),
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: SizeConfig.defaultMargin),
-          child: Column(
-            children: [
-              SizedBox(
-                height: SizeConfig.screenHeight * 0.25,
-              ),
-              CustomButtonLabel(label: "Import Json File", onTap: _selectFile),
-              CustomTextField(controller: passwordController),
-              CustomButtonLabel(label: "Masuk", onTap: _onLoading),
-            ],
-          ),
+    return Column(
+      children: [
+        SizedBox(
+          height: SizeConfig.screenHeight * 0.25,
         ),
-      ),
+        CustomButtonLabel(label: "Import Json File", onTap: _selectFile),
+        CustomTextField(controller: passwordController),
+        CustomButtonLabel(label: "Masuk", onTap: _onLoading),
+      ],
     );
   }
 
@@ -68,7 +60,8 @@ class _ImportWalletState extends State<ImportWallet> {
     if (walletFile != null && passwordController.text.trim() != "") {
       // hide keyBoard
       Utils.hideKeyboard(context);
-      CustomProgressDialog progressDialog = CustomDialog.showCustomProgressDialog(context: context);
+      CustomProgressDialog progressDialog =
+          CustomDialog.showCustomProgressDialog(context: context);
       // Show progressDialog
       progressDialog.show();
 

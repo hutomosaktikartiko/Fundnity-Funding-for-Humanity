@@ -30,7 +30,7 @@ class Body extends StatelessWidget {
               height: 17,
             ),
             Text(
-              "E-ABSENSI",
+              "Penggalangan Dana",
               style: CustomTextStyle.green4TextStyle.copyWith(
                 color: UniversalColor.green4,
                 fontSize: 20,

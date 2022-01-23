@@ -42,6 +42,7 @@ Future<void> init() async {
   sl.registerFactory(
       () => ConnectionCheckerCubit(internetConnectionChecker: sl()));
   sl.registerFactory(() => SelectedOnboardingCubit());
+  sl.registerFactory(() => AuthBodyCubit());
 
   // Repositories
   sl.registerLazySingleton<EthereumRepository>(() => EthereumRepositoryImpl(
