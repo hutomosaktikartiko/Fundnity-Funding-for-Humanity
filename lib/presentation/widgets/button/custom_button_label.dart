@@ -11,6 +11,7 @@ class CustomButtonLabel extends StatelessWidget {
     required this.onTap,
     this.labelColor = Colors.white,
     this.paddingVertical = 12,
+    this.paddingHorizontal = 12,
     this.backgroundColor = UniversalColor.green4,
     this.fontSize = 12,
     this.borderRadius = 10,
@@ -20,7 +21,7 @@ class CustomButtonLabel extends StatelessWidget {
 
   final String label;
   final double? width;
-  final double paddingVertical, fontSize, borderRadius;
+  final double paddingVertical, fontSize, borderRadius, paddingHorizontal;
   final Function() onTap;
   final Color? labelColor;
   final Color backgroundColor, borderColor;
@@ -31,6 +32,8 @@ class CustomButtonLabel extends StatelessWidget {
       child: Center(
         child: Text(
           label,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: CustomTextStyle.gray1TextStyle.copyWith(
             color: labelColor,
             fontSize: fontSize,
@@ -42,6 +45,7 @@ class CustomButtonLabel extends StatelessWidget {
       borderColor: borderColor,
       borderRadius: borderRadius,
       paddingVertical: paddingVertical,
+      paddingHorizontal: paddingHorizontal,
       width: width,
     );
   }

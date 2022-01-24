@@ -1,11 +1,12 @@
-import 'package:crowdfunding/core/config/size_config.dart';
-import 'package:crowdfunding/core/utils/utils.dart';
-import 'package:crowdfunding/presentation/cubit/cubits.dart';
-import 'package:crowdfunding/presentation/screens/auth/widgets/create_wallet.dart';
-import 'package:crowdfunding/presentation/screens/auth/widgets/import_wallet.dart';
-import 'package:crowdfunding/presentation/screens/auth/widgets/login_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../core/config/size_config.dart';
+import '../../../core/utils/utils.dart';
+import '../../cubit/cubits.dart';
+import 'widgets/body/create_wallet.dart';
+import 'widgets/body/import_wallet.dart';
+import 'widgets/body/login_body.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);

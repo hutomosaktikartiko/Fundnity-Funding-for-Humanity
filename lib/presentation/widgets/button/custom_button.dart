@@ -8,6 +8,7 @@ class CustomButton extends StatelessWidget {
     required this.child,
     required this.onTap,
     this.paddingVertical = 12,
+    this.paddingHorizontal = 12,
     required this.backgroundColor,
     this.borderRadius = 10,
     this.width,
@@ -16,7 +17,7 @@ class CustomButton extends StatelessWidget {
 
   final double? width;
   final Widget child;
-  final double paddingVertical, borderRadius;
+  final double paddingVertical, borderRadius, paddingHorizontal;
   final Function() onTap;
   final Color backgroundColor, borderColor;
 
@@ -25,13 +26,14 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          side: BorderSide(color: borderColor),
-          borderRadius: BorderRadius.circular(borderRadius)
-        )
-      ),
+          shape: RoundedRectangleBorder(
+              side: BorderSide(color: borderColor),
+              borderRadius: BorderRadius.circular(borderRadius))),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: paddingVertical),
+        padding: EdgeInsets.symmetric(
+          vertical: paddingVertical,
+          horizontal: paddingHorizontal,
+        ),
         width: width ?? SizeConfig.screenWidth,
         decoration: BoxDecoration(
           color: backgroundColor,
