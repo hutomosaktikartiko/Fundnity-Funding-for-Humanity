@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:web3dart/web3dart.dart';
 
-import '../../../core/utils/preferences.dart';
+import '../../../core/preferences/preferences_info.dart';
 
 abstract class WalletLocalDataSource {
   // Create wallet (input password and generate random privateKey)
@@ -21,7 +21,7 @@ abstract class WalletLocalDataSource {
 }
 
 class WalletLocalDataSourceImpl implements WalletLocalDataSource {
-  final Preferences preferences;
+  final PreferencesInfo preferences;
 
   WalletLocalDataSourceImpl({
     required this.preferences,

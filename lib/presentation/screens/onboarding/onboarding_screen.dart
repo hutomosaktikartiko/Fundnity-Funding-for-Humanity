@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/utils/preferences.dart';
+import '../../../core/preferences/preferences_info.dart';
 import '../../../injection_container.dart';
 import 'widgets/bottom_widget.dart';
 import 'widgets/page_view_widget.dart';
@@ -18,7 +18,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   void initState() {
     super.initState();
     // Set new user to [false]
-    sl<Preferences>().isNewUser = false;
+    sl<PreferencesInfo>().isNewUser = false;
   }
 
   @override

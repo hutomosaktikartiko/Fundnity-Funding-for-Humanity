@@ -13,8 +13,8 @@ import 'package:web3dart/web3dart.dart';
 import 'core/error/interceptor_info.dart';
 import 'core/network/network_info.dart';
 import 'core/observer/firebase_analytics_observer_info.dart';
+import 'core/preferences/preferences_info.dart';
 import 'core/update/update_info.dart';
-import 'core/utils/preferences.dart';
 import 'data/datasources/locals/deployed_contract_local_data_source.dart';
 import 'data/datasources/locals/wallet_local_data_source.dart';
 import 'data/datasources/remotes/campaign_remote_data_source.dart';
@@ -75,7 +75,7 @@ Future<void> init() async {
   sl.registerLazySingleton<UpdateInfo>(() => UpdateInfoImpl(newVersion: sl()));
   sl.registerLazySingleton<FirebaseAnalyticsObserverInfo>(
       () => FirebaseAnalyticsObserverInfoImpl(analytics: sl()));
-  sl.registerLazySingleton<Preferences>(() => PreferencesImpl(shared: sl()));
+  sl.registerLazySingleton<PreferencesInfo>(() => PreferencesInfoImpl(shared: sl()));
 
   // External
   final sharedPreferences = await SharedPreferences.getInstance();

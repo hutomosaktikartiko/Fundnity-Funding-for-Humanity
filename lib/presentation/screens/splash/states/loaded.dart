@@ -3,8 +3,8 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_version/new_version.dart';
 
+import '../../../../core/preferences/preferences_info.dart';
 import '../../../../core/update/update_info.dart';
-import '../../../../core/utils/preferences.dart';
 import '../../../../core/utils/screen_navigator.dart';
 import '../../../../injection_container.dart';
 import '../../../cubit/cubits.dart';
@@ -44,13 +44,13 @@ class Loaded extends StatelessWidget {
         } else {
           // Check is new user
           // DEV => Should check == [null]
-          if (sl<Preferences>().isNewUser == null) {
+          if (sl<PreferencesInfo>().isNewUser == null) {
             // New user
             // Show onboarding
             ScreenNavigator.replaceScreen(context, OnBoardingScreen());
           } else {
             // Check user local wallet is exist
-            if (sl<Preferences>().wallet != null) {
+            if (sl<PreferencesInfo>().wallet != null) {
               // User local wallet is exist
               // Set auth body to login
               context.read<AuthBodyCubit>().emit(AuthBodyLogin());

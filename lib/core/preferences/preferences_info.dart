@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class Preferences {
+abstract class PreferencesInfo {
   // Set Data
   set isNewUser(bool? value);
   set wallet(String? value);
@@ -10,10 +10,10 @@ abstract class Preferences {
   String? get wallet;
 }
 
-class PreferencesImpl implements Preferences {
+class PreferencesInfoImpl implements PreferencesInfo {
   final SharedPreferences shared;
 
-  PreferencesImpl({required this.shared});
+  PreferencesInfoImpl({required this.shared});
 
   @override
   set isNewUser(bool? value) => shared.setBool("is_new_user", value!);
@@ -27,6 +27,6 @@ class PreferencesImpl implements Preferences {
   @override
   String? get wallet => shared.getString("wallet");
 
-  static Future<Preferences> instance() => SharedPreferences.getInstance()
-      .then((value) => PreferencesImpl(shared: value));
+  static Future<PreferencesInfo> instance() => SharedPreferences.getInstance()
+      .then((value) => PreferencesInfoImpl(shared: value));
 }
