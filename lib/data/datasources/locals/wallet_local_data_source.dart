@@ -1,12 +1,13 @@
 import 'dart:io';
 import 'dart:math';
-import 'dart:convert';
-import 'package:crowdfunding/core/utils/preferences.dart';
+
 import 'package:web3dart/web3dart.dart';
+
+import '../../../core/utils/preferences.dart';
 
 abstract class WalletLocalDataSource {
   // Create wallet (input password and generate random privateKey)
-  // Future<Wallet> createWallet({required String password});
+  Future<Wallet> createWallet({required String password});
 
   // Import Wallet json (json file and password)
   Future<Wallet> importWallet({
@@ -49,26 +50,27 @@ class WalletLocalDataSourceImpl implements WalletLocalDataSource {
     }
   }
 
-  // Future<Wallet> createWallet({required String password}) async {
-  //   try {
-  //     // Generate a new key randomly
-  //     Random random = new Random.secure();
-  //     print("Random $random");
-  //     // Create Ceredentials by random
-  //     Credentials credentials = EthPrivateKey.createRandom(random);
-  //     print("Credentials $credentials");
-  //     // Create wallet
-  //     Wallet wallet = Wallet.createNew(
-  //         EthPrivateKey.fromHex((await credentials.extractAddress()).hex),
-  //         password,
-  //         random);
-  //     print("Wallet $wallet");
+  Future<Wallet> createWallet({required String password}) async {
+    try {
+      // Generate a new key randomly
+      Random random = new Random.secure();
+      // Create Ceredentials by random
+      Credentials credentials = EthPrivateKey.createRandom(random);
+      // Create wallet
+      Wallet wallet = Wallet.createNew(
+        EthPrivateKey.fromHex((await credentials.extractAddress()).hex),
+        password,
+        random,
+      );
 
-  //     return wallet;
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
+      // Save wallet json to local
+      preferences.wallet = wallet.toJson();
+
+      return wallet;
+    } catch (error) {
+      throw error;
+    }
+  }
 
   @override
   Future<Wallet> login({required String password}) async {
@@ -81,7 +83,10 @@ class WalletLocalDataSourceImpl implements WalletLocalDataSource {
       if (wallet == null) throw "Data wallet tidak ditemukan";
 
       // Check wallet password
-      final Wallet result = Wallet.fromJson(wallet, password,);
+      final Wallet result = Wallet.fromJson(
+        wallet,
+        password,
+      );
 
       return result;
     } catch (error) {

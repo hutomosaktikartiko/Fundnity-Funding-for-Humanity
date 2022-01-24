@@ -7,12 +7,15 @@ import '../../core/network/network_info.dart';
 import '../datasources/locals/wallet_local_data_source.dart';
 import '../models/return_value_model.dart';
 
+typedef Future<Wallet> _WalletLocalDataSourceChooser();
+
 abstract class WalletRepository {
   Future<ReturnValueModel<Wallet>> importWallet({
     required String password,
     required File file,
   });
   Future<ReturnValueModel<Wallet>> login({required String password});
+  Future<ReturnValueModel<Wallet>> createWallet({required String password});
 }
 
 class WalletRepositoryImpl implements WalletRepository {
@@ -29,43 +32,50 @@ class WalletRepositoryImpl implements WalletRepository {
     required String password,
     required File file,
   }) async {
-    if (await networkInfo.isConnected) {
-      try {
-        final Wallet wallet = await walletLocalDataSource.importWallet(
-          password: password,
-          file: file,
-        );
-
-        return ReturnValueModel(
-          isSuccess: true,
-          value: wallet,
-        );
-      } catch (error) {
-        return ReturnValueModel(
-          message: error.toString(),
-        );
-      }
-    } else {
-      return ReturnValueModel(
-        message: LabelConfig.noInternet,
-      );
-    }
+    return await _wallet(
+      walletLocalDataSourceChooser: () => walletLocalDataSource.importWallet(
+        password: password,
+        file: file,
+      ),
+    );
   }
 
   @override
   Future<ReturnValueModel<Wallet>> login({required String password}) async {
-    try {
-      final Wallet result =
-          await walletLocalDataSource.login(password: password);
+    return await _wallet(
+      walletLocalDataSourceChooser: () => walletLocalDataSource.login(
+        password: password,
+      ),
+    );
+  }
 
-      return ReturnValueModel(
-        isSuccess: true,
-        value: result,
-      );
-    } catch (error) {
-      return ReturnValueModel(
-        message: error.toString(),
-      );
+  @override
+  Future<ReturnValueModel<Wallet>> createWallet({
+    required String password,
+  }) async {
+    return await _wallet(
+      walletLocalDataSourceChooser: () => walletLocalDataSource.createWallet(
+        password: password,
+      ),
+    );
+  }
+
+  Future<ReturnValueModel<Wallet>> _wallet({
+    required _WalletLocalDataSourceChooser walletLocalDataSourceChooser,
+  }) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final Wallet result = await walletLocalDataSourceChooser();
+
+        return ReturnValueModel(
+          isSuccess: true,
+          value: result,
+        );
+      } catch (error) {
+        return ReturnValueModel(message: error.toString());
+      }
+    } else {
+      return ReturnValueModel(message: LabelConfig.noInternet);
     }
   }
 }

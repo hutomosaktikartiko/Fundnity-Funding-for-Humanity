@@ -40,6 +40,16 @@ class WalletCubit extends Cubit<WalletState> {
     );
   }
 
+  Future<ReturnValueModel<Wallet>> createWallet({
+    required String password,
+  }) async {
+    return await _wallet(
+      walletRepositoryChooser: () => walletRepository.createWallet(
+        password: password,
+      ),
+    );
+  }
+
   Future<ReturnValueModel<Wallet>> _wallet({
     required _WalletRepositoryChooser walletRepositoryChooser,
   }) async {
