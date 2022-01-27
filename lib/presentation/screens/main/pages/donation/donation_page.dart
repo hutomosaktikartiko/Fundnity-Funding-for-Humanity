@@ -8,16 +8,16 @@ import '../../../../../core/config/size_config.dart';
 import '../../../../../core/config/urls_config.dart';
 import '../../../../../injection_container.dart';
 import '../../../../cubit/cubits.dart';
-import 'state/loaded.dart';
+import 'states/loaded.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class DonationPage extends StatefulWidget {
+  const DonationPage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _DonationPageState createState() => _DonationPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _DonationPageState extends State<DonationPage> {
   @override
   void initState() {
     super.initState();
@@ -25,7 +25,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       body: BlocConsumer<CampaignFactoryDeployedContractCubit,
           CampaignFactoryDeployedContractState>(

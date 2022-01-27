@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../data/models/tab_model.dart';
 import '../../widgets/custom_box_shadow.dart';
-import 'pages/home/home_page.dart';
+import 'pages/donation/donation_page.dart';
+import 'pages/favorite/favorite_page.dart';
+import 'pages/history/history_page.dart';
 import 'pages/profile/profile_page.dart';
 
 class MainScreen extends StatefulWidget {
@@ -14,16 +16,12 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int currentTab = 0;
-  List<Widget> pages = [
-    HomePage(),
-    ProfilePage(),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: pages[currentTab],
+      body: mockListTabModel[currentTab].widget,
       bottomNavigationBar: buildBottomNavigationBar(),
     );
   }
@@ -41,7 +39,10 @@ class _MainScreenState extends State<MainScreen> {
               .map(
                 (tab) => BottomNavigationBarItem(
                   icon:
-                      ImageIcon(AssetImage("assets/icons/tab/${tab.iconName}")),
+                     Padding(
+                       padding: const EdgeInsets.only(bottom: 2),
+                       child: Icon(tab.iconData),
+                     ),
                   label: tab.label,
                 ),
               )
