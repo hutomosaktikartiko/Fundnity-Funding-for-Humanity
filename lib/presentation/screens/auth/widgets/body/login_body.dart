@@ -49,6 +49,8 @@ class _LoginBodyState extends State<LoginBody> {
         CustomTextField(
           controller: passwordController,
           hintText: "Masukan password",
+          onEditingComplete: _onLoading,
+          textInputAction: TextInputAction.done,
         ),
         SizedBox(
           height: 10,

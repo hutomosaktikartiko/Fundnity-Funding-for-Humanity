@@ -10,6 +10,8 @@ import 'package:new_version/new_version.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web3dart/web3dart.dart';
 
+import 'core/config/keys_config.dart';
+import 'core/config/urls_config.dart';
 import 'core/error/interceptor_info.dart';
 import 'core/network/network_info.dart';
 import 'core/observer/firebase_analytics_observer_info.dart';
@@ -35,7 +37,7 @@ Future<void> init() async {
   sl.registerFactory(() => GetCampaignCubit(campaignRepository: sl()));
   sl.registerFactory(() =>
       CampaignFactoryDeployedContractCubit(deployedContractRepository: sl()));
-  sl.registerFactory(() => Web3clientCubit(client: sl()));
+  sl.registerFactory(() => Web3ClientCubit(client: sl()));
   sl.registerFactory(
       () => GetAllAddressCampaignsCubit(campaignRepository: sl()));
   sl.registerFactory(() => WalletCubit(walletRepository: sl()));
@@ -65,9 +67,7 @@ Future<void> init() async {
   sl.registerLazySingleton<DeployedContractLocalDataSource>(
       () => DeplotedContractLocalDataSourceImpl());
   sl.registerLazySingleton<WalletLocalDataSource>(
-      () => WalletLocalDataSourceImpl(
-        preferences: sl()
-      ));
+      () => WalletLocalDataSourceImpl(preferences: sl()));
 
   // Core
   sl.registerLazySingleton<NetworkInfo>(
@@ -75,7 +75,8 @@ Future<void> init() async {
   sl.registerLazySingleton<UpdateInfo>(() => UpdateInfoImpl(newVersion: sl()));
   sl.registerLazySingleton<FirebaseAnalyticsObserverInfo>(
       () => FirebaseAnalyticsObserverInfoImpl(analytics: sl()));
-  sl.registerLazySingleton<PreferencesInfo>(() => PreferencesInfoImpl(shared: sl()));
+  sl.registerLazySingleton<PreferencesInfo>(
+      () => PreferencesInfoImpl(shared: sl()));
 
   // External
   final sharedPreferences = await SharedPreferences.getInstance();
@@ -89,7 +90,12 @@ Future<void> init() async {
   sl.registerLazySingleton<FilePicker>(() => FilePicker.platform);
   sl.registerLazySingleton<FirebaseAnalytics>(() => FirebaseAnalytics.instance);
   sl.registerLazySingleton<Client>(() => Client());
-  sl.registerLazySingleton<Web3Client>(() => Web3Client(sl(), sl()));
+  sl.registerLazySingleton<Web3Client>(
+    () => Web3Client(
+      UrlsConfig.infuraRinkbeyProvider + KeysConfig.infuraPrivateKey,
+      sl(),
+    ),
+  );
 
   // TODO => DIO Client
   sl.registerLazySingleton<Dio>(() => Dio(

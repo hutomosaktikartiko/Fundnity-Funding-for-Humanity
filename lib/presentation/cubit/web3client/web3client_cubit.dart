@@ -4,32 +4,22 @@ import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 
 import '../../../core/config/keys_config.dart';
-import '../../../core/config/urls_config.dart';
 import '../../../injection_container.dart';
 
 part 'web3client_state.dart';
 
-// ERROR => NOT WORK
-class Web3clientCubit extends Cubit<Web3clientState> {
-  Web3clientCubit({
+class Web3ClientCubit extends Cubit<Web3ClientState> {
+  Web3ClientCubit({
     required this.client,
-  })
-      : super(
-          Web3clientState(
-            web3client: Web3Client(
-              UrlsConfig.infuraRopstenProvider + KeysConfig.infuraPrivateKey,
-              sl<Client>(),
-            ),
-          ),
-        );
+  }) : super(Web3ClientState(web3client: sl<Web3Client>()));
 
-        final Client client;
+  final Client client;
 
   void changeNetwork({
     required String url,
   }) {
     emit(
-      Web3clientState(
+      Web3ClientState(
         web3client: Web3Client(url + KeysConfig.infuraPrivateKey, client),
       ),
     );

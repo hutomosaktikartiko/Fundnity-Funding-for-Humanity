@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
-import 'package:web3dart/web3dart.dart';
 
-import '../../../../../core/config/keys_config.dart';
-import '../../../../../core/config/urls_config.dart';
-import '../../../../../injection_container.dart';
 import '../../../../cubit/cubits.dart';
 import 'states/loaded.dart';
 
@@ -19,6 +14,7 @@ class DonationLastPage extends StatefulWidget {
 class _DonationLastPageState extends State<DonationLastPage> {
   @override
   void initState() {
+    // context.read<Web3ClientCubit>().changeNetwork(url: UrlsConfig.infuraRinkbeyProvider);
     super.initState();
   }
 
@@ -31,10 +27,7 @@ class _DonationLastPageState extends State<DonationLastPage> {
           if (state is CampaignFactoryDeployedContractLoaded) {
             context.read<GetAllAddressCampaignsCubit>().getAllAddressCampaigns(
                   deployedContract: state.deployedContract,
-                  web3Client: Web3Client(
-                      UrlsConfig.infuraRinkbeyProvider +
-                          KeysConfig.infuraPrivateKey,
-                      sl<Client>()),
+                  web3Client: context.read<Web3ClientCubit>().state.web3client
                 );
           }
         },

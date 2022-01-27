@@ -1,9 +1,9 @@
 part of 'web3client_cubit.dart';
 
-class Web3clientState extends Equatable {
+class Web3ClientState extends Equatable {
   final Web3Client web3client;
 
-  Web3clientState({
+  Web3ClientState({
     required this.web3client,
   });
 
