@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../data/models/tab_model.dart';
 import '../../widgets/custom_box_shadow.dart';
-import 'pages/donation/donation_page.dart';
-import 'pages/favorite/favorite_page.dart';
-import 'pages/history/history_page.dart';
-import 'pages/profile/profile_page.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);

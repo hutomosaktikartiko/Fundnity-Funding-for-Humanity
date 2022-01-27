@@ -1,9 +1,9 @@
-import 'package:crowdfunding/presentation/screens/main/pages/favorite/favorite_page.dart';
-import 'package:crowdfunding/presentation/screens/main/pages/history/history_page.dart';
-import 'package:crowdfunding/presentation/screens/main/pages/profile/profile_page.dart';
+import 'package:flutter/material.dart';
 
 import '../../presentation/screens/main/pages/donation/donation_page.dart';
-import 'package:flutter/material.dart';
+import '../../presentation/screens/main/pages/history/history_page.dart';
+import '../../presentation/screens/main/pages/my_campaign/my_campaign_screen.dart';
+import '../../presentation/screens/main/pages/profile/profile_page.dart';
 
 class TabModel {
   int id;
@@ -21,7 +21,7 @@ class TabModel {
 
 final List<TabModel> mockListTabModel = [
   TabModel(id: 1, label: "Donasi", iconData: Icons.volunteer_activism, widget: DonationPage()),
-  TabModel(id: 2, label: "Favorit", iconData: Icons.favorite, widget: FavoritePage()),
+  TabModel(id: 2, label: "Campaign Saya", iconData: Icons.campaign, widget: MyCampaignPage()),
   TabModel(id: 3, label: "Riawayat", iconData: Icons.history, widget: HistoryPage()),
   TabModel(id: 4, label: "Akun", iconData: Icons.person, widget: ProfilePage()),
 ];
