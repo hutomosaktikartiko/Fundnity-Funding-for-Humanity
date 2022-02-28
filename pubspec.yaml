@@ -56,6 +56,8 @@ dependencies:
   new_version: ^0.2.3
   # File picker
   file_picker: ^4.3.2
+  # Progress Indicator
+  percent_indicator: ^4.0.0
 
 dev_dependencies:
   flutter_test:

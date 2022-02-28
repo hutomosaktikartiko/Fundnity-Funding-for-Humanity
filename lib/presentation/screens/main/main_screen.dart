@@ -34,11 +34,10 @@ class _MainScreenState extends State<MainScreen> {
           items: mockListTabModel
               .map(
                 (tab) => BottomNavigationBarItem(
-                  icon:
-                     Padding(
-                       padding: const EdgeInsets.only(bottom: 2),
-                       child: Icon(tab.iconData),
-                     ),
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom: 2),
+                    child: Icon(tab.iconData),
+                  ),
                   label: tab.label,
                 ),
               )
@@ -52,4 +51,8 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   void _moveTab(int index) => setState(() => currentTab = index);
+
+  // TODO => Ketika tab di tekan, ketika itu juga page yang bersangkutan direload ulang
+  // TODO => Tambah animation ketika tab tekan dari nonaktif menjadi aktif
+  // TODO => Perubahan icon tab ketika aktif
 }

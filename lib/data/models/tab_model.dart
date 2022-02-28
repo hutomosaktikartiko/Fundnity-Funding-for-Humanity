@@ -1,4 +1,3 @@
-import 'package:crowdfunding/presentation/screens/main/pages/donation_last/donation_last_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentation/screens/main/pages/donation/donation_page.dart';
@@ -21,8 +20,8 @@ class TabModel {
 }
 
 final List<TabModel> mockListTabModel = [
-  TabModel(id: 1, label: "Donasi", iconData: Icons.volunteer_activism, widget: DonationLastPage()),
+  TabModel(id: 1, label: "Donasi", iconData: Icons.volunteer_activism, widget: DonationPage()),
   TabModel(id: 2, label: "Campaign Saya", iconData: Icons.campaign, widget: MyCampaignPage()),
-  TabModel(id: 3, label: "Riawayat", iconData: Icons.history, widget: HistoryPage()),
+  TabModel(id: 3, label: "Riwayat", iconData: Icons.history, widget: HistoryPage()),
   TabModel(id: 4, label: "Akun", iconData: Icons.person, widget: ProfilePage()),
 ];

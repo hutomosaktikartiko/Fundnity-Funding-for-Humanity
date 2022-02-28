@@ -10,14 +10,15 @@ class ShowImage extends StatelessWidget {
     this.boxFit,
   }) : super(key: key);
 
-  final double borderRadius, height, width;
+  final double height, width;
+  final BorderRadius? borderRadius;
   final ImageProvider<Object> imageProvider;
   final BoxFit? boxFit;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(borderRadius),
+      borderRadius: borderRadius ?? BorderRadius.circular(8),
       child: FadeInImage(
         placeholder: AssetImage("assets/images/placeholder.jpg"),
         image: imageProvider,

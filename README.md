@@ -1,16 +1,29 @@
-# crowdfunding
+# Crowdfunding DApps using Ethereum and Flutter
 
-A new Flutter project.
+### User Interface Rules
+Setiap data yang diambil dari local/API memiliki beberapa state/kondisi tampilan, yaitu:
+- Loading -> Tampilan ketika loading
+- Loaded -> Tampilan ketika data berhasil didapatkan, dan ingin ditampilkan
+- Empty (Opsional) -> Tampilan ketika data berhadil didapatkan tetapi tidak ada isi (null/empty)
+- Error -> Tampilan ketika data gagal dimuat
 
-## Getting Started
+Jika pada halaman yang sama terdapat beberapa request data dari api/local yang dipisahkan pada setiap widget, maka:
+- Setiap widget terdapat tampilan untuk setiap state
+- Jarak antar widget di atur pada widget yang bersangkutan dengan menambahkan jarak bottom/bawah
 
-This project is a starting point for a Flutter application.
+### Custom Widget
+Beberapa custom widget menyesuaikan proyek yang bisa digunakan, yaitu:
+- HorizontalCampaignCard
+- VerticalCampaignCard
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Default Custom Widget
+Beberapa custom widget default bawaan architecture yang bisa digunakan:
+- ShowImageFile
+- ShowImageLocalLogo
+- ShowImageLocal
+- ShowImageNetwork
+- ConnectionScreen
+- CustomBoxShadow
+- CustomDialog
+- CustomTextField
+- WidgetWithDefaultHorizontalPadding

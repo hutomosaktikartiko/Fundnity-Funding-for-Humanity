@@ -8,14 +8,15 @@ class ShowImageFile extends StatelessWidget {
   const ShowImageFile({
     Key? key,
     required this.imageFile,
-    this.borderRadius = 8,
+    this.borderRadius,
     this.height = 50,
     this.width = 50,
     this.boxFit = BoxFit.cover,
   }) : super(key: key);
 
   final File imageFile;
-  final double height, width, borderRadius;
+  final double height, width;
+  final BorderRadius? borderRadius;
   final BoxFit boxFit;
 
   @override

@@ -5,12 +5,13 @@ import 'show_image_local.dart';
 class ShowImageLocalLogo extends StatelessWidget {
   const ShowImageLocalLogo({
     Key? key,
-    this.borderRadius = 0,
+    this.borderRadius,
     this.height = 50,
     this.width = 50,
   }) : super(key: key);
 
-  final double height, width, borderRadius;
+  final double height, width;
+  final BorderRadius? borderRadius;
 
   @override
   Widget build(BuildContext context) {

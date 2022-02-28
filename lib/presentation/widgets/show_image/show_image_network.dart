@@ -6,20 +6,23 @@ class ShowImageNetwork extends StatelessWidget {
   const ShowImageNetwork({
     Key? key,
     required this.imageUrl,
-    this.borderRadius = 8,
+    this.borderRadius,
     this.height = 50,
     this.width = 50,
     this.boxFit = BoxFit.cover,
   }) : super(key: key);
 
   final String imageUrl;
-  final double height, width, borderRadius;
+  final double height, width;
+  final BorderRadius? borderRadius;
   final BoxFit boxFit;
 
   @override
   Widget build(BuildContext context) {
     return ShowImage(
-      imageProvider: NetworkImage(imageUrl,),
+      imageProvider: NetworkImage(
+        imageUrl,
+      ),
       height: height,
       width: width,
       borderRadius: borderRadius,

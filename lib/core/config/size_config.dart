@@ -10,6 +10,6 @@ class SizeConfig {
     mediaQueryData = MediaQuery.of(context);
     screenHeight = mediaQueryData.size.height;
     screenWidth = mediaQueryData.size.width;
-    defaultMargin = 30;
+    defaultMargin = 16;
   }
 }

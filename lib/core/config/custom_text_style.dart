@@ -8,6 +8,11 @@ class CustomTextStyle {
     color: Colors.black
   );
 
+  // White
+  static TextStyle whiteTextStyle = TextStyle(
+    color: Colors.white
+  );
+
   // Gray
   static TextStyle gray1TextStyle = TextStyle(
     color: UniversalColor.gray1,

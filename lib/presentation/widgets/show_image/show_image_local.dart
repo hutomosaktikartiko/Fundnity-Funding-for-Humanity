@@ -6,14 +6,15 @@ class ShowImageLocal extends StatelessWidget {
   const ShowImageLocal({
     Key? key,
     required this.imageUrl,
-    this.borderRadius = 8,
+    this.borderRadius,
     this.height = 50,
     this.width = 50,
     this.boxFit = BoxFit.cover,
   }) : super(key: key);
 
   final String imageUrl;
-  final double height, width, borderRadius;
+  final double height, width;
+  final BorderRadius? borderRadius;
   final BoxFit boxFit;
 
   @override
