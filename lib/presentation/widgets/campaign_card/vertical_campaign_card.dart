@@ -3,6 +3,8 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../../core/config/custom_color.dart';
 import '../../../core/config/custom_text_style.dart';
+import '../../../core/utils/screen_navigator.dart';
+import '../../screens/detail_donation/detail_donation_screen.dart';
 import '../custom_box_shadow.dart';
 import '../show_image/show_image_network.dart';
 
@@ -16,7 +18,7 @@ class VerticalCampaignCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _openDetailCampaignScreen,
+      onTap: () => _openDetailCampaignScreen(context),
       child: Container(
         height: 80,
         decoration: BoxDecoration(
@@ -118,7 +120,7 @@ class VerticalCampaignCard extends StatelessWidget {
     );
   }
 
-  void _openDetailCampaignScreen() {
-    // TODO => Navigator to Detail Campaign Screen
+  void _openDetailCampaignScreen(BuildContext context) {
+    ScreenNavigator.startScreen(context, DetailDonationScreen());
   }
 }

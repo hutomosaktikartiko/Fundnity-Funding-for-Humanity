@@ -6,6 +6,7 @@ class BackgroundColor {
   static const Color bgYellow = Color(0xFFFEFFE3);
   static const Color bgOrange = Color(0xFFFFFFF1);
   static const Color bgRed = Color(0xFFFFF5F5);
+  static const Color bgGray = Color(0xFFF7F7F7);
 }
 
 class UniversalColor {
