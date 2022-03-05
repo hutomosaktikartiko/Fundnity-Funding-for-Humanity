@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/config/custom_color.dart';
 import '../../../../core/config/size_config.dart';
+import '../../../../core/utils/screen_navigator.dart';
 import '../../../widgets/button/custom_button_label.dart';
+import '../../fill_donation_amount/fill_donation_amount_screen.dart';
 import '../widgets/detail_donation_body_widget.dart';
 import '../widgets/detail_donation_header.dart';
 import '../widgets/detail_donation_sliver_header_delegate.dart';
@@ -44,15 +46,15 @@ class Loaded extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: SizeConfig.defaultMargin,
-              vertical: SizeConfig.defaultMargin + 5,
-            ),
-            child: Row(
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.defaultMargin,
+          vertical: SizeConfig.defaultMargin + 5,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
               children: [
                 Material(
                   shape: RoundedRectangleBorder(
@@ -68,9 +70,12 @@ class Loaded extends StatelessWidget {
                         vertical: 10,
                         horizontal: SizeConfig.defaultMargin,
                       ),
-                      child: Icon(Icons.share, color: UniversalColor.green4,),
+                      child: Icon(
+                        Icons.share,
+                        color: UniversalColor.green4,
+                      ),
                     ),
-                    onTap: (){},
+                    onTap: () {},
                   ),
                 ),
                 const SizedBox(
@@ -79,15 +84,18 @@ class Loaded extends StatelessWidget {
                 Expanded(
                   child: CustomButtonLabel(
                     label: "Donate Now",
-                    borderRadius: 5,
-                    onTap: () {},
+                    onTap: () => _onDonateNow(context),
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
+  }
+
+  void _onDonateNow(BuildContext context) {
+    ScreenNavigator.startScreen(context, FillDonationAmount());
   }
 }

@@ -9,7 +9,8 @@ class CustomTextField extends StatelessWidget {
   final String? suffixText, hintText, labelText;
   final int maxLines, minLines;
   final double paddingVertical, paddingHorizontal, borderRadius;
-  final TextStyle? suffixStyle, hintStyle;
+  final TextStyle? suffixStyle, hintStyle, style;
+  final TextAlign? textAlign;
   final Widget? prefixIcon, suffixWidget;
   final Color enabledBorderColor, focusedBorderColor, fillColor;
   final Function? onTap, onChanged, onEditingComplete;
@@ -33,6 +34,7 @@ class CustomTextField extends StatelessWidget {
     this.borderRadius = 4,
     this.suffixStyle,
     this.hintStyle,
+    this.textAlign,
     this.focusNode,
     this.prefixIcon,
     this.enabledBorderColor = UniversalColor.gray3,
@@ -42,6 +44,7 @@ class CustomTextField extends StatelessWidget {
     this.onTap,
     this.readOnly = false,
     this.onEditingComplete,
+    this.style,
     this.keyboardType = TextInputType.text,
     this.autofocus = false,
     this.suffixWidget,
@@ -82,7 +85,8 @@ class CustomTextField extends StatelessWidget {
       focusNode: focusNode,
       obscureText: obscureText,
       keyboardType: keyboardType,
-      style: CustomTextStyle.blackTextStyle.copyWith(fontSize: 13),
+      textAlign: textAlign ?? TextAlign.start,
+      style: style ?? CustomTextStyle.blackTextStyle.copyWith(fontSize: 13),
       decoration: InputDecoration(
         hintText: hintText ?? "",
         focusedBorder: outlineInputFocusedBorder(

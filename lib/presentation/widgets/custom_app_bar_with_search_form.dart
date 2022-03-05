@@ -16,6 +16,7 @@ class CustomAppBarWithSearchForm extends StatelessWidget {
 
   AppBar build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.white,
       title: Row(
         children: [
           Expanded(

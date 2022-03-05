@@ -1,7 +1,7 @@
-import 'package:crowdfunding/core/utils/screen_navigator.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/config/size_config.dart';
+import '../../../../core/utils/screen_navigator.dart';
 import '../../../widgets/show_image/show_image_network.dart';
 
 class DetailDonationSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
@@ -80,6 +80,7 @@ class DetailDonationSliverHeaderDelegate extends SliverPersistentHeaderDelegate 
                     GestureDetector(
                       child: Icon(
                         Icons.arrow_back,
+                        size: 25,
                         color: this.makeStickyHeaderTextColor(
                           shrinkOffset,
                           true,
@@ -90,7 +91,7 @@ class DetailDonationSliverHeaderDelegate extends SliverPersistentHeaderDelegate 
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
+                          horizontal: 20,
                         ),
                         child: Text(
                           this.title,
@@ -98,7 +99,7 @@ class DetailDonationSliverHeaderDelegate extends SliverPersistentHeaderDelegate 
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 18,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w600,
                             color: this.makeStickyHeaderTextColor(
                               shrinkOffset,
                               false,

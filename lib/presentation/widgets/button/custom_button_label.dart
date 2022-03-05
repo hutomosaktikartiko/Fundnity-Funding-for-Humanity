@@ -14,7 +14,7 @@ class CustomButtonLabel extends StatelessWidget {
     this.paddingHorizontal = 12,
     this.backgroundColor = UniversalColor.green4,
     this.fontSize = 15,
-    this.borderRadius = 10,
+    this.borderRadius = 5,
     this.width,
     this.borderColor = UniversalColor.green4,
   }) : super(key: key);

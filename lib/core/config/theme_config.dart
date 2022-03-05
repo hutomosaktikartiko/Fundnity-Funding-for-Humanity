@@ -8,7 +8,7 @@ class ThemeConfig {
     fontFamily: "Poppins",
     appBarTheme: AppBarTheme(
       elevation: 0,
-      backgroundColor: Colors.white,
+      backgroundColor: UniversalColor.green4,
     ),
     scaffoldBackgroundColor: Colors.white,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
