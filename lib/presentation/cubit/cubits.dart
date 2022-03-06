@@ -8,3 +8,6 @@ export 'wallet/wallet_cubit.dart';
 export 'connection_checker/connection_checker_cubit.dart';
 export 'selected_onboarding/selected_onboarding_cubit.dart';
 export 'auth_body/auth_body_cubit.dart';
+
+// Widget
+export 'selected_transaction_speed/selected_transaction_speed_cubit.dart';

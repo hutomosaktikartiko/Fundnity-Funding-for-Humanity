@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import '../../../core/config/custom_color.dart';
 import '../../../core/config/custom_text_style.dart';
 import '../../../core/config/size_config.dart';
+import '../../../core/utils/screen_navigator.dart';
 import '../../../core/utils/utils.dart';
 import '../../../data/models/donation_amount_model.dart';
 import '../../widgets/button/custom_button_label.dart';
 import '../../widgets/custom_text_field.dart';
+import '../payment_confirmation/payment_confirmation_screen.dart';
 import 'widgets/custom_amount_card.dart';
 import 'widgets/custom_container_with_border.dart';
 
@@ -33,7 +35,15 @@ class _FillDonationAmountState extends State<FillDonationAmount> {
       appBar: AppBar(
         title: Text(
           "Help Avisa to Continue Her College Study on Stanford University",
+          style: CustomTextStyle.gray1TextStyle.copyWith(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
         ),
+        iconTheme: IconThemeData(
+          color: UniversalColor.gray1,
+        ),
+        backgroundColor: Colors.white,
       ),
       body: GestureDetector(
         onTap: () => Utils.hideKeyboard(context),
@@ -65,7 +75,7 @@ class _FillDonationAmountState extends State<FillDonationAmount> {
                     Padding(
                       padding: EdgeInsets.only(bottom: 10),
                       child: GestureDetector(
-                        onTap: _onPayment,
+                        onTap: () => _onAmountPayment(amount: value),
                         child: CustomAmountCard(
                           amount: value,
                         ),
@@ -172,11 +182,20 @@ class _FillDonationAmountState extends State<FillDonationAmount> {
     setState(() {});
   }
 
+  void _onAmountPayment({required DonationAmountModel? amount}) {
+    ScreenNavigator.startScreen(context, PaymentConfirmationScreen(
+      donationAmount: amount?.amount,
+    ));
+  }
+
   void _onPayment() {
+    // TODO => Update amount validation
     if (amountController.text.trim() != "") {
-      // TODO => Navigator to Payment Confirmation Screen
+      ScreenNavigator.startScreen(context, PaymentConfirmationScreen(
+        donationAmount: int.parse(amountController.text),
+      ));
     } else {
-      // TODO => Handle amount validation
+      // TODO => Handle amount validation is not valid
     }
   }
 }
