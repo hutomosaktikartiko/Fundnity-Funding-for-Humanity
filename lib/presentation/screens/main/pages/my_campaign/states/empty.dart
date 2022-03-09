@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/config/custom_text_style.dart';
 import '../../../../../../core/config/size_config.dart';
+import '../../../../../../core/utils/screen_navigator.dart';
 import '../../../../../widgets/button/custom_button_label.dart';
 import '../../../../../widgets/show_svg/show_svg_asset.dart';
+import '../../../../create_campaign/create_campaign_screen.dart';
 
 class Empty extends StatelessWidget {
   const Empty({Key? key}) : super(key: key);
@@ -52,13 +54,15 @@ class Empty extends StatelessWidget {
             height: 40,
           ),
           CustomButtonLabel(
-            label: "Fundraise Now",
-            onTap: _onFundraise,
+            label: "Create Campaign",
+            onTap: () => _onCreateCampaign(context),
           ),
         ],
       ),
     );
   }
 
-  void _onFundraise() {}
+  void _onCreateCampaign(BuildContext context) {
+    ScreenNavigator.startScreen(context, CreateCampaignScreen());
+  }
 }

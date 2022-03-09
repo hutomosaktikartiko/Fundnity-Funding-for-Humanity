@@ -46,6 +46,7 @@ Future<void> init() async {
   sl.registerFactory(() => SelectedOnboardingCubit());
   sl.registerFactory(() => AuthBodyCubit());
   sl.registerFactory(() => SelectedTransactionSpeedCubit());
+  sl.registerFactory(() => CreateCampaignProgressCubit());
 
   // Repositories
   sl.registerLazySingleton<EthereumRepository>(() => EthereumRepositoryImpl(

@@ -11,3 +11,4 @@ export 'auth_body/auth_body_cubit.dart';
 
 // Widget
 export 'selected_transaction_speed/selected_transaction_speed_cubit.dart';
+export 'create_campaign_progress/create_campaign_progress_cubit.dart';

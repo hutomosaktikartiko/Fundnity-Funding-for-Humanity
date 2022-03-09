@@ -9,6 +9,10 @@ class ThemeConfig {
     appBarTheme: AppBarTheme(
       elevation: 0,
       backgroundColor: UniversalColor.green4,
+      titleTextStyle: CustomTextStyle.gray1TextStyle.copyWith(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+      ),
     ),
     scaffoldBackgroundColor: Colors.white,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
