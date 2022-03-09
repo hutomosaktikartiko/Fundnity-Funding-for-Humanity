@@ -1,12 +1,64 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../../core/config/custom_text_style.dart';
+import '../../../../../../core/config/size_config.dart';
+import '../../../../../widgets/button/custom_button_label.dart';
+import '../../../../../widgets/show_svg/show_svg_asset.dart';
+
 class Empty extends StatelessWidget {
-  const Empty({ Key? key }) : super(key: key);
+  const Empty({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Empty'),
+    return Scaffold(
+      body: ListView(
+        padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.defaultMargin * 3,
+        ),
+        children: [
+          SizedBox(
+            height: SizeConfig.screenHeight * 0.25,
+          ),
+          ShowSvgAsset(
+            assetUrl: "assets/images/empty.svg",
+            width: SizeConfig.screenWidth * 0.7,
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Center(
+            child: Text(
+              "Fundraising for everyone in need!",
+              textAlign: TextAlign.center,
+              style: CustomTextStyle.gray2TextStyle.copyWith(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Center(
+            child: Text(
+              "Here are millions of #goodpeople who donate to all kinds of fundraisers very day.",
+              textAlign: TextAlign.center,
+              style: CustomTextStyle.gray2TextStyle.copyWith(
+                fontSize: 15,
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 40,
+          ),
+          CustomButtonLabel(
+            label: "Fundraise Now",
+            onTap: _onFundraise,
+          ),
+        ],
+      ),
     );
   }
+
+  void _onFundraise() {}
 }
