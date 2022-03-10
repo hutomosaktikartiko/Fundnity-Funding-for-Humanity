@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/config/custom_color.dart';
 import '../../../core/config/custom_text_style.dart';
 import '../../../core/config/size_config.dart';
+import '../../../core/utils/utils.dart';
 import '../../cubit/cubits.dart';
+import 'widgets/create_campaign_body.dart';
 import 'widgets/create_campaign_button.dart';
 import 'widgets/create_campaign_progress.dart';
 
@@ -20,7 +22,6 @@ class CreateCampaignScreen extends StatefulWidget {
 }
 
 class _CreateCampaignScreenState extends State<CreateCampaignScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -39,18 +40,25 @@ class _CreateCampaignScreenState extends State<CreateCampaignScreen> {
           ),
         ),
       ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.defaultMargin,
-        ),
-        children: [
-          const SizedBox(
-            height: 20,
+      body: GestureDetector(
+        onTap: () => Utils.hideKeyboard(context),
+        child: ListView(
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.defaultMargin,
           ),
-          CreateCampaignProress(),
-        ],
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            CreateCampaignProress(),
+            const SizedBox(
+              height: 20,
+            ),
+            CreateCampaignBody(),
+          ],
+        ),
       ),
-      bottomNavigationBar:  Container(
+      bottomNavigationBar: Container(
         color: BackgroundColor.bgGray,
         padding: EdgeInsets.symmetric(
           horizontal: SizeConfig.defaultMargin,
@@ -66,5 +74,3 @@ class _CreateCampaignScreenState extends State<CreateCampaignScreen> {
     );
   }
 }
-
-

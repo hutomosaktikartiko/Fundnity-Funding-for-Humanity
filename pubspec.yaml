@@ -60,6 +60,8 @@ dependencies:
   percent_indicator: ^4.0.0
   # SVG
   flutter_svg: ^0.22.0
+  # intl
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

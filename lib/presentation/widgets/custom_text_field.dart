@@ -5,7 +5,7 @@ import '../../core/config/custom_text_style.dart';
 import '../../core/utils/utils.dart';
 
 class CustomTextField extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? suffixText, hintText, labelText;
   final int maxLines, minLines;
   final double paddingVertical, paddingHorizontal, borderRadius;

@@ -15,7 +15,7 @@ class CreateCampaignButton extends StatelessWidget {
     return BlocBuilder<CreateCampaignProgressCubit,
         CreateCampaignProgressState>(builder: (context, state) {
       if (state.index == 0) {
-        // Title Body
+        // Target Body
         return CustomButtonLabel(
           label: 'Next',
           onTap: () => _setIndex(
@@ -24,7 +24,7 @@ class CreateCampaignButton extends StatelessWidget {
           ),
         );
       } else if (state.index == 1) {
-        // Target Body
+        // Title Body
         return _buildDoubleButtons(
           onFirstButton: () => _setIndex(
             context: context,
@@ -68,8 +68,7 @@ class CreateCampaignButton extends StatelessWidget {
 
   void _onCreateCampaign({
     required BuildContext context,
-  }) {
-  }
+  }) {}
 
   Widget _buildDoubleButtons({
     required Function() onFirstButton,
