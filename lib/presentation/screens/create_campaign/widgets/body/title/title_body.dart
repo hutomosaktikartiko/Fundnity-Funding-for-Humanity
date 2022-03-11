@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../cubit/cubits.dart';
-import 'widgets/cost_widget.dart';
-import 'widgets/days_widget.dart';
+import 'widgets/image_widget.dart';
+import 'widgets/title_widget.dart';
 
-class TargetBody extends StatelessWidget {
-  const TargetBody({Key? key}) : super(key: key);
+class TitleBody extends StatelessWidget {
+  const TitleBody({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +15,15 @@ class TargetBody extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CostWidget(
-              amount: state.amount,
+            TitleWidget(
+              title: state.title,
             ),
             const SizedBox(
               height: 15,
             ),
-            DaysWidget(),
+            ImageWidget(
+              image: state.image,
+            )
           ],
         );
       },

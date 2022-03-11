@@ -5,8 +5,7 @@ import '../../../core/extenstions/date_time_parsing.dart';
 
 part 'create_campaign_data_state.dart';
 
-class CreateCampaignDataCubit
-    extends Cubit<CreateCampaignDataState> {
+class CreateCampaignDataCubit extends Cubit<CreateCampaignDataState> {
   CreateCampaignDataCubit() : super(CreateCampaignDataState());
 
   void setAmount({required double? amount}) {
@@ -39,5 +38,19 @@ class CreateCampaignDataCubit
       image: state.image,
       description: state.description,
     ));
+  }
+
+  void setTitle({
+    required String? title,
+  }) {
+    if (title?.trim() != "") {
+      emit(CreateCampaignDataState(
+        title: title,
+        amount: state.amount,
+        description: state.description,
+        image: state.image,
+        time: state.time,
+      ));
+    }
   }
 }

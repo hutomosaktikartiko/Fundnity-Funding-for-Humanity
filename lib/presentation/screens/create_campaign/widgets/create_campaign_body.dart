@@ -5,7 +5,7 @@ import '../../../cubit/cubits.dart';
 import 'body/confirmation_body.dart';
 import 'body/description_body.dart';
 import 'body/target/target_body.dart';
-import 'body/title_body.dart';
+import 'body/title/title_body.dart';
 
 class CreateCampaignBody extends StatelessWidget {
   const CreateCampaignBody({Key? key}) : super(key: key);

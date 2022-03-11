@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../../core/config/custom_text_style.dart';
 import '../../../../../../../core/config/size_config.dart';
 import '../../../../../../../core/extenstions/date_time_parsing.dart';
 import '../../../../../../../data/models/campaign_time_model.dart';
 import '../../../../../../cubit/cubits.dart';
+import '../../../custom_text_title.dart';
 import 'target_day_item.dart';
 
 class DaysWidget extends StatefulWidget {
@@ -27,20 +27,15 @@ class _DaysWidgetState extends State<DaysWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Determine how long the campaign will run",
-          style: CustomTextStyle.gray2TextStyle.copyWith(
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          ),
+        CustomTextTitle(
+          title: "Determine how long the campaign will run",
         ),
         const SizedBox(
           height: 5,
         ),
         SizedBox(
           width: SizeConfig.screenWidth,
-          child: BlocBuilder<CreateCampaignDataCubit,
-              CreateCampaignDataState>(
+          child: BlocBuilder<CreateCampaignDataCubit, CreateCampaignDataState>(
             builder: (context, selectedCreateCampaginTimeState) {
               return Wrap(
                 alignment: WrapAlignment.spaceBetween,
@@ -107,9 +102,7 @@ class _DaysWidgetState extends State<DaysWidget> {
   void _onSelectTime({
     required int? time,
   }) {
-    context
-        .read<CreateCampaignDataCubit>()
-        .setSelectedTime(selectedTime: time);
+    context.read<CreateCampaignDataCubit>().setSelectedTime(selectedTime: time);
   }
 
   bool _checkDate({

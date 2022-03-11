@@ -5,6 +5,7 @@ import '../../../../../../../core/config/custom_color.dart';
 import '../../../../../../../core/config/custom_text_style.dart';
 import '../../../../../../cubit/cubits.dart';
 import '../../../../../../widgets/custom_text_field.dart';
+import '../../../custom_text_title.dart';
 
 class CostWidget extends StatefulWidget {
   const CostWidget({
@@ -33,12 +34,8 @@ class _CostWidgetState extends State<CostWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Determine the estimated cost",
-          style: CustomTextStyle.gray2TextStyle.copyWith(
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          ),
+        CustomTextTitle(
+          title: "Determine the estimated cost",
         ),
         const SizedBox(
           height: 5,
