@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../injection_container.dart';
@@ -18,15 +19,12 @@ class Utils {
     XFile? pickedImage = await _picker.pickImage(source: imageSource);
     // PickedFile == null return null
     if (pickedImage == null) return null;
-    // PickedFile != null & imageSource == camera return compressedImage
-    if (imageSource == ImageSource.camera)
-      return compressImage(image: pickedImage);
     // ImageSource Gallery
     return File(pickedImage.path);
   }
 
   static Future<File?> compressImage({
-    required XFile image,
+    required File image,
   }) async {
     final ImageProperties _properties =
         await FlutterNativeImage.getImageProperties(
@@ -42,11 +40,28 @@ class Utils {
   }
 
   static Future<File?> selectFile() async {
-    // Selec file
+    // Select file
     final FilePickerResult? result = await sl<FilePicker>().pickFiles();
     // if selectFile result == null return null
     if (result == null) return null;
     // selectFile result != null
     return File(result.files.single.path!);
+  }
+
+  static Future<File?> cropImage(File? imageFile) async {
+    if (imageFile == null) return null;
+    return await sl<ImageCropper>().cropImage(
+      sourcePath: imageFile.path,
+      aspectRatio: CropAspectRatio(ratioX: 16, ratioY: 9),
+      androidUiSettings: AndroidUiSettings(
+        toolbarTitle: "Crop Image",
+        toolbarColor: Colors.blue,
+        toolbarWidgetColor: Colors.white,
+        lockAspectRatio: false,
+      ),
+      iosUiSettings: IOSUiSettings(
+        aspectRatioLockEnabled: true,
+      ),
+    );
   }
 }

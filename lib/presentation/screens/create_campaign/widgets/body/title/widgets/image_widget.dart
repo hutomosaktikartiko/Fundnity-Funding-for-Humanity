@@ -1,9 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../../../../core/config/custom_color.dart';
 import '../../../../../../../core/config/custom_text_style.dart';
 import '../../../../../../../core/config/size_config.dart';
-import '../../../../../../widgets/show_image/show_image_local.dart';
+import '../../../../../../../core/utils/screen_navigator.dart';
+import '../../../../../../../core/utils/utils.dart';
+import '../../../../../../../data/models/select_image_action_model.dart';
+import '../../../../../../cubit/cubits.dart';
+import '../../../../../../widgets/show_image/show_image_file.dart';
 import '../../../custom_text_description.dart';
 import '../../../custom_text_title.dart';
 
@@ -13,7 +21,7 @@ class ImageWidget extends StatelessWidget {
     required this.image,
   }) : super(key: key);
 
-  final String? image;
+  final File? image;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +40,7 @@ class ImageWidget extends StatelessWidget {
           height: 5,
         ),
         GestureDetector(
-          onTap: _onSelectPhoto,
+          onTap: () => showSelectImageActionSheet(context),
           child: buildImage(),
         ),
       ],
@@ -68,15 +76,59 @@ class ImageWidget extends StatelessWidget {
         ),
       );
     } else {
-      return ShowImageLocal(
-        imageUrl: image!,
+      return ShowImageFile(
+        imageFile: image!,
+        width: SizeConfig.screenWidth,
         height: 200,
         borderRadius: BorderRadius.circular(5),
       );
     }
   }
 
-  void _onSelectPhoto() {
-    // TODO => Select Photo, Crop photo (height [200], width [screenWidth]), Compress photo
+  void showSelectImageActionSheet(BuildContext context) {
+    // Hide keyboard
+    Utils.hideKeyboard(context);
+    // Show modalBottomSheet
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Wrap(
+          children: mockListSelectImageActions
+              .asMap()
+              .map(
+                (key, value) => MapEntry(
+                  key,
+                  ListTile(
+                    leading: Icon(value.icon),
+                    title: Text(value.title),
+                    onTap: () => _onSelectPhoto(
+                      context: context,
+                      imageSource: value.imageSource,
+                    ),
+                  ),
+                ),
+              )
+              .values
+              .toList(),
+        );
+      },
+    );
+  }
+
+  void _onSelectPhoto({
+    required BuildContext context,
+    required ImageSource imageSource,
+  }) async {
+    // Select Image
+    File? result = await context
+        .read<SelectedImageCubit>()
+        .selectImageCampaign(imageSource: imageSource);
+
+    if (result != null) {
+      context.read<CreateCampaignDataCubit>().setImage(image: result);
+    }
+
+    // Close bottomSheet
+    ScreenNavigator.closeScreen(context);
   }
 }

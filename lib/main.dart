@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<CreateCampaignProgressCubit>(),),
         BlocProvider(create: (context) => di.sl<SelectedDateCubit>(),),
         BlocProvider(create: (context) => di.sl<CreateCampaignDataCubit>(),),
+        BlocProvider(create: (context) => di.sl<SelectedImageCubit>(),),
       ],
       child: MaterialApp(
         home: SplashScreen(),

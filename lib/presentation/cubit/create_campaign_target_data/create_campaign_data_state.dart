@@ -3,7 +3,8 @@ part of 'create_campaign_data_cubit.dart';
 class CreateCampaignDataState extends Equatable {
   final int? time;
   final double? amount;
-  final String? title, description, image;
+  final String? title, description;
+  final File? image;
 
   const CreateCampaignDataState({
     this.time,

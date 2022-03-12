@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -79,7 +81,7 @@ class CreateCampaignButton extends StatelessWidget {
 
   Widget buildTitleButton({
     required String? title,
-    required String? image,
+    required File? image,
     required BuildContext context,
   }) {
     if (title != null && image != null) {

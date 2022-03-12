@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -52,5 +54,17 @@ class CreateCampaignDataCubit extends Cubit<CreateCampaignDataState> {
         time: state.time,
       ));
     }
+  }
+
+  void setImage({
+    required File? image,
+  }) {
+    emit(CreateCampaignDataState(
+      image: image,
+      amount: state.amount,
+      title: state.title,
+      time: state.time,
+      description: state.description,
+    ));
   }
 }

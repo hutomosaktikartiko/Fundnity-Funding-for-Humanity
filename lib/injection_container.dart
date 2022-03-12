@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:ndialog/ndialog.dart';
@@ -49,6 +50,7 @@ Future<void> init() async {
   sl.registerFactory(() => CreateCampaignProgressCubit());
   sl.registerFactory(() => SelectedDateCubit());
   sl.registerFactory(() => CreateCampaignDataCubit());
+  sl.registerFactory(() => SelectedImageCubit());
 
   // Repositories
   sl.registerLazySingleton<EthereumRepository>(() => EthereumRepositoryImpl(
@@ -100,6 +102,7 @@ Future<void> init() async {
       sl(),
     ),
   );
+  sl.registerLazySingleton<ImageCropper>(() => ImageCropper());
 
   // TODO => DIO Client
   sl.registerLazySingleton<Dio>(() => Dio(

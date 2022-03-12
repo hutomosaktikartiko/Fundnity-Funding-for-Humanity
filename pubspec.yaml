@@ -45,6 +45,8 @@ dependencies:
   equatable: ^2.0.3
   # Image Picker
   image_picker: ^0.8.2
+  # Crop Image
+  image_cropper: ^1.4.1
   # Compress Image
   flutter_native_image: ^0.0.6+1
   # Change app launcher icons
