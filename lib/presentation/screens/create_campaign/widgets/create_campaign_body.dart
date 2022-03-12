@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../cubit/cubits.dart';
 import 'body/confirmation_body.dart';
-import 'body/description_body.dart';
+import 'body/description/description_body.dart';
 import 'body/target/target_body.dart';
 import 'body/title/title_body.dart';
 

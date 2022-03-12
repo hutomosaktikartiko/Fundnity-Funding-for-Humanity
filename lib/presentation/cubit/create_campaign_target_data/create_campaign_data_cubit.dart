@@ -67,4 +67,18 @@ class CreateCampaignDataCubit extends Cubit<CreateCampaignDataState> {
       description: state.description,
     ));
   }
+
+  void setDescription({
+    required String? description,
+  }) {
+    if (description?.trim() != "") {
+      emit(CreateCampaignDataState(
+        description: description,
+        title: state.title,
+        amount: state.amount,
+        image: state.image,
+        time: state.time,
+      ));
+    }
+  }
 }

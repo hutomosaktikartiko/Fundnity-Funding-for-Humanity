@@ -7,25 +7,25 @@ import '../../../../../../cubit/cubits.dart';
 import '../../../../../../widgets/custom_text_field.dart';
 import '../../../custom_text_title.dart';
 
-class TitleWidget extends StatefulWidget {
-  const TitleWidget({
+class DescriptionWidget extends StatefulWidget {
+  const DescriptionWidget({
     Key? key,
-    required this.title,
+    required this.description,
   }) : super(key: key);
 
-  final String? title;
+  final String? description;
 
   @override
-  _TitleWidgetState createState() => _TitleWidgetState();
+  _DescriptionWidgetState createState() => _DescriptionWidgetState();
 }
 
-class _TitleWidgetState extends State<TitleWidget> {
-  TextEditingController? titleController;
+class _DescriptionWidgetState extends State<DescriptionWidget> {
+  TextEditingController? descriptionController;
 
   @override
   void initState() {
     super.initState();
-    titleController = TextEditingController(text: widget.title);
+    descriptionController = TextEditingController(text: widget.description);
   }
 
   @override
@@ -33,12 +33,12 @@ class _TitleWidgetState extends State<TitleWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomTextTitle(title: "Title this campaign"),
+        CustomTextTitle(title: "Your campaign description"),
         const SizedBox(
           height: 5,
         ),
         CustomTextField(
-          controller: titleController,
+          controller: descriptionController,
           enabledBorderColor: UniversalColor.gray4,
           textInputAction: TextInputAction.done,
           onChanged: _onSave,
@@ -46,14 +46,16 @@ class _TitleWidgetState extends State<TitleWidget> {
           style: CustomTextStyle.blackTextStyle.copyWith(
             fontSize: 15,
           ),
+          minLines: 5,
+          maxLines: 10,
         ),
       ],
     );
   }
 
   void _onSave() {
-    context.read<CreateCampaignDataCubit>().setTitle(
-          title: titleController?.text,
+    context.read<CreateCampaignDataCubit>().setDescription(
+          description: descriptionController?.text,
         );
   }
 }

@@ -84,7 +84,7 @@ class CreateCampaignButton extends StatelessWidget {
     required File? image,
     required BuildContext context,
   }) {
-    if (title != null && image != null) {
+    if (title != null && title != "" && image != null) {
       return _buildDoubleButtons(
         onFirstButton: () => _setIndex(
           context: context,
@@ -113,7 +113,7 @@ class CreateCampaignButton extends StatelessWidget {
     required String? description,
     required BuildContext context,
   }) {
-    if (description != null) {
+    if (description != null && description != "") {
       return _buildDoubleButtons(
         onFirstButton: () => _setIndex(
           context: context,
