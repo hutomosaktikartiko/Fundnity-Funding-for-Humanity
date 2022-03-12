@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:crowdfunding/core/utils/screen_navigator.dart';
+import 'package:crowdfunding/presentation/screens/campaign_creation_summary/campaign_creation_summary_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,19 +35,11 @@ class CreateCampaignButton extends StatelessWidget {
                 image: createCampaignDataState.image,
                 context: context,
               );
-            } else if (createCampaignProgressState.index == 2) {
+            } else {
               // Description Button
               return buildDescriptionButton(
                 description: createCampaignDataState.description,
                 context: context,
-              );
-            } else {
-              // Confirmation Button
-              return CustomButtonLabel(
-                label: 'Create Campaign',
-                onTap: () => _onCreateCampaign(
-                  context: context,
-                ),
               );
             }
           },
@@ -119,9 +113,9 @@ class CreateCampaignButton extends StatelessWidget {
           context: context,
           index: 1,
         ),
-        onSecondButton: () => _setIndex(
-          context: context,
-          index: 3,
+        onSecondButton: () => ScreenNavigator.startScreen(
+          context,
+          CampaignCreationSummary(),
         ),
       );
     } else {
@@ -143,12 +137,6 @@ class CreateCampaignButton extends StatelessWidget {
     required BuildContext context,
   }) {
     context.read<CreateCampaignProgressCubit>().changeIndex(index: index);
-  }
-
-  void _onCreateCampaign({
-    required BuildContext context,
-  }) {
-    // TODO => connect Create campaign to server
   }
 
   Widget _buildDoubleButtons({

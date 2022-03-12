@@ -10,12 +10,13 @@ import 'widgets/create_campaign_body.dart';
 import 'widgets/create_campaign_button.dart';
 import 'widgets/create_campaign_progress.dart';
 
-// Target Donasi -> Jumlah dana yang dibutuhkan, Waktu penggalangan
-// Judul -> Judul, Foto,
-// Deskripsi -> Edit style text
-
 class CreateCampaignScreen extends StatefulWidget {
-  const CreateCampaignScreen({Key? key}) : super(key: key);
+  const CreateCampaignScreen({
+    Key? key,
+    this.index,
+  }) : super(key: key);
+
+  final int? index;
 
   @override
   _CreateCampaignScreenState createState() => _CreateCampaignScreenState();
@@ -25,7 +26,7 @@ class _CreateCampaignScreenState extends State<CreateCampaignScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<CreateCampaignProgressCubit>().changeIndex(index: 0);
+    context.read<CreateCampaignProgressCubit>().changeIndex(index: widget.index ?? 0);
   }
 
   @override
