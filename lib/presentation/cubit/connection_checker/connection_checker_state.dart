@@ -9,14 +9,7 @@ abstract class ConnectionCheckerState extends Equatable {
 
 class InternetConnectionLoading extends ConnectionCheckerState {}
 
-class InternetConnectionConnected extends ConnectionCheckerState {
-  final InternetConnectionStatus internetConnectionStatus;
-
-  InternetConnectionConnected({required this.internetConnectionStatus});
-
-  @override
-  List<Object?> get props => [internetConnectionStatus];
-}
+class InternetConnectionConnected extends ConnectionCheckerState {}
 
 class InternetConnectionDisconnected extends ConnectionCheckerState {
   final String message;

@@ -1,19 +1,23 @@
-import 'dart:async';
-
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 abstract class NetworkInfo {
   Future<bool> get isConnected;
 }
 
 /// return [true] if connection status is connected
-/// 
+///
 /// or return [false] if connection status is disconnected
 class NetworkInfoImpl implements NetworkInfo {
-  final InternetConnectionChecker internetConnectionChecker;
+  final Connectivity connectivity;
 
-  NetworkInfoImpl({required this.internetConnectionChecker});
-  
+  NetworkInfoImpl({required this.connectivity});
+
   @override
-  Future<bool> get isConnected async => await internetConnectionChecker.hasConnection;
+  Future<bool> get isConnected async {
+    if (await connectivity.checkConnectivity() == ConnectivityResult.none) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }

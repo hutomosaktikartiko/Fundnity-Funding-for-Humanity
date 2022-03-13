@@ -1,17 +1,17 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../../core/config/label_config.dart';
 
 part 'connection_checker_state.dart';
 
 class ConnectionCheckerCubit extends Cubit<ConnectionCheckerState> {
-  final InternetConnectionChecker? internetConnectionChecker;
+  final Connectivity connectivity;
 
-  ConnectionCheckerCubit({required this.internetConnectionChecker})
+  ConnectionCheckerCubit({required this.connectivity})
       : super(InternetConnectionLoading()) {
     monitorInternetConnection();
   }
@@ -20,42 +20,36 @@ class ConnectionCheckerCubit extends Cubit<ConnectionCheckerState> {
   StreamSubscription? internetConnectionStreamSubscription;
 
   void monitorInternetConnection() async {
-    internetConnectionStreamSubscription =
-        InternetConnectionChecker().onStatusChange.listen(
-      (status) {
-        switch (status) {
-          case InternetConnectionStatus.connected:
-            emitInternetConnectionConnected(InternetConnectionStatus.connected);
-            break;
-          case InternetConnectionStatus.disconnected:
-            emitInternetConnectionDisconnected();
-            break;
+    if (await connectivity.checkConnectivity() == ConnectivityResult.none) {
+      emitInternetConnectionDisconnected();
+      internetConnectionStreamSubscription = connectivity.onConnectivityChanged
+          .listen((ConnectivityResult result) {
+        if (result == ConnectivityResult.none) {
+          emitInternetConnectionDisconnected();
+        } else {
+          // Close strem subscribtion
+          close();
+          emitInternetConnectionConnected();
         }
-      },
-    );
+      });
+    } else {
+      emitInternetConnectionConnected();
+    }
   }
 
-  void emitInternetConnectionConnected(
-    InternetConnectionStatus _internetConnectionStatus,
-  ) {
-    return emit(
-      InternetConnectionConnected(
-        internetConnectionStatus: _internetConnectionStatus,
-      ),
-    );
+  void emitInternetConnectionConnected() {
+    return emit(InternetConnectionConnected());
   }
 
   void emitInternetConnectionDisconnected() {
-    return emit(
-      InternetConnectionDisconnected(
-        message: LabelConfig.noInternet,
-      ),
-    );
+    return emit(InternetConnectionDisconnected(
+      message: LabelConfig.noInternet,
+    ));
   }
 
   @override
   Future<void> close() async {
-    internetConnectionStreamSubscription!.cancel();
+    internetConnectionStreamSubscription?.cancel();
     return super.close();
   }
 }
