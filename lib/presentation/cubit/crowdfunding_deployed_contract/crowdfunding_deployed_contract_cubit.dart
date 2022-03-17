@@ -6,29 +6,31 @@ import '../../../data/models/contract_local_model.dart';
 import '../../../data/models/return_value_model.dart';
 import '../../../data/repositories/deployed_contract_repository.dart';
 
-part 'campaign_factory_deployed_contract_state.dart';
+part 'crowdfunding_deployed_contract_state.dart';
 
-class CampaignFactoryDeployedContractCubit
-    extends Cubit<CampaignFactoryDeployedContractState> {
-  CampaignFactoryDeployedContractCubit({
+class CrowdfundingDeployedContractCubit
+    extends Cubit<CrowdfundingDeployedContractState> {
+  CrowdfundingDeployedContractCubit({
     required this.deployedContractRepository,
-  }) : super(CampaignFactoryDeployedContractInitial());
+  }) : super(CrowdfundingDeployedContractInitial()) {
+    getDeployedContract();
+  }
 
   final DeployedContractRepository deployedContractRepository;
 
   Future<ReturnValueModel<DeployedContract>> getDeployedContract() async {
     final ReturnValueModel<DeployedContract> result =
         await deployedContractRepository.getDeployedContract(
-      contractName: campaignFactoryContractLocal.name,
-      contractAddress:campaignFactoryContractLocal.address,
-      contractLocalUrl: campaignFactoryContractLocal.path,
+      contractName: crowdfundingContractLocal.name,
+      contractAddress:crowdfundingContractLocal.address,
+      contractLocalUrl: crowdfundingContractLocal.path,
     );
 
     if (result.isSuccess && result.value != null) {
-      emit(CampaignFactoryDeployedContractLoaded(
+      emit(CrowdfundingDeployedContractLoaded(
           deployedContract: result.value!));
     } else {
-      emit(CampaignFactoryDeployedContractLoadingFailure(
+      emit(CrowdfundingDeployedContractLoadingFailure(
           message: result.message));
     }
 

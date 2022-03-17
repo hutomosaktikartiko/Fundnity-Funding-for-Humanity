@@ -37,7 +37,7 @@ Future<void> init() async {
       () => CampaignDeployedContractCubit(deployedContractRepository: sl()));
   sl.registerFactory(() => GetCampaignCubit(campaignRepository: sl()));
   sl.registerFactory(() =>
-      CampaignFactoryDeployedContractCubit(deployedContractRepository: sl()));
+      CrowdfundingDeployedContractCubit(deployedContractRepository: sl()));
   sl.registerFactory(() => Web3ClientCubit(client: sl()));
   sl.registerFactory(
       () => GetAllAddressCampaignsCubit(campaignRepository: sl()));
@@ -96,7 +96,7 @@ Future<void> init() async {
   sl.registerLazySingleton<Client>(() => Client());
   sl.registerLazySingleton<Web3Client>(
     () => Web3Client(
-      UrlsConfig.infuraRinkbeyProvider + KeysConfig.infuraPrivateKey,
+      UrlsConfig.alchemyRinkbey + KeysConfig.alchemyPrivateKey,
       sl(),
     ),
   );

@@ -34,8 +34,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => di.sl<CampaignDeployedContractCubit>()),
         BlocProvider(
-            create: (context) => di.sl<CampaignFactoryDeployedContractCubit>()
-              ..getDeployedContract()),
+            create: (context) => di.sl<CrowdfundingDeployedContractCubit>()),
         BlocProvider(create: (context) => di.sl<GetCampaignCubit>()),
         BlocProvider(create: (context) => di.sl<Web3ClientCubit>()),
         BlocProvider(create: (context) => di.sl<GetAllAddressCampaignsCubit>()),

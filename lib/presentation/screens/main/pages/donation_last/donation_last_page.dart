@@ -21,10 +21,10 @@ class _DonationLastPageState extends State<DonationLastPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<CampaignFactoryDeployedContractCubit,
-          CampaignFactoryDeployedContractState>(
+      body: BlocConsumer<CrowdfundingDeployedContractCubit,
+          CrowdfundingDeployedContractState>(
         listener: (context, state) {
-          if (state is CampaignFactoryDeployedContractLoaded) {
+          if (state is CrowdfundingDeployedContractLoaded) {
             context.read<GetAllAddressCampaignsCubit>().getAllAddressCampaigns(
                   deployedContract: state.deployedContract,
                   web3Client: context.read<Web3ClientCubit>().state.web3client
@@ -32,7 +32,7 @@ class _DonationLastPageState extends State<DonationLastPage> {
           }
         },
         builder: (context, state) {
-          if (state is CampaignFactoryDeployedContractLoaded) {
+          if (state is CrowdfundingDeployedContractLoaded) {
             return BlocBuilder<GetAllAddressCampaignsCubit,
                 GetAllAddressCampaignsState>(
               builder: (context, state) {
@@ -45,7 +45,7 @@ class _DonationLastPageState extends State<DonationLastPage> {
                 }
               },
             );
-          } else if (state is CampaignFactoryDeployedContractLoadingFailure) {
+          } else if (state is CrowdfundingDeployedContractLoadingFailure) {
             return SizedBox();
           } else {
             return SizedBox();

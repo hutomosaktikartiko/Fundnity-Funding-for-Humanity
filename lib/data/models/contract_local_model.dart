@@ -11,14 +11,14 @@ class ContractLocalModel {
   });
 }
 
+final ContractLocalModel crowdfundingContractLocal = ContractLocalModel(
+  name: "Crowdfunding",
+  address: ContractConfig.crowdfunding,
+  path: UrlsConfig.crowdfundingContractPath,
+);
+
 final ContractLocalModel campaignContractLocal = ContractLocalModel(
   name: "Campaign",
   address: ContractConfig.crowdfunding,
   path: UrlsConfig.campaignContractPath,
-);
-
-final ContractLocalModel campaignFactoryContractLocal = ContractLocalModel(
-  name: "CampaignFactory",
-  address: ContractConfig.crowdfunding,
-  path: UrlsConfig.campaignFactoryContractPath,
 );
