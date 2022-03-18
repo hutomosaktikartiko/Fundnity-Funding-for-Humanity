@@ -20,12 +20,6 @@ abstract class CampaignRemoteDataSource {
   // Get Total Campaign witdraw request
 
   // Get Campaign Summary
-
-  // Get New All Campaigns
-  Future<List<CampaignModel?>?> getNewAllCampaigns({
-    required DeployedContract deployedContract,
-    required Web3Client web3Client,
-  });
 }
 
 class CampaignRemoteDataSourceImpl implements CampaignRemoteDataSource {
@@ -60,24 +54,6 @@ class CampaignRemoteDataSourceImpl implements CampaignRemoteDataSource {
       );
 
       return CampaignModel.fromJson(result);
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  @override
-  Future<List<CampaignModel?>?> getNewAllCampaigns({
-    required DeployedContract deployedContract,
-    required Web3Client web3Client,
-  }) async {
-    try {
-      final List<dynamic> result = await web3Client.call(
-        contract: deployedContract,
-        function: deployedContract.function("getAllCampaigns"),
-        params: [],
-      );
-
-      return result[0];
     } catch (error) {
       throw error;
     }

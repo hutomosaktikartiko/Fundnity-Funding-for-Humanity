@@ -27,7 +27,7 @@ class _DonationLastPageState extends State<DonationLastPage> {
           if (state is CrowdfundingDeployedContractLoaded) {
             context.read<GetAllAddressCampaignsCubit>().getAllAddressCampaigns(
                   deployedContract: state.deployedContract,
-                  web3Client: context.read<Web3ClientCubit>().state.web3client
+                  web3Client: context.read<Web3ClientCubit>().state.web3client!
                 );
           }
         },

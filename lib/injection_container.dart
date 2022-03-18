@@ -1,5 +1,4 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get_it/get_it.dart';
@@ -11,9 +10,6 @@ import 'package:new_version/new_version.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web3dart/web3dart.dart';
 
-import 'core/config/keys_config.dart';
-import 'core/config/urls_config.dart';
-import 'core/error/interceptor_info.dart';
 import 'core/network/network_info.dart';
 import 'core/observer/firebase_analytics_observer_info.dart';
 import 'core/preferences/preferences_info.dart';
@@ -94,19 +90,6 @@ Future<void> init() async {
   sl.registerLazySingleton<FilePicker>(() => FilePicker.platform);
   sl.registerLazySingleton<FirebaseAnalytics>(() => FirebaseAnalytics.instance);
   sl.registerLazySingleton<Client>(() => Client());
-  sl.registerLazySingleton<Web3Client>(
-    () => Web3Client(
-      UrlsConfig.alchemyRinkbey + KeysConfig.alchemyPrivateKey,
-      sl(),
-    ),
-  );
+  sl.registerLazySingleton<Web3Client>(() => Web3Client(sl(), sl()));
   sl.registerLazySingleton<ImageCropper>(() => ImageCropper());
-
-  // TODO => DIO Client
-  sl.registerLazySingleton<Dio>(() => Dio(
-        BaseOptions(
-          connectTimeout: 5000,
-          receiveTimeout: 3000,
-        ),
-      )..interceptors.add(InterceptorInfo()));
 }
