@@ -5,6 +5,9 @@ class KeysConfig {
   // Alchemy Private Key
   static const String alchemyPrivateKey = "EYABeRjKV3KIPeqTz-FqNtJdTm2XRHCR";
 
+  // Pinata Api Key
+  static const String pinataApiKey = "f48746d4fea4b601fe4a";
+
   // Akun 1
   static const String addressAkun1 =
       "0x4994986400D969EeA1f90bE393A5F1B1b72a664A";

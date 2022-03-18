@@ -8,6 +8,9 @@ class UrlsConfig {
   // Alchemy rinkbey
   static const String alchemyRinkbey = "https://eth-rinkeby.alchemyapi.io/v2/";
 
+  // Pinata Cloud Base Url
+  static const String pinataCloudBaseUrl = "https://api.pinata.cloud/";
+
   // Ganache Local Provider
   static const String ganacheLocalProvider = "http://10.0.2.2:7545/";
 

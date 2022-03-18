@@ -44,3 +44,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Keys
+lib/core/config/keys_config.dart
+lib/core/config/urls_config.dart
