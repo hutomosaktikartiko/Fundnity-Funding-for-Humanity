@@ -39,6 +39,7 @@ dependencies:
   # Chnage app package name
   change_app_package_name: ^1.0.0
   # Internet
+  dio: ^4.0.0
   http: ^0.13.3
   # Value Equality
   equatable: ^2.0.3

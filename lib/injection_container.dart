@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get_it/get_it.dart';
@@ -62,7 +63,7 @@ Future<void> init() async {
   sl.registerLazySingleton<EthereumRemoteDataSource>(
       () => EthereumRemoteDataSourceImpl(web3client: sl()));
   sl.registerLazySingleton<CampaignRemoteDataSource>(
-      () => CampaignRemoteDataSourceImpl());
+      () => CampaignRemoteDataSourceImpl(client: sl()));
 
   // Datasources Local
   sl.registerLazySingleton<DeployedContractLocalDataSource>(
@@ -92,4 +93,5 @@ Future<void> init() async {
   sl.registerLazySingleton<Client>(() => Client());
   sl.registerLazySingleton<Web3Client>(() => Web3Client(sl(), sl()));
   sl.registerLazySingleton<ImageCropper>(() => ImageCropper());
+  sl.registerLazySingleton<Dio>(() => Dio());
 }
