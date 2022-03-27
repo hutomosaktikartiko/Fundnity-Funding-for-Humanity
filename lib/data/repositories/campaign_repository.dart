@@ -1,7 +1,7 @@
 import 'package:web3dart/web3dart.dart';
 
 import '../../core/config/label_config.dart';
-import '../../core/network/network_info.dart';
+import '../../core/utils/network_info.dart';
 import '../datasources/remotes/campaign_remote_data_source.dart';
 import '../models/campaign_model.dart';
 import '../models/return_value_model.dart';

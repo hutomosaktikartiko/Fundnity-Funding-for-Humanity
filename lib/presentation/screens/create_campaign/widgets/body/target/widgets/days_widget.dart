@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../core/config/size_config.dart';
-import '../../../../../../../core/extenstions/date_time_parsing.dart';
+import '../../../../../../../core/extension/date_time_parsing.dart';
 import '../../../../../../../data/models/campaign_time_model.dart';
 import '../../../../../../cubit/cubits.dart';
 import '../../../custom_text_title.dart';

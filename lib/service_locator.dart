@@ -10,10 +10,10 @@ import 'package:new_version/new_version.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web3dart/web3dart.dart';
 
-import 'core/network/network_info.dart';
 import 'core/observer/firebase_analytics_observer_info.dart';
-import 'core/preferences/preferences_info.dart';
-import 'core/update/update_info.dart';
+import 'core/utils/network_info.dart';
+import 'core/utils/preferences_info.dart';
+import 'core/utils/update_info.dart';
 import 'data/datasources/locals/deployed_contract_local_data_source.dart';
 import 'data/datasources/locals/wallet_local_data_source.dart';
 import 'data/datasources/remotes/campaign_remote_data_source.dart';

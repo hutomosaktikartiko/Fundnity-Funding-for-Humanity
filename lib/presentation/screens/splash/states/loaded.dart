@@ -3,8 +3,8 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_version/new_version.dart';
 
-import '../../../../core/preferences/preferences_info.dart';
-import '../../../../core/update/update_info.dart';
+import '../../../../core/utils/preferences_info.dart';
+import '../../../../core/utils/update_info.dart';
 import '../../../../core/utils/screen_navigator.dart';
 import '../../../../service_locator.dart';
 import '../../../cubit/cubits.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../../../core/config/custom_color.dart';
 import '../../../../../../../../core/config/custom_text_style.dart';
-import '../../../../../../../../core/extenstions/string_parsing.dart';
+import '../../../../../../../../core/extension/string_parsing.dart';
 import '../../../../../../../widgets/custom_box_shadow.dart';
 
 class Loaded extends StatelessWidget {

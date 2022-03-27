@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../core/config/custom_color.dart';
 import '../../../../../../core/config/custom_text_style.dart';
 import '../../../../../../core/config/size_config.dart';
-import '../../../../../../core/extenstions/string_parsing.dart';
+import '../../../../../../core/extension/string_parsing.dart';
 import '../../../../../widgets/show_image/show_image_local.dart';
 
 class DonationHistoryCard extends StatelessWidget {
