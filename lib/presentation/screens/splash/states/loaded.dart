@@ -6,7 +6,7 @@ import 'package:new_version/new_version.dart';
 import '../../../../core/preferences/preferences_info.dart';
 import '../../../../core/update/update_info.dart';
 import '../../../../core/utils/screen_navigator.dart';
-import '../../../../injection_container.dart';
+import '../../../../service_locator.dart';
 import '../../../cubit/cubits.dart';
 import '../../../widgets/custom_dialog.dart';
 import '../../auth/auth_screen.dart';

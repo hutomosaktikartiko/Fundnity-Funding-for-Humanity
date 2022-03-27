@@ -5,7 +5,7 @@ import 'package:web3dart/web3dart.dart';
 
 import '../../../../../../../core/config/keys_config.dart';
 import '../../../../../../../core/config/urls_config.dart';
-import '../../../../../../../injection_container.dart';
+import '../../../../../../../service_locator.dart';
 import '../../../../../../cubit/cubits.dart';
 import 'states/loaded.dart';
 

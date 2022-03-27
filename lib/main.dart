@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/config/theme_config.dart';
 import 'core/observer/bloc_observer_info.dart';
-import 'injection_container.dart' as di;
+import 'service_locator.dart' as di;
 import 'presentation/cubit/cubits.dart';
 import 'presentation/screens/splash/splash_screen.dart';
 

@@ -6,7 +6,6 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ndialog/ndialog.dart';
 import 'package:new_version/new_version.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web3dart/web3dart.dart';
@@ -25,19 +24,35 @@ import 'data/repositories/ethereum_repository.dart';
 import 'data/repositories/wallet_repository.dart';
 import 'presentation/cubit/cubits.dart';
 
-final sl = GetIt.instance;
+final GetIt sl = GetIt.instance;
 
 Future<void> init() async {
   // Cubit
+  await _cubit();
+
+  // Repositories
+  await _repository();
+
+  // Datasources Remote
+  await _remoteDataSource();
+
+  // Datasources Local
+  await _localDataSource();
+
+  // Core
+  await _core();
+
+  // External
+  await _external();
+}
+
+Future<void> _cubit() async {
   sl.registerFactory(() => EthereumBalanceCubit(ethereumRepository: sl()));
-  sl.registerFactory(
-      () => CampaignDeployedContractCubit(deployedContractRepository: sl()));
+  sl.registerFactory(() => CampaignDeployedContractCubit(deployedContractRepository: sl()));
   sl.registerFactory(() => GetCampaignCubit(campaignRepository: sl()));
-  sl.registerFactory(() =>
-      CrowdfundingDeployedContractCubit(deployedContractRepository: sl()));
+  sl.registerFactory(() => CrowdfundingDeployedContractCubit(deployedContractRepository: sl()));
   sl.registerFactory(() => Web3ClientCubit(client: sl()));
-  sl.registerFactory(
-      () => GetAllAddressCampaignsCubit(campaignRepository: sl()));
+  sl.registerFactory(() => GetAllAddressCampaignsCubit(campaignRepository: sl()));
   sl.registerFactory(() => WalletCubit(walletRepository: sl()));
   sl.registerFactory(() => ConnectionCheckerCubit(connectivity: sl()));
   sl.registerFactory(() => SelectedOnboardingCubit());
@@ -47,51 +62,57 @@ Future<void> init() async {
   sl.registerFactory(() => SelectedDateCubit());
   sl.registerFactory(() => CreateCampaignDataCubit());
   sl.registerFactory(() => SelectedImageCubit());
+}
 
-  // Repositories
-  sl.registerLazySingleton<EthereumRepository>(() => EthereumRepositoryImpl(
-      ethereumRemoteDataSource: sl(), networkInfo: sl()));
-  sl.registerLazySingleton<DeployedContractRepository>(() =>
-      DeployedContractRepositoryImpl(
-          deployedContractLocalDataSource: sl(), networkInfo: sl()));
-  sl.registerLazySingleton<CampaignRepository>(() => CampaignRepositoryImpl(
-      networkInfo: sl(), campaignRemoteDataSource: sl()));
-  sl.registerLazySingleton<WalletRepository>(() =>
-      WalletRepositoryImpl(networkInfo: sl(), walletLocalDataSource: sl()));
+Future<void> _repository() async {
+  sl.registerLazySingleton<EthereumRepository>(() => EthereumRepositoryImpl(ethereumRemoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<DeployedContractRepository>(() => DeployedContractRepositoryImpl(deployedContractLocalDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<CampaignRepository>(() => CampaignRepositoryImpl(networkInfo: sl(), campaignRemoteDataSource: sl()));
+  sl.registerLazySingleton<WalletRepository>(() => WalletRepositoryImpl(networkInfo: sl(), walletLocalDataSource: sl()));
+}
 
-  // Datasources Remote
-  sl.registerLazySingleton<EthereumRemoteDataSource>(
-      () => EthereumRemoteDataSourceImpl(web3client: sl()));
-  sl.registerLazySingleton<CampaignRemoteDataSource>(
-      () => CampaignRemoteDataSourceImpl(client: sl()));
+Future<void> _remoteDataSource() async {
+  sl.registerLazySingleton<EthereumRemoteDataSource>(() => EthereumRemoteDataSourceImpl(web3client: sl()));
+  sl.registerLazySingleton<CampaignRemoteDataSource>(() => CampaignRemoteDataSourceImpl(client: sl()));
+}
 
-  // Datasources Local
-  sl.registerLazySingleton<DeployedContractLocalDataSource>(
-      () => DeplotedContractLocalDataSourceImpl());
-  sl.registerLazySingleton<WalletLocalDataSource>(
-      () => WalletLocalDataSourceImpl(preferences: sl()));
+Future<void> _localDataSource() async {
+  sl.registerLazySingleton<DeployedContractLocalDataSource>(() => DeplotedContractLocalDataSourceImpl());
+  sl.registerLazySingleton<WalletLocalDataSource>(() => WalletLocalDataSourceImpl(preferences: sl()));
+}
 
-  // Core
-  sl.registerLazySingleton<NetworkInfo>(
-      () => NetworkInfoImpl(connectivity: sl()));
+Future<void> _core() async {
+  // NetworkInfo
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(connectivity: sl()));
+  // UpdateInfo
   sl.registerLazySingleton<UpdateInfo>(() => UpdateInfoImpl(newVersion: sl()));
-  sl.registerLazySingleton<FirebaseAnalyticsObserverInfo>(
-      () => FirebaseAnalyticsObserverInfoImpl(analytics: sl()));
-  sl.registerLazySingleton<PreferencesInfo>(
-      () => PreferencesInfoImpl(shared: sl()));
+  // FirebaseAnalyticsObserverInfo
+  sl.registerLazySingleton<FirebaseAnalyticsObserverInfo>(() => FirebaseAnalyticsObserverInfoImpl(analytics: sl()));
+  // PreferencesInfo
+  sl.registerLazySingleton<PreferencesInfo>(() => PreferencesInfoImpl(shared: sl()));
+}
 
-  // External
-  final sharedPreferences = await SharedPreferences.getInstance();
+Future<void> _external() async {
+  // SharedPreferences
+  final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
-  // TODO => Replace [androidId] with real app package name
+  // NewVersion
+  // TODO: Set androidId with app packages name in ps
   sl.registerLazySingleton<NewVersion>(() => NewVersion());
-  sl.registerLazySingleton<NDialog>(() => NDialog());
+  // Connectivity
   sl.registerLazySingleton<Connectivity>(() => Connectivity());
+  // ImagePicker
   sl.registerLazySingleton<ImagePicker>(() => ImagePicker());
+  // FilePicker
   sl.registerLazySingleton<FilePicker>(() => FilePicker.platform);
+  // FirebaseAnalytics
   sl.registerLazySingleton<FirebaseAnalytics>(() => FirebaseAnalytics.instance);
+  // HTTPClient
   sl.registerLazySingleton<Client>(() => Client());
+  // Web3Client
   sl.registerLazySingleton<Web3Client>(() => Web3Client(sl(), sl()));
+  // ImageCropper
   sl.registerLazySingleton<ImageCropper>(() => ImageCropper());
+  // Dio
   sl.registerLazySingleton<Dio>(() => Dio());
 }

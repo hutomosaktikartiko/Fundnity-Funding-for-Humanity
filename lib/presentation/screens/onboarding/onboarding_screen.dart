@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/preferences/preferences_info.dart';
-import '../../../injection_container.dart';
+import '../../../service_locator.dart';
 import 'widgets/bottom_widget.dart';
 import 'widgets/page_view_widget.dart';
 

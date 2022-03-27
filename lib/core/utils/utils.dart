@@ -6,7 +6,7 @@ import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../injection_container.dart';
+import '../../service_locator.dart';
 
 class Utils {
   static void hideKeyboard(BuildContext context) =>
