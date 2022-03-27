@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'shared/config/theme_config.dart';
 import 'core/observer/bloc_observer_info.dart';
-import 'service_locator.dart' as di;
 import 'presentation/cubit/cubits.dart';
 import 'presentation/screens/splash/splash_screen.dart';
+import 'service_locator.dart' as di;
+import 'shared/config/theme_config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +17,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   await Firebase.initializeApp();
-  
+
   await di.init();
 
   runApp(MyApp());
@@ -29,29 +29,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => di.sl<EthereumBalanceCubit>()),
-        BlocProvider(
-            create: (context) => di.sl<CampaignDeployedContractCubit>()),
-        BlocProvider(
-            create: (context) => di.sl<CrowdfundingDeployedContractCubit>()),
-        BlocProvider(create: (context) => di.sl<GetCampaignCubit>()),
-        BlocProvider(create: (context) => di.sl<Web3ClientCubit>()),
-        BlocProvider(create: (context) => di.sl<GetAllAddressCampaignsCubit>()),
-        BlocProvider(create: (context) => di.sl<WalletCubit>()),
-        BlocProvider(create: (context) => di.sl<ConnectionCheckerCubit>()),
-        BlocProvider(create: (context) => di.sl<SelectedOnboardingCubit>()),
-        BlocProvider(create: (context) => di.sl<AuthBodyCubit>()),
-        BlocProvider(create: (context) => di.sl<SelectedTransactionSpeedCubit>(),),
-        BlocProvider(create: (context) => di.sl<CreateCampaignProgressCubit>(),),
-        BlocProvider(create: (context) => di.sl<SelectedDateCubit>(),),
-        BlocProvider(create: (context) => di.sl<CreateCampaignDataCubit>(),),
-        BlocProvider(create: (context) => di.sl<SelectedImageCubit>(),),
-      ],
+      providers: _providers,
       child: MaterialApp(
         home: SplashScreen(),
-        theme: ThemeConfig.defaultTheme,
+        themeMode: ThemeMode.light,
+        theme: ThemeConfig.lightTheme,
+        // TODO: Add dark theme
       ),
     );
   }
 }
+
+List<BlocProvider> _providers = [
+  BlocProvider(create: (context) => di.sl<EthereumBalanceCubit>()),
+  BlocProvider(create: (context) => di.sl<CampaignDeployedContractCubit>()),
+  BlocProvider(create: (context) => di.sl<CrowdfundingDeployedContractCubit>()),
+  BlocProvider(create: (context) => di.sl<GetCampaignCubit>()),
+  BlocProvider(create: (context) => di.sl<Web3ClientCubit>()),
+  BlocProvider(create: (context) => di.sl<GetAllAddressCampaignsCubit>()),
+  BlocProvider(create: (context) => di.sl<WalletCubit>()),
+  BlocProvider(create: (context) => di.sl<ConnectionCheckerCubit>()),
+  BlocProvider(create: (context) => di.sl<SelectedOnboardingCubit>()),
+  BlocProvider(create: (context) => di.sl<AuthBodyCubit>()),
+  BlocProvider(create: (context) => di.sl<SelectedTransactionSpeedCubit>()),
+  BlocProvider(create: (context) => di.sl<CreateCampaignProgressCubit>()),
+  BlocProvider(create: (context) => di.sl<SelectedDateCubit>()),
+  BlocProvider(create: (context) => di.sl<CreateCampaignDataCubit>()),
+  BlocProvider(create: (context) => di.sl<SelectedImageCubit>()),
+];

@@ -4,7 +4,7 @@ import 'custom_color.dart';
 import 'custom_text_style.dart';
 
 class ThemeConfig {
-  static final ThemeData defaultTheme = ThemeData(
+  static final ThemeData lightTheme = ThemeData(
     fontFamily: "Poppins",
     appBarTheme: AppBarTheme(
       elevation: 0,
