@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../../core/config/custom_color.dart';
+import '../../../../../../../../shared/config/custom_color.dart';
 
 class Error extends StatelessWidget {
   const Error({Key? key}) : super(key: key);

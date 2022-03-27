@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/config/custom_text_style.dart';
 import '../../../../../data/models/mock_transaction_speed.dart';
+import '../../../../../shared/config/custom_text_style.dart';
 import 'states/loaded.dart';
 
 class TransactionSpeedWidget extends StatelessWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import '../../../../core/config/custom_color.dart';
-import '../../../../core/config/custom_text_style.dart';
-import '../../../../core/config/size_config.dart';
+import '../../../../shared/config/custom_color.dart';
+import '../../../../shared/config/custom_text_style.dart';
+import '../../../../shared/config/size_config.dart';
 
 class DetailDonationHeader extends StatelessWidget {
   const DetailDonationHeader({

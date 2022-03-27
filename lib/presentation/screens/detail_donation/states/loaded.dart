@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/config/custom_color.dart';
-import '../../../../core/config/size_config.dart';
 import '../../../../core/utils/screen_navigator.dart';
-import '../../../widgets/button/custom_button_label.dart';
+import '../../../../shared/config/custom_color.dart';
+import '../../../../shared/config/size_config.dart';
+import '../../../../shared/widgets/button/custom_button_label.dart';
 import '../../fill_donation_amount/fill_donation_amount_screen.dart';
 import '../widgets/detail_donation_body_widget.dart';
 import '../widgets/detail_donation_header.dart';

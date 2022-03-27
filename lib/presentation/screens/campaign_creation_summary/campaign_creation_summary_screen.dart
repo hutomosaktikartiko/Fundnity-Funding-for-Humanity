@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/config/custom_color.dart';
-import '../../../core/config/custom_text_style.dart';
-import '../../../core/config/size_config.dart';
+import '../../../shared/config/custom_color.dart';
+import '../../../shared/config/custom_text_style.dart';
+import '../../../shared/config/size_config.dart';
+import '../../../shared/widgets/button/custom_button_label.dart';
 import '../../cubit/cubits.dart';
-import '../../widgets/button/custom_button_label.dart';
 import 'widgets/description_widget.dart';
 import 'widgets/target_widget.dart';
 import 'widgets/title_widget.dart';

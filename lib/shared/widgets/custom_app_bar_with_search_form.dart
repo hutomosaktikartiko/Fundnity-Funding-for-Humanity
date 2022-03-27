@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../core/config/custom_color.dart';
-import '../../core/config/custom_text_style.dart';
-import '../screens/main/pages/donation/widgets/notification/notification_widget.dart';
+import '../../presentation/screens/main/pages/donation/widgets/notification/notification_widget.dart';
+import '../../shared/config/custom_color.dart';
+import '../../shared/config/custom_text_style.dart';
 
 class CustomAppBarWithSearchForm extends StatelessWidget {
   const CustomAppBarWithSearchForm({

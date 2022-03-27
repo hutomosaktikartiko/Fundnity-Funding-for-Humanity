@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../cubit/cubits.dart';
+import '../../presentation/cubit/cubits.dart';
 
 
 class ConnectionScreen extends StatelessWidget {

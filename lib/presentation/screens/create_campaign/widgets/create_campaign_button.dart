@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:crowdfunding/core/utils/screen_navigator.dart';
-import 'package:crowdfunding/presentation/screens/campaign_creation_summary/campaign_creation_summary_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/config/custom_color.dart';
+import '../../../../core/utils/screen_navigator.dart';
+import '../../../../shared/config/custom_color.dart';
+import '../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../cubit/cubits.dart';
-import '../../../widgets/button/custom_button_label.dart';
+import '../../campaign_creation_summary/campaign_creation_summary_screen.dart';
 
 class CreateCampaignButton extends StatelessWidget {
   const CreateCampaignButton({

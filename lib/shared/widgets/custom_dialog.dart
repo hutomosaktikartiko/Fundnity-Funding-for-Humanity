@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ndialog/ndialog.dart';
 
-import '../../core/config/custom_color.dart';
-import '../../core/config/custom_text_style.dart';
-import '../../core/config/size_config.dart';
+import '../../shared/config/custom_color.dart';
+import '../../shared/config/custom_text_style.dart';
+import '../../shared/config/size_config.dart';
 import '../../core/utils/screen_navigator.dart';
 import 'button/custom_button_label.dart';
 

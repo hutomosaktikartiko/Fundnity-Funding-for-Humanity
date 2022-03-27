@@ -46,5 +46,5 @@ app.*.map.json
 /android/app/release
 
 # Keys
-lib/core/config/keys_config.dart
-lib/core/config/urls_config.dart
+lib/shared/config/keys_config.dart
+lib/shared/config/urls_config.dart

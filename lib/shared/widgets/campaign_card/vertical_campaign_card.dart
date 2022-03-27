@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import '../../../core/config/custom_color.dart';
-import '../../../core/config/custom_text_style.dart';
 import '../../../core/utils/screen_navigator.dart';
-import '../../screens/detail_donation/detail_donation_screen.dart';
+import '../../../presentation/screens/detail_donation/detail_donation_screen.dart';
+import '../../../shared/config/custom_color.dart';
+import '../../../shared/config/custom_text_style.dart';
 import '../custom_box_shadow.dart';
 import '../show_image/show_image_network.dart';
 

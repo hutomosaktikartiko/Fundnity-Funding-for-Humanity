@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../../../../core/config/custom_color.dart';
-import '../../../../../../../core/config/custom_text_style.dart';
-import '../../../../../../../core/config/size_config.dart';
 import '../../../../../../../core/utils/screen_navigator.dart';
 import '../../../../../../../core/utils/utils.dart';
 import '../../../../../../../data/models/select_image_action_model.dart';
+import '../../../../../../../shared/config/custom_color.dart';
+import '../../../../../../../shared/config/custom_text_style.dart';
+import '../../../../../../../shared/config/size_config.dart';
+import '../../../../../../../shared/widgets/show_image/show_image_file.dart';
 import '../../../../../../cubit/cubits.dart';
-import '../../../../../../widgets/show_image/show_image_file.dart';
 import '../../../custom_text_description.dart';
 import '../../../custom_text_title.dart';
 

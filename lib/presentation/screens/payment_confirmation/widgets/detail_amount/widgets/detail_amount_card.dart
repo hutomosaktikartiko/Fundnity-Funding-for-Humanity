@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/config/custom_text_style.dart';
+import '../../../../../../shared/config/custom_text_style.dart';
 
 class DetailAmountCard extends StatelessWidget {
   final String title;

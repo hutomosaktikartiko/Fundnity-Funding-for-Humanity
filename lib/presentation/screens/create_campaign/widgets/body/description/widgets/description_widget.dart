@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../../core/config/custom_color.dart';
-import '../../../../../../../core/config/custom_text_style.dart';
+import '../../../../../../../shared/config/custom_color.dart';
+import '../../../../../../../shared/config/custom_text_style.dart';
+import '../../../../../../../shared/widgets/custom_text_field.dart';
 import '../../../../../../cubit/cubits.dart';
-import '../../../../../../widgets/custom_text_field.dart';
 import '../../../custom_text_title.dart';
 
 class DescriptionWidget extends StatefulWidget {

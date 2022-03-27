@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_version/new_version.dart';
 
 import '../../../../core/utils/preferences_info.dart';
-import '../../../../core/utils/update_info.dart';
 import '../../../../core/utils/screen_navigator.dart';
+import '../../../../core/utils/update_info.dart';
 import '../../../../service_locator.dart';
+import '../../../../shared/widgets/custom_dialog.dart';
 import '../../../cubit/cubits.dart';
-import '../../../widgets/custom_dialog.dart';
 import '../../auth/auth_screen.dart';
 import '../../onboarding/onboarding_screen.dart';
 import '../widgets/body.dart';

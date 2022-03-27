@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/config/custom_text_style.dart';
-import '../../../../core/config/size_config.dart';
 import '../../../../core/utils/screen_navigator.dart';
 import '../../../../data/models/onboarding_model.dart';
+import '../../../../shared/config/custom_text_style.dart';
+import '../../../../shared/config/size_config.dart';
+import '../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../cubit/cubits.dart';
-import '../../../widgets/button/custom_button_label.dart';
 import '../../auth/auth_screen.dart';
 import 'indicator_widget.dart';
 

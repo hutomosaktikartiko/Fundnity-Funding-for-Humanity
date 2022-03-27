@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../../core/config/custom_text_style.dart';
-import '../../../../../../../../core/config/size_config.dart';
-import '../../../../../../../widgets/widget_with_default_horizontal_padding.dart';
+import '../../../../../../../../shared/config/custom_text_style.dart';
+import '../../../../../../../../shared/config/size_config.dart';
+import '../../../../../../../../shared/widgets/widget_with_default_horizontal_padding.dart';
 import '../../view_all_widget.dart';
 import '../widgets/wallet_address_card.dart';
 

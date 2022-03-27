@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../../core/config/custom_color.dart';
-import '../../../../../../../../core/config/custom_text_style.dart';
-import '../../../../../../../../core/extension/string_parsing.dart';
-import '../../../../../../../widgets/custom_box_shadow.dart';
+import '../../../../../../../../shared/config/custom_color.dart';
+import '../../../../../../../../shared/config/custom_text_style.dart';
+import '../../../../../../../../shared/extension/string_parsing.dart';
+import '../../../../../../../../shared/widgets/custom_box_shadow.dart';
 
 class Loaded extends StatelessWidget {
   const Loaded({Key? key}) : super(key: key);

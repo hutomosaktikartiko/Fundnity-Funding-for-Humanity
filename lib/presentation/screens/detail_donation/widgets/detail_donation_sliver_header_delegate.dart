@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/config/size_config.dart';
 import '../../../../core/utils/screen_navigator.dart';
-import '../../../widgets/show_image/show_image_network.dart';
+import '../../../../shared/config/size_config.dart';
+import '../../../../shared/widgets/show_image/show_image_network.dart';
 
 class DetailDonationSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
   final double collapsedHeight, expandedHeight;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../shared/widgets/button/custom_button_label.dart';
+import '../../../../shared/widgets/custom_dialog.dart';
 import '../../../cubit/cubits.dart';
-import '../../../widgets/button/custom_button_label.dart';
-import '../../../widgets/custom_dialog.dart';
 import '../widgets/body.dart';
 
 class Error extends StatelessWidget {

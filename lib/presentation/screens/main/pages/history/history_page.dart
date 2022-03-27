@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../widgets/custom_app_bar_with_search_form.dart';
+import '../../../../../shared/widgets/custom_app_bar_with_search_form.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({Key? key}) : super(key: key);

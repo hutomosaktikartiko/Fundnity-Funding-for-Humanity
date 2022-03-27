@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 
-import '../../../../../../../core/config/keys_config.dart';
-import '../../../../../../../core/config/urls_config.dart';
+import '../../../../../../../shared/config/keys_config.dart';
+import '../../../../../../../shared/config/urls_config.dart';
 import '../../../../../../../service_locator.dart';
 import '../../../../../../cubit/cubits.dart';
 import 'states/loaded.dart';

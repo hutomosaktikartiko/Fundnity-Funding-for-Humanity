@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/config/custom_text_style.dart';
-import '../../../../core/config/size_config.dart';
-import '../../../widgets/user_address_card/user_address_horizontal_card.dart';
+import '../../../../shared/config/custom_text_style.dart';
+import '../../../../shared/config/size_config.dart';
+import '../../../../shared/widgets/user_address_card/user_address_horizontal_card.dart';
 
 
 class DetailDonationBody extends StatelessWidget {

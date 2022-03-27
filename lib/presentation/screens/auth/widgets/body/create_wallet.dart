@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ndialog/ndialog.dart';
 import 'package:web3dart/web3dart.dart';
 
-import '../../../../../core/config/custom_color.dart';
-import '../../../../../core/config/custom_text_style.dart';
 import '../../../../../core/utils/screen_navigator.dart';
 import '../../../../../data/models/return_value_model.dart';
+import '../../../../../shared/config/custom_color.dart';
+import '../../../../../shared/config/custom_text_style.dart';
+import '../../../../../shared/widgets/button/custom_button_label.dart';
+import '../../../../../shared/widgets/custom_dialog.dart';
+import '../../../../../shared/widgets/custom_text_field.dart';
 import '../../../../cubit/cubits.dart';
-import '../../../../widgets/button/custom_button_label.dart';
-import '../../../../widgets/custom_dialog.dart';
-import '../../../../widgets/custom_text_field.dart';
 import '../../../main/main_screen.dart';
 import '../custom_back_button.dart';
 import '../decription_text.dart';
@@ -53,7 +53,8 @@ class _CreateWalletState extends State<CreateWallet> {
         SizedBox(
           height: 10,
         ),
-        CustomButtonLabel(label: "Buat Wallet", onTap: _createWallet),Center(
+        CustomButtonLabel(label: "Buat Wallet", onTap: _createWallet),
+        Center(
           child: GestureDetector(
             onTap: () =>
                 context.read<AuthBodyCubit>().emit(AuthBodyImportWallet()),

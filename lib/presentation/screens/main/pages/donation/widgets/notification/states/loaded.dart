@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../../core/config/custom_color.dart';
-import '../../../../../../../widgets/icon_button_with_counter.dart';
+import '../../../../../../../../shared/config/custom_color.dart';
+import '../../../../../../../../shared/widgets/icon_button_with_counter.dart';
 
 class Loaded extends StatelessWidget {
   const Loaded({Key? key}) : super(key: key);

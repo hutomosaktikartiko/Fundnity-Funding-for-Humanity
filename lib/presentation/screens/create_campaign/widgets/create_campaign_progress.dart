@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/config/size_config.dart';
+import '../../../../shared/config/size_config.dart';
 import '../../../../data/models/create_campaign_progress_model.dart';
 import '../../../cubit/cubits.dart';
 import 'create_campaign_progress_item.dart';

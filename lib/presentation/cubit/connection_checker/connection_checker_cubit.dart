@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../core/config/label_config.dart';
+import '../../../shared/config/label_config.dart';
 
 part 'connection_checker_state.dart';
 

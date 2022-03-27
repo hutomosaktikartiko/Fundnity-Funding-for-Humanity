@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/config/size_config.dart';
+import '../../../../shared/config/size_config.dart';
 import '../../../../core/utils/screen_navigator.dart';
 import '../../create_campaign/create_campaign_screen.dart';
 import 'review_card.dart';

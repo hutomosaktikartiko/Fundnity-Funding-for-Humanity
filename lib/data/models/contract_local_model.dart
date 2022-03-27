@@ -1,5 +1,5 @@
-import '../../core/config/contract_config.dart';
-import '../../core/config/urls_config.dart';
+import '../../shared/config/contract_config.dart';
+import '../../shared/config/urls_config.dart';
 
 class ContractLocalModel {
   String name, address, path;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/config/custom_color.dart';
-import '../../../core/config/custom_text_style.dart';
-import '../../../core/config/size_config.dart';
-import '../../../core/extension/string_parsing.dart';
-import '../../widgets/button/custom_button_label.dart';
-import '../../widgets/show_image/show_image_network.dart';
+import '../../../shared/config/custom_color.dart';
+import '../../../shared/config/custom_text_style.dart';
+import '../../../shared/config/size_config.dart';
+import '../../../shared/extension/string_parsing.dart';
+import '../../../shared/widgets/button/custom_button_label.dart';
+import '../../../shared/widgets/show_image/show_image_network.dart';
 import 'widgets/detail_amount/detail_amount_widget.dart';
 import 'widgets/transaction_speed/transaction_speed_widget.dart';
 

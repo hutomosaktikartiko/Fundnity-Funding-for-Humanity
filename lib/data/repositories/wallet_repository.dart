@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:web3dart/web3dart.dart';
 
-import '../../core/config/label_config.dart';
+import '../../shared/config/label_config.dart';
 import '../../core/utils/network_info.dart';
 import '../datasources/locals/wallet_local_data_source.dart';
 import '../models/return_value_model.dart';

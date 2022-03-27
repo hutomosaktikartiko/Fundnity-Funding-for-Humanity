@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../data/models/tab_model.dart';
-import '../../widgets/custom_box_shadow.dart';
+import '../../../shared/widgets/custom_box_shadow.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);

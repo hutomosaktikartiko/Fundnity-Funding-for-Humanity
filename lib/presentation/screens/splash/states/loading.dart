@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../widgets/custom_dialog.dart';
+import '../../../../shared/widgets/custom_dialog.dart';
 import '../widgets/body.dart';
 
 class Loading extends StatelessWidget {

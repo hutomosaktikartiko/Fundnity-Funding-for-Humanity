@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../../core/config/custom_text_style.dart';
-import '../../../../../../../widgets/campaign_card/vertical_campaign_card.dart';
+import '../../../../../../../../shared/config/custom_text_style.dart';
+import '../../../../../../../../shared/widgets/campaign_card/vertical_campaign_card.dart';
 import '../../view_all_widget.dart';
 
 class Loaded extends StatelessWidget {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'core/config/theme_config.dart';
+import 'shared/config/theme_config.dart';
 import 'core/observer/bloc_observer_info.dart';
 import 'service_locator.dart' as di;
 import 'presentation/cubit/cubits.dart';

@@ -1,9 +1,9 @@
-import 'package:crowdfunding/core/config/custom_text_style.dart';
-import 'package:crowdfunding/presentation/widgets/show_image/show_image_local_logo.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/config/custom_color.dart';
-import '../../../../core/config/size_config.dart';
+import '../../../../shared/config/custom_color.dart';
+import '../../../../shared/config/custom_text_style.dart';
+import '../../../../shared/config/size_config.dart';
+import '../../../../shared/widgets/show_image/show_image_local_logo.dart';
 
 class Body extends StatelessWidget {
   const Body({

@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:crowdfunding/core/config/contract_config.dart';
-import 'package:crowdfunding/core/config/keys_config.dart';
-import 'package:crowdfunding/core/config/urls_config.dart';
+import 'package:crowdfunding/shared/config/contract_config.dart';
+import 'package:crowdfunding/shared/config/keys_config.dart';
+import 'package:crowdfunding/shared/config/urls_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';

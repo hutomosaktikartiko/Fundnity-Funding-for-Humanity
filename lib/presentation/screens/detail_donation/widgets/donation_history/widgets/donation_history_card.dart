@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/config/custom_color.dart';
-import '../../../../../../core/config/custom_text_style.dart';
-import '../../../../../../core/config/size_config.dart';
-import '../../../../../../core/extension/string_parsing.dart';
-import '../../../../../widgets/show_image/show_image_local.dart';
+import '../../../../../../shared/config/custom_color.dart';
+import '../../../../../../shared/config/custom_text_style.dart';
+import '../../../../../../shared/config/size_config.dart';
+import '../../../../../../shared/extension/string_parsing.dart';
+import '../../../../../../shared/widgets/show_image/show_image_local.dart';
 
 class DonationHistoryCard extends StatelessWidget {
   const DonationHistoryCard({

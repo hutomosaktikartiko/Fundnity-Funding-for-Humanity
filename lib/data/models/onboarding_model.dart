@@ -1,4 +1,4 @@
-import '../../core/config/label_config.dart';
+import '../../shared/config/label_config.dart';
 
 class OnboardingModel {
   int? id;

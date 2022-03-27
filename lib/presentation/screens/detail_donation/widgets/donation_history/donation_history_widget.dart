@@ -1,5 +1,5 @@
-import 'package:crowdfunding/core/config/custom_text_style.dart';
-import 'package:crowdfunding/core/config/size_config.dart';
+import 'package:crowdfunding/shared/config/custom_text_style.dart';
+import 'package:crowdfunding/shared/config/size_config.dart';
 import 'package:flutter/material.dart';
 
 import 'states/loaded.dart';

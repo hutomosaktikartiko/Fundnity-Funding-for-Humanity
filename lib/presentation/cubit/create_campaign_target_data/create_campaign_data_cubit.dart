@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../core/extension/date_time_parsing.dart';
+import '../../../shared/extension/date_time_parsing.dart';
 
 part 'create_campaign_data_state.dart';
 

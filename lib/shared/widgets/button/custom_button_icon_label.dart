@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/config/custom_color.dart';
-import '../../../core/config/custom_text_style.dart';
+import '../../../shared/config/custom_color.dart';
+import '../../../shared/config/custom_text_style.dart';
 import 'custom_button.dart';
 
 class CustomButtonLabelIconLabel extends StatelessWidget {

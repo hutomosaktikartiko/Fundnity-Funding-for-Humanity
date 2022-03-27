@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/config/custom_color.dart';
-import '../../../../core/config/custom_text_style.dart';
-import '../../../widgets/custom_box_shadow.dart';
+import '../../../../shared/config/custom_color.dart';
+import '../../../../shared/config/custom_text_style.dart';
+import '../../../../shared/widgets/custom_box_shadow.dart';
 
 class ReviewCard extends StatelessWidget {
   const ReviewCard({
