@@ -13,12 +13,12 @@ class ContractLocalModel {
 
 final ContractLocalModel crowdfundingContractLocal = ContractLocalModel(
   name: "Crowdfunding",
-  address: ContractConfig.crowdfunding,
+  address: ContractConfig.crowdfundingInfura,
   path: UrlsConfig.crowdfundingContractPath,
 );
 
 final ContractLocalModel campaignContractLocal = ContractLocalModel(
   name: "Campaign",
-  address: ContractConfig.crowdfunding,
+  address: ContractConfig.crowdfundingInfura,
   path: UrlsConfig.campaignContractPath,
 );

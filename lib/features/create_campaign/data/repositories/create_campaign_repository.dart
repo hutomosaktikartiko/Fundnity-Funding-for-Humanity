@@ -7,16 +7,16 @@ import '../../../../core/utils/network_info.dart';
 import '../../../../shared/config/label_config.dart';
 import '../datasources/create_campaign_remote_data_source.dart';
 import '../models/create_campaign_model.dart';
-
-typedef Future<String> _CreateCampaignRemoteDataSource();
+import '../models/ipfs_upload_model.dart';
 
 abstract class CreateCampaignRepository {
   Future<ReturnValueModel> createCampaign({
     required CreateCampaignModel campaign,
     required Web3Client web3Client,
     required DeployedContract contract,
+    required String walletPrivateKey,
   });
-  Future<ReturnValueModel> uploadImage({
+  Future<ReturnValueModel<IpfsUploadModel>> uploadImage({
     required File image,
   });
 }
@@ -31,15 +31,25 @@ class CreateCampaignRepositoryImpl implements CreateCampaignRepository {
   });
 
   @override
-  Future<ReturnValueModel> uploadImage({
+  Future<ReturnValueModel<IpfsUploadModel>> uploadImage({
     required File image,
   }) async {
-    return await _create(
-      createCampaignRemoteDataSource: () =>
-          createCampaignRemoteDataSource.uploadImage(
-        image: image,
-      ),
-    );
+    if (await networkInfo.isConnected) {
+      try {
+        final IpfsUploadModel result =
+            await createCampaignRemoteDataSource.uploadImage(image: image);
+
+        return ReturnValueModel(
+          isSuccess: true,
+          value: result,
+          message: "Berhasil mengupload gambar",
+        );
+      } catch (error) {
+        return ReturnValueModel(message: error.toString());
+      }
+    } else {
+      return ReturnValueModel(message: LabelConfig.noInternet);
+    }
   }
 
   @override
@@ -47,23 +57,17 @@ class CreateCampaignRepositoryImpl implements CreateCampaignRepository {
     required CreateCampaignModel campaign,
     required Web3Client web3Client,
     required DeployedContract contract,
+    required String walletPrivateKey,
   }) async {
-    return await _create(
-      createCampaignRemoteDataSource: () =>
-          createCampaignRemoteDataSource.createCampaign(
-        campaign: campaign,
-        web3Client: web3Client,
-        contract: contract,
-      ),
-    );
-  }
-
-  Future<ReturnValueModel> _create(
-      {required _CreateCampaignRemoteDataSource
-          createCampaignRemoteDataSource}) async {
     if (await networkInfo.isConnected) {
       try {
-        final String result = await createCampaignRemoteDataSource();
+        final String result =
+            await createCampaignRemoteDataSource.createCampaign(
+          campaign: campaign,
+          contract: contract,
+          web3Client: web3Client,
+          walletPrivateKey: walletPrivateKey,
+        );
 
         return ReturnValueModel(
           isSuccess: true,

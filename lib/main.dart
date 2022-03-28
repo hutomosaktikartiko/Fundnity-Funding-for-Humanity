@@ -1,4 +1,3 @@
-import 'package:crowdfunding/features/auth/presentation/screens/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +8,8 @@ import 'features/auth/presentation/cubit/auth_body/auth_body_cubit.dart';
 import 'features/auth/presentation/cubit/connection_checker/connection_checker_cubit.dart';
 import 'features/auth/presentation/cubit/selected_onboarding/selected_onboarding_cubit.dart';
 import 'features/auth/presentation/cubit/wallet/wallet_cubit.dart';
+import 'features/auth/presentation/screens/splash/splash_screen.dart';
+import 'features/create_campaign/presentation/cubit/create_campaign/create_campaign_cubit.dart';
 import 'features/create_campaign/presentation/cubit/create_campaign_progress/create_campaign_progress_cubit.dart';
 import 'features/create_campaign/presentation/cubit/create_campaign_target_data/create_campaign_data_cubit.dart';
 import 'features/create_campaign/presentation/cubit/selected_date/selected_date_cubit.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<SelectedDateCubit>()),
         BlocProvider(create: (context) => di.sl<CreateCampaignDataCubit>()),
         BlocProvider(create: (context) => di.sl<SelectedImageCubit>()),
+        BlocProvider(create: (context) => di.sl<CreateCampaignCubit>()),
       ],
       child: MaterialApp(
         home: SplashScreen(),

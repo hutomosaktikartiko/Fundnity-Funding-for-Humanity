@@ -10,6 +10,7 @@ import 'package:new_version/new_version.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web3dart/web3dart.dart';
 
+import 'core/error/interceptor_info.dart';
 import 'core/observer/firebase_analytics_observer_info.dart';
 import 'core/utils/network_info.dart';
 import 'core/utils/preferences_info.dart';
@@ -20,6 +21,9 @@ import 'features/auth/presentation/cubit/auth_body/auth_body_cubit.dart';
 import 'features/auth/presentation/cubit/connection_checker/connection_checker_cubit.dart';
 import 'features/auth/presentation/cubit/selected_onboarding/selected_onboarding_cubit.dart';
 import 'features/auth/presentation/cubit/wallet/wallet_cubit.dart';
+import 'features/create_campaign/data/datasources/create_campaign_remote_data_source.dart';
+import 'features/create_campaign/data/repositories/create_campaign_repository.dart';
+import 'features/create_campaign/presentation/cubit/create_campaign/create_campaign_cubit.dart';
 import 'features/create_campaign/presentation/cubit/create_campaign_progress/create_campaign_progress_cubit.dart';
 import 'features/create_campaign/presentation/cubit/create_campaign_target_data/create_campaign_data_cubit.dart';
 import 'features/create_campaign/presentation/cubit/selected_date/selected_date_cubit.dart';
@@ -75,6 +79,7 @@ Future<void> _cubit() async {
   sl.registerFactory(() => SelectedDateCubit());
   sl.registerFactory(() => CreateCampaignDataCubit());
   sl.registerFactory(() => SelectedImageCubit());
+  sl.registerFactory(() => CreateCampaignCubit(createCampaignRepository: sl()));
 }
 
 Future<void> _repository() async {
@@ -83,13 +88,15 @@ Future<void> _repository() async {
           deployedContractLocalDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<CampaignRepository>(() => CampaignRepositoryImpl(
       networkInfo: sl(), campaignRemoteDataSource: sl()));
-  sl.registerLazySingleton<AuthRepository>(() =>
-      AuthRepositoryImpl(networkInfo: sl(), authLocalDataSource: sl()));
+  sl.registerLazySingleton<AuthRepository>(
+      () => AuthRepositoryImpl(networkInfo: sl(), authLocalDataSource: sl()));
+  sl.registerLazySingleton<CreateCampaignRepository>(() => CreateCampaignRepositoryImpl(networkInfo: sl(), createCampaignRemoteDataSource: sl()));
 }
 
 Future<void> _remoteDataSource() async {
   sl.registerLazySingleton<CampaignRemoteDataSource>(
       () => CampaignRemoteDataSourceImpl(client: sl()));
+  sl.registerLazySingleton<CreateCampaignRemoteDataSource>(() => CreateCampaignRemoteDataSourceImpl(client: sl(), dio: sl()));
 }
 
 Future<void> _localDataSource() async {
@@ -136,5 +143,6 @@ Future<void> _external() async {
   // ImageCropper
   sl.registerLazySingleton<ImageCropper>(() => ImageCropper());
   // Dio
-  sl.registerLazySingleton<Dio>(() => Dio());
+  sl.registerLazySingleton<Dio>(
+      () => Dio()..interceptors.add(InterceptorInfo()));
 }
