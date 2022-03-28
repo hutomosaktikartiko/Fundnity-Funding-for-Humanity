@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/utils/screen_navigator.dart';
-import '../../../../../../data/models/onboarding_model.dart';
-import '../../../../../../presentation/cubit/selected_onboarding/selected_onboarding_cubit.dart';
 import '../../../../../../shared/config/custom_text_style.dart';
 import '../../../../../../shared/config/size_config.dart';
 import '../../../../../../shared/widgets/button/custom_button_label.dart';
+import '../../../../data/models/onboarding_model.dart';
+import '../../../cubit/selected_onboarding/selected_onboarding_cubit.dart';
 import '../../auth/auth_screen.dart';
 import 'indicator_widget.dart';
 

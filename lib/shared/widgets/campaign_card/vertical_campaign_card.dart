@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../../core/utils/screen_navigator.dart';
-import '../../../presentation/screens/detail_donation/detail_donation_screen.dart';
+import '../../../features/donation/presentation/screens/detail_donation/detail_donation_screen.dart';
 import '../../../shared/config/custom_color.dart';
 import '../../../shared/config/custom_text_style.dart';
 import '../custom_box_shadow.dart';
@@ -97,9 +97,7 @@ class VerticalCampaignCard extends StatelessWidget {
                       percent: 0.25,
                       lineHeight: 8,
                       barRadius: Radius.circular(3),
-                      padding: EdgeInsets.only(
-                        right: 5
-                      ),
+                      padding: EdgeInsets.only(right: 5),
                       trailing: Text(
                         "25%",
                         style: CustomTextStyle.green4TextStyle.copyWith(

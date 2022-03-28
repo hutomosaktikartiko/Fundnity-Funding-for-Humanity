@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../data/models/onboarding_model.dart';
+import '../../../../data/models/onboarding_model.dart';
 import '../../../cubit/selected_onboarding/selected_onboarding_cubit.dart';
 import 'page_view_item.dart';
 

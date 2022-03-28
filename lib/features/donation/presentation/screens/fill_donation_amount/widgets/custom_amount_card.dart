@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../shared/config/custom_color.dart';
 import '../../../../../../shared/config/custom_text_style.dart';
-import '../../../../../../data/models/donation_amount_model.dart';
+import '../../../../data/models/donation_amount_model.dart';
 import 'custom_container_with_border.dart';
 
 class CustomAmountCard extends StatelessWidget {

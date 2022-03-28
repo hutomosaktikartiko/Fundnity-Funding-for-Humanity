@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../presentation/cubit/cubits.dart';
-
+import '../../features/auth/presentation/cubit/connection_checker/connection_checker_cubit.dart';
 
 class ConnectionScreen extends StatelessWidget {
   /// Screen for listen the internet status [Connected] or [Disconnected]

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../data/models/create_campaign_progress_model.dart';
 import '../../../../../../shared/config/custom_color.dart';
+import '../../../../data/models/create_campaign_progress_model.dart';
 
 class CreateCampaignProgressItem extends StatelessWidget {
   const CreateCampaignProgressItem({

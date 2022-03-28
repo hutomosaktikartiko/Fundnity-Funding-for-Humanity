@@ -1,7 +1,7 @@
+import 'package:crowdfunding/features/create_campaign/presentation/screens/create_campaign/create_campaign_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../../../core/utils/screen_navigator.dart';
-import '../../../../../../../../presentation/screens/create_campaign/create_campaign_screen.dart';
 import '../../../../../../../../shared/config/custom_text_style.dart';
 import '../../../../../../../../shared/config/size_config.dart';
 import '../../../../../../../../shared/widgets/button/custom_button_label.dart';

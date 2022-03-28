@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../presentation/screens/main/pages/donation/widgets/notification/notification_widget.dart';
+import '../../features/main/presentation/screens/main/pages/donation/widgets/notification/notification_widget.dart';
 import '../../shared/config/custom_color.dart';
 import '../../shared/config/custom_text_style.dart';
 

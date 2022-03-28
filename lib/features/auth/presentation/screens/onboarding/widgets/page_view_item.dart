@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../shared/config/custom_text_style.dart';
 import '../../../../../../shared/config/size_config.dart';
-import '../../../../../../data/models/onboarding_model.dart';
+import '../../../../data/models/onboarding_model.dart';
 
 class PageViewItem extends StatelessWidget {
   const PageViewItem({

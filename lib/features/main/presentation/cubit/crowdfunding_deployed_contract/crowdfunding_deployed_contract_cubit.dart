@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:web3dart/web3dart.dart';
 
 import '../../../../../core/models/return_value_model.dart';
-import '../../../../../data/models/contract_local_model.dart';
+import '../../../data/models/contract_local_model.dart';
 import '../../../data/repositories/deployed_contract_repository.dart';
 
 part 'crowdfunding_deployed_contract_state.dart';

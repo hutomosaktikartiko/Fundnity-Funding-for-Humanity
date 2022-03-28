@@ -14,15 +14,26 @@ import 'core/observer/firebase_analytics_observer_info.dart';
 import 'core/utils/network_info.dart';
 import 'core/utils/preferences_info.dart';
 import 'core/utils/update_info.dart';
-import 'data/datasources/locals/deployed_contract_local_data_source.dart';
-import 'data/datasources/locals/wallet_local_data_source.dart';
-import 'data/datasources/remotes/campaign_remote_data_source.dart';
-import 'data/datasources/remotes/ethereum_remote_data_source.dart';
-import 'data/repositories/campaign_repository.dart';
-import 'data/repositories/deployed_contract_repository.dart';
-import 'data/repositories/ethereum_repository.dart';
-import 'data/repositories/wallet_repository.dart';
-import 'presentation/cubit/cubits.dart';
+import 'features/auth/data/datasources/auth_local_data_source.dart';
+import 'features/auth/data/repositories/auth_repository.dart';
+import 'features/auth/presentation/cubit/auth_body/auth_body_cubit.dart';
+import 'features/auth/presentation/cubit/connection_checker/connection_checker_cubit.dart';
+import 'features/auth/presentation/cubit/selected_onboarding/selected_onboarding_cubit.dart';
+import 'features/auth/presentation/cubit/wallet/wallet_cubit.dart';
+import 'features/create_campaign/presentation/cubit/create_campaign_progress/create_campaign_progress_cubit.dart';
+import 'features/create_campaign/presentation/cubit/create_campaign_target_data/create_campaign_data_cubit.dart';
+import 'features/create_campaign/presentation/cubit/selected_date/selected_date_cubit.dart';
+import 'features/create_campaign/presentation/cubit/selected_image/selected_image_cubit.dart';
+import 'features/donation/presentation/cubit/selected_transaction_speed/selected_transaction_speed_cubit.dart';
+import 'features/main/data/datasources/campaign_remote_data_source.dart';
+import 'features/main/data/datasources/deployed_contract_local_data_source.dart';
+import 'features/main/data/repositories/campaign_repository.dart';
+import 'features/main/data/repositories/deployed_contract_repository.dart';
+import 'features/main/presentation/cubit/campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
+import 'features/main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
+import 'features/main/presentation/cubit/get_all_address_campaigns/get_all_address_campaigns_cubit.dart';
+import 'features/main/presentation/cubit/get_campaign/get_campaign_cubit.dart';
+import 'features/main/presentation/cubit/web3client/web3client_cubit.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -47,13 +58,15 @@ Future<void> init() async {
 }
 
 Future<void> _cubit() async {
-  sl.registerFactory(() => EthereumBalanceCubit(ethereumRepository: sl()));
-  sl.registerFactory(() => CampaignDeployedContractCubit(deployedContractRepository: sl()));
+  sl.registerFactory(
+      () => CampaignDeployedContractCubit(deployedContractRepository: sl()));
   sl.registerFactory(() => GetCampaignCubit(campaignRepository: sl()));
-  sl.registerFactory(() => CrowdfundingDeployedContractCubit(deployedContractRepository: sl()));
+  sl.registerFactory(() =>
+      CrowdfundingDeployedContractCubit(deployedContractRepository: sl()));
   sl.registerFactory(() => Web3ClientCubit(client: sl()));
-  sl.registerFactory(() => GetAllAddressCampaignsCubit(campaignRepository: sl()));
-  sl.registerFactory(() => WalletCubit(walletRepository: sl()));
+  sl.registerFactory(
+      () => GetAllAddressCampaignsCubit(campaignRepository: sl()));
+  sl.registerFactory(() => WalletCubit(authRepository: sl()));
   sl.registerFactory(() => ConnectionCheckerCubit(connectivity: sl()));
   sl.registerFactory(() => SelectedOnboardingCubit());
   sl.registerFactory(() => AuthBodyCubit());
@@ -65,36 +78,45 @@ Future<void> _cubit() async {
 }
 
 Future<void> _repository() async {
-  sl.registerLazySingleton<EthereumRepository>(() => EthereumRepositoryImpl(ethereumRemoteDataSource: sl(), networkInfo: sl()));
-  sl.registerLazySingleton<DeployedContractRepository>(() => DeployedContractRepositoryImpl(deployedContractLocalDataSource: sl(), networkInfo: sl()));
-  sl.registerLazySingleton<CampaignRepository>(() => CampaignRepositoryImpl(networkInfo: sl(), campaignRemoteDataSource: sl()));
-  sl.registerLazySingleton<WalletRepository>(() => WalletRepositoryImpl(networkInfo: sl(), walletLocalDataSource: sl()));
+  sl.registerLazySingleton<DeployedContractRepository>(() =>
+      DeployedContractRepositoryImpl(
+          deployedContractLocalDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<CampaignRepository>(() => CampaignRepositoryImpl(
+      networkInfo: sl(), campaignRemoteDataSource: sl()));
+  sl.registerLazySingleton<AuthRepository>(() =>
+      AuthRepositoryImpl(networkInfo: sl(), authLocalDataSource: sl()));
 }
 
 Future<void> _remoteDataSource() async {
-  sl.registerLazySingleton<EthereumRemoteDataSource>(() => EthereumRemoteDataSourceImpl(web3client: sl()));
-  sl.registerLazySingleton<CampaignRemoteDataSource>(() => CampaignRemoteDataSourceImpl(client: sl()));
+  sl.registerLazySingleton<CampaignRemoteDataSource>(
+      () => CampaignRemoteDataSourceImpl(client: sl()));
 }
 
 Future<void> _localDataSource() async {
-  sl.registerLazySingleton<DeployedContractLocalDataSource>(() => DeplotedContractLocalDataSourceImpl());
-  sl.registerLazySingleton<WalletLocalDataSource>(() => WalletLocalDataSourceImpl(preferences: sl()));
+  sl.registerLazySingleton<DeployedContractLocalDataSource>(
+      () => DeplotedContractLocalDataSourceImpl());
+  sl.registerLazySingleton<AuthLocalDataSource>(
+      () => AuthLocalDataSourceImpl(preferences: sl()));
 }
 
 Future<void> _core() async {
   // NetworkInfo
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(connectivity: sl()));
+  sl.registerLazySingleton<NetworkInfo>(
+      () => NetworkInfoImpl(connectivity: sl()));
   // UpdateInfo
   sl.registerLazySingleton<UpdateInfo>(() => UpdateInfoImpl(newVersion: sl()));
   // FirebaseAnalyticsObserverInfo
-  sl.registerLazySingleton<FirebaseAnalyticsObserverInfo>(() => FirebaseAnalyticsObserverInfoImpl(analytics: sl()));
+  sl.registerLazySingleton<FirebaseAnalyticsObserverInfo>(
+      () => FirebaseAnalyticsObserverInfoImpl(analytics: sl()));
   // PreferencesInfo
-  sl.registerLazySingleton<PreferencesInfo>(() => PreferencesInfoImpl(shared: sl()));
+  sl.registerLazySingleton<PreferencesInfo>(
+      () => PreferencesInfoImpl(shared: sl()));
 }
 
 Future<void> _external() async {
   // SharedPreferences
-  final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  final SharedPreferences sharedPreferences =
+      await SharedPreferences.getInstance();
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
   // NewVersion
   // TODO: Set androidId with app packages name in ps

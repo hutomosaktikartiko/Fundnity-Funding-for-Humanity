@@ -5,12 +5,12 @@ import 'package:web3dart/web3dart.dart';
 
 import '../../../../../../../core/models/return_value_model.dart';
 import '../../../../../../../core/utils/screen_navigator.dart';
-import '../../../../../../../presentation/screens/main/main_screen.dart';
 import '../../../../../../../shared/config/custom_color.dart';
 import '../../../../../../../shared/config/custom_text_style.dart';
 import '../../../../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../../../shared/widgets/custom_text_field.dart';
+import '../../../../../../main/presentation/screens/main/main_screen.dart';
 import '../../../../cubit/auth_body/auth_body_cubit.dart';
 import '../../../../cubit/wallet/wallet_cubit.dart';
 import '../custom_back_button.dart';

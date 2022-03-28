@@ -1,11 +1,24 @@
+import 'package:crowdfunding/features/auth/presentation/screens/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/observer/bloc_observer_info.dart';
-import 'presentation/cubit/cubits.dart';
-import 'presentation/screens/splash/splash_screen.dart';
+import 'features/auth/presentation/cubit/auth_body/auth_body_cubit.dart';
+import 'features/auth/presentation/cubit/connection_checker/connection_checker_cubit.dart';
+import 'features/auth/presentation/cubit/selected_onboarding/selected_onboarding_cubit.dart';
+import 'features/auth/presentation/cubit/wallet/wallet_cubit.dart';
+import 'features/create_campaign/presentation/cubit/create_campaign_progress/create_campaign_progress_cubit.dart';
+import 'features/create_campaign/presentation/cubit/create_campaign_target_data/create_campaign_data_cubit.dart';
+import 'features/create_campaign/presentation/cubit/selected_date/selected_date_cubit.dart';
+import 'features/create_campaign/presentation/cubit/selected_image/selected_image_cubit.dart';
+import 'features/donation/presentation/cubit/selected_transaction_speed/selected_transaction_speed_cubit.dart';
+import 'features/main/presentation/cubit/campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
+import 'features/main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
+import 'features/main/presentation/cubit/get_all_address_campaigns/get_all_address_campaigns_cubit.dart';
+import 'features/main/presentation/cubit/get_campaign/get_campaign_cubit.dart';
+import 'features/main/presentation/cubit/web3client/web3client_cubit.dart';
 import 'service_locator.dart' as di;
 import 'shared/config/theme_config.dart';
 
@@ -29,7 +42,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: _providers,
+      providers: [
+        BlocProvider(
+            create: (context) => di.sl<CampaignDeployedContractCubit>()),
+        BlocProvider(
+            create: (context) => di.sl<CrowdfundingDeployedContractCubit>()),
+        BlocProvider(create: (context) => di.sl<GetCampaignCubit>()),
+        BlocProvider(create: (context) => di.sl<Web3ClientCubit>()),
+        BlocProvider(create: (context) => di.sl<GetAllAddressCampaignsCubit>()),
+        BlocProvider(create: (context) => di.sl<WalletCubit>()),
+        BlocProvider(create: (context) => di.sl<ConnectionCheckerCubit>()),
+        BlocProvider(create: (context) => di.sl<SelectedOnboardingCubit>()),
+        BlocProvider(create: (context) => di.sl<AuthBodyCubit>()),
+        BlocProvider(
+            create: (context) => di.sl<SelectedTransactionSpeedCubit>()),
+        BlocProvider(create: (context) => di.sl<CreateCampaignProgressCubit>()),
+        BlocProvider(create: (context) => di.sl<SelectedDateCubit>()),
+        BlocProvider(create: (context) => di.sl<CreateCampaignDataCubit>()),
+        BlocProvider(create: (context) => di.sl<SelectedImageCubit>()),
+      ],
       child: MaterialApp(
         home: SplashScreen(),
         themeMode: ThemeMode.light,
@@ -39,21 +70,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-List<BlocProvider> _providers = [
-  BlocProvider(create: (context) => di.sl<EthereumBalanceCubit>()),
-  BlocProvider(create: (context) => di.sl<CampaignDeployedContractCubit>()),
-  BlocProvider(create: (context) => di.sl<CrowdfundingDeployedContractCubit>()),
-  BlocProvider(create: (context) => di.sl<GetCampaignCubit>()),
-  BlocProvider(create: (context) => di.sl<Web3ClientCubit>()),
-  BlocProvider(create: (context) => di.sl<GetAllAddressCampaignsCubit>()),
-  BlocProvider(create: (context) => di.sl<WalletCubit>()),
-  BlocProvider(create: (context) => di.sl<ConnectionCheckerCubit>()),
-  BlocProvider(create: (context) => di.sl<SelectedOnboardingCubit>()),
-  BlocProvider(create: (context) => di.sl<AuthBodyCubit>()),
-  BlocProvider(create: (context) => di.sl<SelectedTransactionSpeedCubit>()),
-  BlocProvider(create: (context) => di.sl<CreateCampaignProgressCubit>()),
-  BlocProvider(create: (context) => di.sl<SelectedDateCubit>()),
-  BlocProvider(create: (context) => di.sl<CreateCampaignDataCubit>()),
-  BlocProvider(create: (context) => di.sl<SelectedImageCubit>()),
-];

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../data/models/create_campaign_progress_model.dart';
 import '../../../../../../shared/config/size_config.dart';
+import '../../../../data/models/create_campaign_progress_model.dart';
 import '../../../cubit/create_campaign_progress/create_campaign_progress_cubit.dart';
 import 'create_campaign_progress_item.dart';
 
@@ -11,7 +11,8 @@ class CreateCampaignProress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CreateCampaignProgressCubit, CreateCampaignProgressState>(
+    return BlocBuilder<CreateCampaignProgressCubit,
+        CreateCampaignProgressState>(
       builder: (context, state) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
