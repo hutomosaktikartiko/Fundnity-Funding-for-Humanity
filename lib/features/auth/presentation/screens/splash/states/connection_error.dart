@@ -6,8 +6,8 @@ import '../../../../../../shared/widgets/custom_dialog.dart';
 import '../../../cubit/connection_checker/connection_checker_cubit.dart';
 import '../widgets/body.dart';
 
-class Error extends StatelessWidget {
-  const Error({Key? key}) : super(key: key);
+class ConnectionError extends StatelessWidget {
+  const ConnectionError({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

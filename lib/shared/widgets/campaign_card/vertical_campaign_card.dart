@@ -3,17 +3,20 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../../core/utils/screen_navigator.dart';
 import '../../../features/donation/presentation/screens/detail_donation/detail_donation_screen.dart';
+import '../../../features/main/data/models/campaign_model.dart';
 import '../../../shared/config/custom_color.dart';
 import '../../../shared/config/custom_text_style.dart';
+import '../../config/urls_config.dart';
 import '../custom_box_shadow.dart';
 import '../show_image/show_image_network.dart';
 
 class VerticalCampaignCard extends StatelessWidget {
   const VerticalCampaignCard({
     Key? key,
+    required this.campaignModel,
   }) : super(key: key);
 
-  // TODO => Add parameter CampaignModel
+  final CampaignModel campaignModel;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,8 @@ class VerticalCampaignCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ShowImageNetwork(
-              imageUrl: "",
+              imageUrl:
+                  "https://${campaignModel.image}${UrlsConfig.infuraIPFSClient}",
               boxFit: BoxFit.cover,
               width: 80,
               height: 80,
@@ -47,7 +51,7 @@ class VerticalCampaignCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Help Avisa to Continue Her College Study on Stanford University",
+                      campaignModel.title ?? "-",
                       style: CustomTextStyle.gray2TextStyle.copyWith(
                         fontSize: 13,
                         fontWeight: FontWeight.bold,
@@ -62,7 +66,7 @@ class VerticalCampaignCard extends StatelessWidget {
                       TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                            text: "125 ETH",
+                            text: "${campaignModel.balance} ETH",
                             style: CustomTextStyle.green4TextStyle.copyWith(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -74,8 +78,9 @@ class VerticalCampaignCard extends StatelessWidget {
                               fontSize: 12,
                             ),
                           ),
+                          // TODO: calculate days left
                           TextSpan(
-                            text: " 15",
+                            text: " 10",
                             style: CustomTextStyle.green4TextStyle.copyWith(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -94,11 +99,13 @@ class VerticalCampaignCard extends StatelessWidget {
                       height: 5,
                     ),
                     LinearPercentIndicator(
+                      // TODO: calculate percent
                       percent: 0.25,
                       lineHeight: 8,
                       barRadius: Radius.circular(3),
                       padding: EdgeInsets.only(right: 5),
                       trailing: Text(
+                        // TODO: calculate percent
                         "25%",
                         style: CustomTextStyle.green4TextStyle.copyWith(
                           fontSize: 11,

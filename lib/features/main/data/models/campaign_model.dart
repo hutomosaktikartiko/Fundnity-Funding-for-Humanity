@@ -64,17 +64,18 @@ class CampaignModel {
   });
 
   factory CampaignModel.fromJson(List<dynamic> list) {
+    print("list: $list");
     return CampaignModel(
       image: list[0],
       title: list[1],
       description: list[2],
       balance: list[3],
       target: list[4],
-      startDate: list[5],
-      endDate: list[6],
-      isComplete: list[7],
-      creatorAddress: list[8],
-      contributors: list[9],
+      // startDate: list[5],
+      // endDate: list[6],
+      isComplete: list[5],
+      creatorAddress: list[6],
+      contributors: (list[7] as List<dynamic>).cast<EthereumAddress>(),
     );
   }
 }

@@ -16,8 +16,8 @@ class CampaignDeployedContractCubit
 
   final DeployedContractRepository deployedContractRepository;
 
-  Future<ReturnValueModel<bool>> getDeployedContract({
-    required String address,
+  Future<ReturnValueModel<DeployedContract>> getDeployedContract({
+    required dynamic address,
   }) async {
     final ReturnValueModel<DeployedContract> result =
         await deployedContractRepository.getDeployedContract(
@@ -32,9 +32,6 @@ class CampaignDeployedContractCubit
       emit(CampaignDeployedContractLoadingFailure(message: result.message));
     }
 
-    return ReturnValueModel(
-      isSuccess: result.isSuccess,
-      message: result.message,
-    );
+    return result;
   }
 }

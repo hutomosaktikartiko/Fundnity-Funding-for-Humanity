@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../../../shared/widgets/custom_dialog.dart';
 import '../widgets/body.dart';
 
-class Loading extends StatelessWidget {
-  const Loading({Key? key}) : super(key: key);
+class ConnectionLoading extends StatelessWidget {
+  const ConnectionLoading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

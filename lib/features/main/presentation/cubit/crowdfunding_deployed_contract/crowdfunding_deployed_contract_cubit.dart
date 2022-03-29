@@ -22,7 +22,7 @@ class CrowdfundingDeployedContractCubit
     final ReturnValueModel<DeployedContract> result =
         await deployedContractRepository.getDeployedContract(
       contractName: crowdfundingContractLocal.name,
-      contractAddress: crowdfundingContractLocal.address,
+      contractAddress: EthereumAddress.fromHex(crowdfundingContractLocal.address),
       contractLocalUrl: crowdfundingContractLocal.path,
     );
 

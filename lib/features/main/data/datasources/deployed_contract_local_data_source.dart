@@ -3,7 +3,7 @@ import 'package:web3dart/web3dart.dart';
 
 abstract class DeployedContractLocalDataSource {
   Future<DeployedContract> getDeployedContract({
-    required String contractAddress,
+    required dynamic contractAddress,
     required String contractLocalUrl,
     required String contractName,
   });
@@ -13,7 +13,7 @@ class DeplotedContractLocalDataSourceImpl
     implements DeployedContractLocalDataSource {
   @override
   Future<DeployedContract> getDeployedContract({
-    required String contractAddress,
+    required dynamic contractAddress,
     required String contractLocalUrl,
     required String contractName,
   }) async {
@@ -21,7 +21,7 @@ class DeplotedContractLocalDataSourceImpl
       final String fileAbi = await rootBundle.loadString(contractLocalUrl);
       final DeployedContract contract = DeployedContract(
         ContractAbi.fromJson(fileAbi, contractName),
-        EthereumAddress.fromHex(contractAddress),
+        contractAddress,
       );
       
       return contract;

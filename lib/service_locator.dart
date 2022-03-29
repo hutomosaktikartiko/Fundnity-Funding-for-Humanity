@@ -33,7 +33,9 @@ import 'features/main/data/datasources/campaign_remote_data_source.dart';
 import 'features/main/data/datasources/deployed_contract_local_data_source.dart';
 import 'features/main/data/repositories/campaign_repository.dart';
 import 'features/main/data/repositories/deployed_contract_repository.dart';
+import 'features/main/presentation/cubit/all_campaigns/all_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
+import 'features/main/presentation/cubit/campaigns/campaigns_cubit.dart';
 import 'features/main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
 import 'features/main/presentation/cubit/get_all_address_campaigns/get_all_address_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/get_campaign/get_campaign_cubit.dart';
@@ -80,6 +82,9 @@ Future<void> _cubit() async {
   sl.registerFactory(() => CreateCampaignDataCubit());
   sl.registerFactory(() => SelectedImageCubit());
   sl.registerFactory(() => CreateCampaignCubit(createCampaignRepository: sl()));
+  sl.registerFactory(() => CampaignsCubit(
+      campaignRepository: sl(), campaignDeployedContractCubit: sl()));
+  sl.registerFactory(() => AllCampaignsCubit());
 }
 
 Future<void> _repository() async {
@@ -90,13 +95,16 @@ Future<void> _repository() async {
       networkInfo: sl(), campaignRemoteDataSource: sl()));
   sl.registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(networkInfo: sl(), authLocalDataSource: sl()));
-  sl.registerLazySingleton<CreateCampaignRepository>(() => CreateCampaignRepositoryImpl(networkInfo: sl(), createCampaignRemoteDataSource: sl()));
+  sl.registerLazySingleton<CreateCampaignRepository>(() =>
+      CreateCampaignRepositoryImpl(
+          networkInfo: sl(), createCampaignRemoteDataSource: sl()));
 }
 
 Future<void> _remoteDataSource() async {
   sl.registerLazySingleton<CampaignRemoteDataSource>(
       () => CampaignRemoteDataSourceImpl(client: sl()));
-  sl.registerLazySingleton<CreateCampaignRemoteDataSource>(() => CreateCampaignRemoteDataSourceImpl(client: sl(), dio: sl()));
+  sl.registerLazySingleton<CreateCampaignRemoteDataSource>(
+      () => CreateCampaignRemoteDataSourceImpl(client: sl(), dio: sl()));
 }
 
 Future<void> _localDataSource() async {

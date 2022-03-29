@@ -8,7 +8,7 @@ import '../datasources/deployed_contract_local_data_source.dart';
 abstract class DeployedContractRepository {
   Future<ReturnValueModel<DeployedContract>> getDeployedContract({
     required String contractName,
-    required String contractAddress,
+    required dynamic contractAddress,
     required String contractLocalUrl,
   });
 }
@@ -25,7 +25,7 @@ class DeployedContractRepositoryImpl implements DeployedContractRepository {
   @override
   Future<ReturnValueModel<DeployedContract>> getDeployedContract({
     required String contractName,
-    required String contractAddress,
+    required dynamic contractAddress,
     required String contractLocalUrl,
   }) async {
     if (await networkInfo.isConnected) {
