@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:web3dart/web3dart.dart';
 
-import '../../../../service_locator.dart';
 import '../../../../shared/config/keys_config.dart';
 import '../../../../shared/config/urls_config.dart';
 import '../models/create_campaign_model.dart';
@@ -40,7 +39,7 @@ class CreateCampaignRemoteDataSourceImpl
     required String walletPrivateKey,
   }) async {
     try {
-      final result = await web3Client.sendTransaction(
+      final String result = await web3Client.sendTransaction(
         EthPrivateKey.fromHex(walletPrivateKey),
         Transaction.callContract(
           contract: contract,
@@ -52,9 +51,9 @@ class CreateCampaignRemoteDataSourceImpl
             campaign.target,
             campaign.endDate
           ],
-          maxGas: 500000,
+          maxGas: 1500000,
         ),
-        chainId: 3,
+        chainId: 4,
       );
 
       print("========= SUCCESS CREATE CAMPAIGN ========");

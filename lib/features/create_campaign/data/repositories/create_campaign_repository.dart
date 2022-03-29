@@ -71,7 +71,7 @@ class CreateCampaignRepositoryImpl implements CreateCampaignRepository {
 
         return ReturnValueModel(
           isSuccess: true,
-          value: result,
+          message: result,
         );
       } catch (error) {
         return ReturnValueModel(message: error.toString());

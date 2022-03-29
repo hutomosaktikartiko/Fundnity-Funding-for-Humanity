@@ -5,6 +5,7 @@ import 'package:ndialog/ndialog.dart';
 import 'package:web3dart/web3dart.dart';
 
 import '../../../../../core/models/return_value_model.dart';
+import '../../../../../core/utils/screen_navigator.dart';
 import '../../../../../service_locator.dart';
 import '../../../../../shared/config/custom_color.dart';
 import '../../../../../shared/config/custom_text_style.dart';
@@ -152,7 +153,8 @@ class CampaignCreationSummary extends StatelessWidget {
                     image: resultUploadImage.value?.hash ?? "-",
                   ),
                   web3Client: Web3Client(
-                    UrlsConfig.infuraRinkbeyProvider + "5bf41bf60c47497984cbef6afe7bbc11",
+                    UrlsConfig.infuraRinkbeyProvider +
+                        KeysConfig.infuraEthereumProjectId,
                     sl<Client>(),
                   ),
                   contract: (context
@@ -161,11 +163,16 @@ class CampaignCreationSummary extends StatelessWidget {
                       .deployedContract,
                 );
 
-        print(resultCreateCampaign.message);
+        // Dimiss progressDialog
+        progressDialog.dismiss();
 
         // Check createCampaign is success
         if (resultCreateCampaign.isSuccess) {
           // createCampaign success
+          // Close CampaignCreationSummaryScreen
+          ScreenNavigator.closeScreen(context);
+          // Close CreateCampaignScreen
+          ScreenNavigator.closeScreen(context);
           // showToast success createCampaign
           CustomDialog.showToast(
             message: resultCreateCampaign.message,
@@ -183,6 +190,8 @@ class CampaignCreationSummary extends StatelessWidget {
         }
       } else {
         // uploadImage failed
+        // Dimiss progressDialog
+        progressDialog.dismiss();
         // showToast failed uploadImage
         CustomDialog.showToast(
           message: resultUploadImage.message,
@@ -190,9 +199,6 @@ class CampaignCreationSummary extends StatelessWidget {
           backgroundColor: UniversalColor.red,
         );
       }
-
-      // Dimiss progressDialog
-      progressDialog.dismiss();
     } else {
       // Image is null
       // showToast failed uploadImage
