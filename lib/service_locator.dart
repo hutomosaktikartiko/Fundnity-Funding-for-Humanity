@@ -29,10 +29,13 @@ import 'features/create_campaign/presentation/cubit/create_campaign_target_data/
 import 'features/create_campaign/presentation/cubit/selected_date/selected_date_cubit.dart';
 import 'features/create_campaign/presentation/cubit/selected_image/selected_image_cubit.dart';
 import 'features/donation/presentation/cubit/selected_transaction_speed/selected_transaction_speed_cubit.dart';
+import 'features/main/data/datasources/account_remote_data_balance.dart';
 import 'features/main/data/datasources/campaign_remote_data_source.dart';
 import 'features/main/data/datasources/deployed_contract_local_data_source.dart';
+import 'features/main/data/repositories/account_repository.dart';
 import 'features/main/data/repositories/campaign_repository.dart';
 import 'features/main/data/repositories/deployed_contract_repository.dart';
+import 'features/main/presentation/cubit/account_balance/account_balance_cubit.dart';
 import 'features/main/presentation/cubit/all_campaigns/all_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/campaign_by_wallet_addresses/campaign_by_wallet_addresses_cubit.dart';
 import 'features/main/presentation/cubit/campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
@@ -119,7 +122,7 @@ Future<void> _donation() async {
   // Datasource
 
   // Repository
-  
+
   // Cubit
   sl.registerFactory(() => SelectedTransactionSpeedCubit());
 }
@@ -130,10 +133,12 @@ Future<void> _main() async {
   // Datasources
   sl.registerLazySingleton<CampaignRemoteDataSource>(
       () => CampaignRemoteDataSourceImpl(client: sl()));
+    sl.registerLazySingleton<AccountRemoteDataSource>(() => AccountRemoteDataSourceImpl());
 
   // Repositories
   sl.registerLazySingleton<CampaignRepository>(() => CampaignRepositoryImpl(
       networkInfo: sl(), campaignRemoteDataSource: sl()));
+  sl.registerLazySingleton<AccountRepository>(() => AccountRepositoryImpl(networkInfo: sl(), accountRemoteDataSource: sl()));
 
   // Cubit
   sl.registerFactory(
@@ -143,6 +148,7 @@ Future<void> _main() async {
       campaignRepository: sl(), campaignDeployedContractCubit: sl()));
   sl.registerFactory(() => AllCampaignsCubit());
   sl.registerFactory(() => CampaignByWalletAddressesCubit());
+  sl.registerFactory(() => AccountBalanceCubit(accountRepository: sl()));
 }
 
 Future<void> _notification() async {
