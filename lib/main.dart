@@ -19,7 +19,6 @@ import 'features/main/presentation/cubit/all_campaigns/all_campaigns_cubit.dart'
 import 'features/main/presentation/cubit/campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
 import 'features/main/presentation/cubit/campaigns/campaigns_cubit.dart';
 import 'features/main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
-import 'features/main/presentation/cubit/get_all_address_campaigns/get_all_address_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/web3client/web3client_cubit.dart';
 import 'service_locator.dart' as di;
 import 'shared/config/theme_config.dart';
@@ -50,7 +49,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => di.sl<CrowdfundingDeployedContractCubit>()),
         BlocProvider(create: (context) => di.sl<Web3ClientCubit>()),
-        BlocProvider(create: (context) => di.sl<GetAllAddressCampaignsCubit>()),
         BlocProvider(create: (context) => di.sl<WalletCubit>()),
         BlocProvider(create: (context) => di.sl<ConnectionCheckerCubit>()),
         BlocProvider(create: (context) => di.sl<SelectedOnboardingCubit>()),
