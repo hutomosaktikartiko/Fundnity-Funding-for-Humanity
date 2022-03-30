@@ -42,17 +42,29 @@ import 'features/main/presentation/cubit/web3client/web3client_cubit.dart';
 final GetIt sl = GetIt.instance;
 
 Future<void> init() async {
-  // Cubit
-  await _cubit();
+  // Auth
+  await _auth();
 
-  // Repositories
-  await _repository();
+  // Create Campaign
+  await _createCampaign();
 
-  // Datasources Remote
-  await _remoteDataSource();
+  // Donation
+  await _donation();
 
-  // Datasources Local
-  await _localDataSource();
+  // Favorite Donation
+  await _favoriteDonation();
+
+  // Main
+  await _main();
+
+  // Notification
+  await _notification();
+
+  // Search Donation
+  await _searchDonation();
+
+  // Settings
+  await _settings();
 
   // Core
   await _core();
@@ -61,52 +73,92 @@ Future<void> init() async {
   await _external();
 }
 
-Future<void> _cubit() async {
-  sl.registerFactory(
-      () => CampaignDeployedContractCubit(deployedContractRepository: sl()));
+Future<void> _auth() async {
+  // Datasources
+  sl.registerLazySingleton<AuthLocalDataSource>(
+      () => AuthLocalDataSourceImpl(preferences: sl()));
+  sl.registerLazySingleton<DeployedContractLocalDataSource>(
+      () => DeplotedContractLocalDataSourceImpl());
+
+  // Repository
+  sl.registerLazySingleton<AuthRepository>(
+      () => AuthRepositoryImpl(networkInfo: sl(), authLocalDataSource: sl()));
+  sl.registerLazySingleton<DeployedContractRepository>(() =>
+      DeployedContractRepositoryImpl(
+          deployedContractLocalDataSource: sl(), networkInfo: sl()));
+
+  // Cubit
   sl.registerFactory(() =>
       CrowdfundingDeployedContractCubit(deployedContractRepository: sl()));
-  sl.registerFactory(() => Web3ClientCubit(client: sl()));
   sl.registerFactory(() => WalletCubit(authRepository: sl()));
-  sl.registerFactory(() => ConnectionCheckerCubit(connectivity: sl()));
-  sl.registerFactory(() => SelectedOnboardingCubit());
   sl.registerFactory(() => AuthBodyCubit());
-  sl.registerFactory(() => SelectedTransactionSpeedCubit());
+  sl.registerFactory(() => SelectedOnboardingCubit());
+  sl.registerFactory(() => ConnectionCheckerCubit(connectivity: sl()));
+}
+
+Future<void> _createCampaign() async {
+  // Datasources
+  sl.registerLazySingleton<CreateCampaignRemoteDataSource>(
+      () => CreateCampaignRemoteDataSourceImpl(client: sl(), dio: sl()));
+
+  // Repository
+  sl.registerLazySingleton<CreateCampaignRepository>(() =>
+      CreateCampaignRepositoryImpl(
+          networkInfo: sl(), createCampaignRemoteDataSource: sl()));
+
+  // Cubit
   sl.registerFactory(() => CreateCampaignProgressCubit());
   sl.registerFactory(() => SelectedDateCubit());
   sl.registerFactory(() => CreateCampaignDataCubit());
   sl.registerFactory(() => SelectedImageCubit());
   sl.registerFactory(() => CreateCampaignCubit(createCampaignRepository: sl()));
+}
+
+Future<void> _donation() async {
+  // Datasource
+
+  // Repository
+  
+  // Cubit
+  sl.registerFactory(() => SelectedTransactionSpeedCubit());
+}
+
+Future<void> _favoriteDonation() async {}
+
+Future<void> _main() async {
+  // Datasources
+  sl.registerLazySingleton<CampaignRemoteDataSource>(
+      () => CampaignRemoteDataSourceImpl(client: sl()));
+
+  // Repositories
+  sl.registerLazySingleton<CampaignRepository>(() => CampaignRepositoryImpl(
+      networkInfo: sl(), campaignRemoteDataSource: sl()));
+
+  // Cubit
+  sl.registerFactory(
+      () => CampaignDeployedContractCubit(deployedContractRepository: sl()));
+  sl.registerFactory(() => Web3ClientCubit(client: sl()));
   sl.registerFactory(() => CampaignsCubit(
       campaignRepository: sl(), campaignDeployedContractCubit: sl()));
   sl.registerFactory(() => AllCampaignsCubit());
 }
 
-Future<void> _repository() async {
-  sl.registerLazySingleton<DeployedContractRepository>(() =>
-      DeployedContractRepositoryImpl(
-          deployedContractLocalDataSource: sl(), networkInfo: sl()));
-  sl.registerLazySingleton<CampaignRepository>(() => CampaignRepositoryImpl(
-      networkInfo: sl(), campaignRemoteDataSource: sl()));
-  sl.registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(networkInfo: sl(), authLocalDataSource: sl()));
-  sl.registerLazySingleton<CreateCampaignRepository>(() =>
-      CreateCampaignRepositoryImpl(
-          networkInfo: sl(), createCampaignRemoteDataSource: sl()));
+Future<void> _notification() async {
+  // Datasources
+  // Repository
+  // Cubit
 }
 
-Future<void> _remoteDataSource() async {
-  sl.registerLazySingleton<CampaignRemoteDataSource>(
-      () => CampaignRemoteDataSourceImpl(client: sl()));
-  sl.registerLazySingleton<CreateCampaignRemoteDataSource>(
-      () => CreateCampaignRemoteDataSourceImpl(client: sl(), dio: sl()));
+Future<void> _searchDonation() async {
+  // Datasources
+  // Repository
+  // Cubit
 }
 
-Future<void> _localDataSource() async {
-  sl.registerLazySingleton<DeployedContractLocalDataSource>(
-      () => DeplotedContractLocalDataSourceImpl());
-  sl.registerLazySingleton<AuthLocalDataSource>(
-      () => AuthLocalDataSourceImpl(preferences: sl()));
+Future<void> _settings() async {
+  // Datasources
+  // Repository
+  // Cubit
 }
 
 Future<void> _core() async {
