@@ -38,7 +38,6 @@ import 'features/main/presentation/cubit/campaign_deployed_contract/campaign_dep
 import 'features/main/presentation/cubit/campaigns/campaigns_cubit.dart';
 import 'features/main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
 import 'features/main/presentation/cubit/get_all_address_campaigns/get_all_address_campaigns_cubit.dart';
-import 'features/main/presentation/cubit/get_campaign/get_campaign_cubit.dart';
 import 'features/main/presentation/cubit/web3client/web3client_cubit.dart';
 
 final GetIt sl = GetIt.instance;
@@ -66,7 +65,6 @@ Future<void> init() async {
 Future<void> _cubit() async {
   sl.registerFactory(
       () => CampaignDeployedContractCubit(deployedContractRepository: sl()));
-  sl.registerFactory(() => GetCampaignCubit(campaignRepository: sl()));
   sl.registerFactory(() =>
       CrowdfundingDeployedContractCubit(deployedContractRepository: sl()));
   sl.registerFactory(() => Web3ClientCubit(client: sl()));
