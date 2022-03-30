@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web3dart/web3dart.dart';
 
 import '../../../../../../../../../../shared/config/custom_text_style.dart';
 import '../../../../../../../../../../shared/config/size_config.dart';
@@ -7,7 +8,12 @@ import '../../view_all_widget.dart';
 import '../widgets/wallet_address_card.dart';
 
 class Loaded extends StatelessWidget {
-  const Loaded({Key? key}) : super(key: key);
+  const Loaded({
+    Key? key,
+    required this.addresses,
+  }) : super(key: key);
+
+  final List<EthereumAddress?> addresses;
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +41,10 @@ class Loaded extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Row(
-            children: [0, 1, 2, 3, 4, 5]
+            children: addresses
                 .asMap()
                 .map(
-                  (key, value) => MapEntry(
+                  (key, address) => MapEntry(
                     key,
                     Padding(
                       padding: EdgeInsets.only(
@@ -47,7 +53,9 @@ class Loaded extends StatelessWidget {
                       ),
                       child: GestureDetector(
                         onTap: _openAllCampaignsByWalletAddressScreen,
-                        child: WalletAddressCard(),
+                        child: WalletAddressCard(
+                          address: address,
+                        ),
                       ),
                     ),
                   ),

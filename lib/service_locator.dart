@@ -34,6 +34,7 @@ import 'features/main/data/datasources/deployed_contract_local_data_source.dart'
 import 'features/main/data/repositories/campaign_repository.dart';
 import 'features/main/data/repositories/deployed_contract_repository.dart';
 import 'features/main/presentation/cubit/all_campaigns/all_campaigns_cubit.dart';
+import 'features/main/presentation/cubit/campaign_by_wallet_addresses/campaign_by_wallet_addresses_cubit.dart';
 import 'features/main/presentation/cubit/campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
 import 'features/main/presentation/cubit/campaigns/campaigns_cubit.dart';
 import 'features/main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
@@ -141,6 +142,7 @@ Future<void> _main() async {
   sl.registerFactory(() => CampaignsCubit(
       campaignRepository: sl(), campaignDeployedContractCubit: sl()));
   sl.registerFactory(() => AllCampaignsCubit());
+  sl.registerFactory(() => CampaignByWalletAddressesCubit());
 }
 
 Future<void> _notification() async {
