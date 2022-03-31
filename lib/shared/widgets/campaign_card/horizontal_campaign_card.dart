@@ -35,7 +35,7 @@ class HorizontalCampaignCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ShowImageNetwork(
-              imageUrl: campaign.image?.stringHashImageToImageUrl() ?? "",
+              imageUrl: campaign.image.stringHashImageToImageUrl(),
               boxFit: BoxFit.cover,
               height: 150,
               width: SizeConfig.screenWidth,

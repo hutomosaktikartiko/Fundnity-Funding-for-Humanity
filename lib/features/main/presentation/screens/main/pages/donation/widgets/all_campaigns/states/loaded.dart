@@ -33,10 +33,10 @@ class Loaded extends StatelessWidget {
             ),
           ],
         ),
-        ...campaigns
+        ...((campaigns.length > 5) ? campaigns.sublist(0, 5) : campaigns)
             .asMap()
             .map(
-              (key, value) => MapEntry(
+              (key, campaign) => MapEntry(
                 key,
                 Padding(
                   padding: EdgeInsets.only(
@@ -44,7 +44,7 @@ class Loaded extends StatelessWidget {
                     bottom: 10,
                   ),
                   child: VerticalCampaignCard(
-                    campaignModel: value,
+                    campaign: campaign,
                   ),
                 ),
               ),

@@ -39,7 +39,7 @@ class Loaded extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Row(
-            children: campaigns
+            children: ((campaigns.length > 5) ? campaigns.sublist(0, 5) : campaigns)
                 .asMap()
                 .map(
                   (key, campaign) => MapEntry(

@@ -14,6 +14,7 @@ class AllCampaignsCubit extends Cubit<AllCampaignsState> {
     if (campaigns.length < 1) {
       emit(AllCampaignsEmpty());
     } else {
+      // TODO: Implement reverse list
       emit(AllCampaignsLoaded(campaigns: campaigns));
     }
   }
