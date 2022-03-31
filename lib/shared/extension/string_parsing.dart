@@ -1,3 +1,5 @@
+import '../config/urls_config.dart';
+
 extension StringParsing on String? {
   String walletAddressSplit() {
     if (this != null && (this?.length ?? 0) > 0) {
@@ -8,5 +10,10 @@ extension StringParsing on String? {
     } else {
       return "wallet address not found";
     }
+  }
+
+  String stringHashImageToImageUrl() {
+    if (this == null) return "";
+    return "https://$this" + UrlsConfig.infuraIPFSClient;
   }
 }

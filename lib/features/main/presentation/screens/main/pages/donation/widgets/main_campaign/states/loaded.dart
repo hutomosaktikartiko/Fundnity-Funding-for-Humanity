@@ -4,10 +4,16 @@ import '../../../../../../../../../../shared/config/custom_text_style.dart';
 import '../../../../../../../../../../shared/config/size_config.dart';
 import '../../../../../../../../../../shared/widgets/campaign_card/horizontal_campaign_card.dart';
 import '../../../../../../../../../../shared/widgets/widget_with_default_horizontal_padding.dart';
+import '../../../../../../../../data/models/campaign_model.dart';
 import '../../view_all_widget.dart';
 
 class Loaded extends StatelessWidget {
-  const Loaded({Key? key}) : super(key: key);
+  const Loaded({
+    Key? key,
+    required this.campaigns,
+  }) : super(key: key);
+
+  final List<CampaignModel> campaigns;
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +39,19 @@ class Loaded extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Row(
-            children: [0, 1, 2, 3, 4, 5]
+            children: campaigns
                 .asMap()
                 .map(
-                  (key, value) => MapEntry(
+                  (key, campaign) => MapEntry(
                     key,
                     Padding(
                       padding: EdgeInsets.only(
                         left: (key == 0) ? SizeConfig.defaultMargin : 15,
                         right: (key == 5) ? SizeConfig.defaultMargin : 0,
                       ),
-                      child: HorizontalCampaignCard(),
+                      child: HorizontalCampaignCard(
+                        campaign: campaign,
+                      ),
                     ),
                   ),
                 )

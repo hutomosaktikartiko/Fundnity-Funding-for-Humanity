@@ -3,18 +3,22 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../../core/utils/screen_navigator.dart';
 import '../../../features/donation/presentation/screens/detail_donation/detail_donation_screen.dart';
+import '../../../features/main/data/models/campaign_model.dart';
 import '../../../shared/config/custom_color.dart';
 import '../../../shared/config/custom_text_style.dart';
 import '../../../shared/config/size_config.dart';
+import '../../extension/big_int_parsing.dart';
+import '../../extension/string_parsing.dart';
 import '../custom_box_shadow.dart';
 import '../show_image/show_image_network.dart';
 
 class HorizontalCampaignCard extends StatelessWidget {
   const HorizontalCampaignCard({
     Key? key,
+    required this.campaign,
   }) : super(key: key);
 
-  // TODO => Add parameter CampaignModel
+  final CampaignModel campaign;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,7 @@ class HorizontalCampaignCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ShowImageNetwork(
-              imageUrl: "",
+              imageUrl: campaign.image?.stringHashImageToImageUrl() ?? "",
               boxFit: BoxFit.cover,
               height: 150,
               width: SizeConfig.screenWidth,
@@ -49,7 +53,7 @@ class HorizontalCampaignCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          "Help Avisa to Continue Her College Study on Stanford University",
+                          campaign.title ?? "-",
                           style: CustomTextStyle.gray2TextStyle.copyWith(
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
@@ -61,9 +65,9 @@ class HorizontalCampaignCard extends StatelessWidget {
                       CircularPercentIndicator(
                         radius: 20,
                         lineWidth: 3,
-                        percent: 0.25,
+                        percent: campaign.balance.bigIntToCalculatePercentDouble(target: campaign.target) / 100,
                         center: Text(
-                          "25%",
+                          campaign.balance.bigIntToCalculatePercentDouble(target: campaign.target).toStringAsFixed(1) + "%",
                           style: CustomTextStyle.gray3TextStyle.copyWith(
                             fontSize: 11,
                           ),
@@ -80,7 +84,7 @@ class HorizontalCampaignCard extends StatelessWidget {
                     TextSpan(
                       children: <TextSpan>[
                         TextSpan(
-                          text: "125 ETH",
+                          text: "${campaign.balance ?? 0} ETH",
                           style: CustomTextStyle.green4TextStyle.copyWith(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,

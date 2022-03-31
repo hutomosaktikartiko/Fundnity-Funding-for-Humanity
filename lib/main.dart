@@ -21,6 +21,7 @@ import 'features/main/presentation/cubit/campaign_by_wallet_addresses/campaign_b
 import 'features/main/presentation/cubit/campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
 import 'features/main/presentation/cubit/campaigns/campaigns_cubit.dart';
 import 'features/main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
+import 'features/main/presentation/cubit/main_campaign/main_campaign_cubit.dart';
 import 'features/main/presentation/cubit/my_campaigns/my_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/web3client/web3client_cubit.dart';
 import 'service_locator.dart' as di;
@@ -68,6 +69,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<CampaignByWalletAddressesCubit>()),
         BlocProvider(create: (context) => di.sl<AccountBalanceCubit>()),
         BlocProvider(create: (context) => di.sl<MyCampaignsCubit>()),
+        BlocProvider(create: (context) => di.sl<MainCampaignCubit>()),
       ],
       child: MaterialApp(
         home: SplashScreen(),
