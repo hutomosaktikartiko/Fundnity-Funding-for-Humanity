@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../../shared/widgets/custom_app_bar_with_search_form.dart';
+import '../../../../../../data/models/campaign_model.dart';
 
 class Loaded extends StatelessWidget {
-  const Loaded({Key? key}) : super(key: key);
+  const Loaded({
+    Key? key,
+    required this.campaigns,
+  }) : super(key: key);
+
+  final List<CampaignModel> campaigns;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBarWithSearchForm(
-        formHintText: "Search my campaign",
-        openSearchScreen: _openSearchScreen,
-      ).build(context),
+    return Center(
+      child: Text("Loaded"),
     );
-  }
-
-  void _openSearchScreen() {
-    // TODO => Navigator open search my campaign screen
   }
 }

@@ -41,6 +41,7 @@ import 'features/main/presentation/cubit/campaign_by_wallet_addresses/campaign_b
 import 'features/main/presentation/cubit/campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
 import 'features/main/presentation/cubit/campaigns/campaigns_cubit.dart';
 import 'features/main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
+import 'features/main/presentation/cubit/my_campaigns/my_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/web3client/web3client_cubit.dart';
 
 final GetIt sl = GetIt.instance;
@@ -149,6 +150,7 @@ Future<void> _main() async {
   sl.registerFactory(() => AllCampaignsCubit());
   sl.registerFactory(() => CampaignByWalletAddressesCubit());
   sl.registerFactory(() => AccountBalanceCubit(accountRepository: sl()));
+  sl.registerFactory(() => MyCampaignsCubit());
 }
 
 Future<void> _notification() async {

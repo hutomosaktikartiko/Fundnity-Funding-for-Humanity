@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../presentation/screens/main/pages/donation/donation_page.dart';
 import '../../presentation/screens/main/pages/history/history_page.dart';
-import '../../presentation/screens/main/pages/my_campaign/my_campaign_screen.dart';
+import '../../presentation/screens/main/pages/my_campaign/my_campaign_page.dart';
 import '../../presentation/screens/main/pages/profile/profile_page.dart';
 
 class TabModel {
