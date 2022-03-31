@@ -20,8 +20,8 @@ class TabModel {
 }
 
 final List<TabModel> mockListTabModel = [
-  TabModel(id: 1, label: "Donasi", iconData: Icons.volunteer_activism, widget: DonationPage()),
-  TabModel(id: 2, label: "Campaign Saya", iconData: Icons.campaign, widget: MyCampaignPage()),
-  TabModel(id: 3, label: "Riwayat", iconData: Icons.history, widget: HistoryPage()),
-  TabModel(id: 4, label: "Akun", iconData: Icons.person, widget: ProfilePage()),
+  TabModel(id: 1, label: "Donation", iconData: Icons.volunteer_activism, widget: DonationPage()),
+  TabModel(id: 2, label: "My Campaign", iconData: Icons.campaign, widget: MyCampaignPage()),
+  TabModel(id: 3, label: "History", iconData: Icons.history, widget: HistoryPage()),
+  TabModel(id: 4, label: "Account", iconData: Icons.person, widget: ProfilePage()),
 ];
