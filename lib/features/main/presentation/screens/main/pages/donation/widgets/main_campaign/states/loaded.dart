@@ -47,7 +47,7 @@ class Loaded extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(
                         left: (key == 0) ? SizeConfig.defaultMargin : 15,
-                        right: (key == 5) ? SizeConfig.defaultMargin : 0,
+                        right: (key == 4) ? SizeConfig.defaultMargin : 0,
                       ),
                       child: HorizontalCampaignCard(
                         campaign: campaign,

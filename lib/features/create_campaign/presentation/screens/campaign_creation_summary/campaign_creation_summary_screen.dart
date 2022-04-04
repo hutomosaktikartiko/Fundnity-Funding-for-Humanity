@@ -12,6 +12,7 @@ import '../../../../../shared/config/custom_text_style.dart';
 import '../../../../../shared/config/keys_config.dart';
 import '../../../../../shared/config/size_config.dart';
 import '../../../../../shared/config/urls_config.dart';
+import '../../../../../shared/extension/int_parsing.dart';
 import '../../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
@@ -148,7 +149,7 @@ class CampaignCreationSummary extends StatelessWidget {
                   campaign: CreateCampaignModel(
                     title: createCampaignDataState.title,
                     description: createCampaignDataState.description,
-                    endDate: BigInt.from(createCampaignDataState.time ?? 0),
+                    endDate: BigInt.from(createCampaignDataState.time.calculateDayToDateTime()?.millisecondsSinceEpoch ?? 0),
                     target: BigInt.from(createCampaignDataState.amount ?? 0),
                     image: resultUploadImage.value?.hash ?? "-",
                   ),
