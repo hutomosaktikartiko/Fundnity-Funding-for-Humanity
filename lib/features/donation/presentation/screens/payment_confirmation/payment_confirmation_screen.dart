@@ -6,15 +6,18 @@ import '../../../../../shared/config/size_config.dart';
 import '../../../../../shared/extension/string_parsing.dart';
 import '../../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../../../shared/widgets/show_image/show_image_network.dart';
+import '../../../../main/data/models/campaign_model.dart';
 import 'widgets/detail_amount/detail_amount_widget.dart';
 import 'widgets/transaction_speed/transaction_speed_widget.dart';
 
 class PaymentConfirmationScreen extends StatelessWidget {
   final int? donationAmount;
+  final CampaignModel? campaign;
 
   const PaymentConfirmationScreen({
     Key? key,
     required this.donationAmount,
+    required this.campaign,
   }) : super(key: key);
 
   @override
@@ -44,7 +47,7 @@ class PaymentConfirmationScreen extends StatelessWidget {
           Row(
             children: [
               ShowImageNetwork(
-                imageUrl: "",
+                imageUrl: campaign?.image.stringHashImageToImageUrl() ?? "",
                 height: 60,
                 width: 70,
                 borderRadius: BorderRadius.circular(5),
@@ -57,7 +60,7 @@ class PaymentConfirmationScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Help Avisa to Continue Her College Study on Stanford University",
+                     campaign?.title ?? "-",
                       style: CustomTextStyle.gray2TextStyle.copyWith(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
@@ -76,7 +79,7 @@ class PaymentConfirmationScreen extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: " 0x4994986400D969EeA1f90bE393A5F1B1b72a664A"
+                            text: " ${campaign?.creatorAddress}"
                                 .walletAddressSplit(),
                             style: CustomTextStyle.gray3TextStyle.copyWith(
                               fontSize: 12,

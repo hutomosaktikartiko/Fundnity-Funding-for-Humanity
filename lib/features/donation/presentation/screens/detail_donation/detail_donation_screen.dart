@@ -110,6 +110,8 @@ class DetailDonationScreen extends StatelessWidget {
   }
 
   void _onDonateNow(BuildContext context) {
-    ScreenNavigator.startScreen(context, FillDonationAmount());
+    ScreenNavigator.startScreen(context, FillDonationAmount(
+      campaign: campaign,
+    ));
   }
 }

@@ -6,14 +6,21 @@ import '../../../../../shared/config/custom_color.dart';
 import '../../../../../shared/config/custom_text_style.dart';
 import '../../../../../shared/config/size_config.dart';
 import '../../../../../shared/widgets/button/custom_button_label.dart';
+import '../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../shared/widgets/custom_text_field.dart';
+import '../../../../main/data/models/campaign_model.dart';
 import '../../../data/models/donation_amount_model.dart';
 import '../payment_confirmation/payment_confirmation_screen.dart';
 import 'widgets/custom_amount_card.dart';
 import 'widgets/custom_container_with_border.dart';
 
 class FillDonationAmount extends StatefulWidget {
-  const FillDonationAmount({Key? key}) : super(key: key);
+  const FillDonationAmount({
+    Key? key,
+    required this.campaign,
+  }) : super(key: key);
+
+  final CampaignModel? campaign;
 
   @override
   _FillDonationAmountState createState() => _FillDonationAmountState();
@@ -33,7 +40,7 @@ class _FillDonationAmountState extends State<FillDonationAmount> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Help Avisa to Continue Her College Study on Stanford University",
+          widget.campaign?.title ?? "-",
           style: CustomTextStyle.gray1TextStyle.copyWith(
             fontSize: 18,
             fontWeight: FontWeight.w600,
@@ -133,7 +140,7 @@ class _FillDonationAmountState extends State<FillDonationAmount> {
                     height: 15,
                   ),
                   Text(
-                    "Min. donation 0.0005 ETH",
+                    "Min. donation 0.0001 ETH",
                     style: CustomTextStyle.gray3TextStyle.copyWith(
                       fontSize: 12,
                     ),
@@ -182,19 +189,29 @@ class _FillDonationAmountState extends State<FillDonationAmount> {
   }
 
   void _onAmountPayment({required DonationAmountModel? amount}) {
-    ScreenNavigator.startScreen(context, PaymentConfirmationScreen(
-      donationAmount: amount?.amount,
-    ));
+    ScreenNavigator.startScreen(
+        context,
+        PaymentConfirmationScreen(
+          donationAmount: amount?.amount,
+          campaign: widget.campaign,
+        ));
   }
 
   void _onPayment() {
-    // TODO => Update amount validation
-    if (amountController.text.trim() != "") {
-      ScreenNavigator.startScreen(context, PaymentConfirmationScreen(
-        donationAmount: int.parse(amountController.text),
-      ));
+    if (amountController.text.trim() == "" ||
+        double.parse(amountController.text.trim()) < 0.0001) {
+      CustomDialog.showToast(
+        message: "Minimum contribution 0.0001 ETH",
+        context: context,
+        backgroundColor: UniversalColor.red,
+      );
     } else {
-      // TODO => Handle amount validation is not valid
+      ScreenNavigator.startScreen(
+          context,
+          PaymentConfirmationScreen(
+            campaign: widget.campaign,
+            donationAmount: int.parse(amountController.text),
+          ));
     }
   }
 }
