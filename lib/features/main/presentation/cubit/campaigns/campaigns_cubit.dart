@@ -37,8 +37,6 @@ class CampaignsCubit extends Cubit<CampaignsState> {
         web3Client: web3Client,
       );
 
-      print("campaign: $campaign");
-
       if (campaign != null) {
         campaigns.add(campaign);
         print("campaigns: $campaigns");
@@ -75,17 +73,12 @@ class CampaignsCubit extends Cubit<CampaignsState> {
       address: address,
     );
 
-    print("address $address");
-    print("contract.value ${contract.value}");
-
     if (contract.value != null) {
       final ReturnValueModel<CampaignModel> result =
           await campaignRepository.getCampaignDetail(
         deployedContract: contract.value!,
         web3Client: web3Client,
       );
-
-      print("result getCampaignDetail ${result.value}");
 
       return result.value;
     } else {

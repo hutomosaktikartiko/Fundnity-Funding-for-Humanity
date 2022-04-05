@@ -1,3 +1,5 @@
+import 'date_time_parsing.dart';
+
 extension BigIntParsing on BigInt? {
   String bigIntToString() {
     if (this == null) return "";
@@ -15,5 +17,10 @@ extension BigIntParsing on BigInt? {
   double etherInWeiToEther() {
     if (this == null) return 0.0;
     return this!.toInt() / 1000000000000000000;
+  }
+
+  int? bigIntTimeStampToIntDays() {
+    if (this == null) return null;
+    return DateTime.fromMillisecondsSinceEpoch(this!.toInt()).daysBetween();
   }
 }

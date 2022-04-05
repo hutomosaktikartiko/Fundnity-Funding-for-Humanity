@@ -48,7 +48,7 @@ class CampaignModel {
   BigInt? balance, target, startDate, endDate;
   bool? isComplete;
   EthereumAddress? creatorAddress;
-  List<EthereumAddress?>? contributors;
+  EthereumAddress? address;
 
   CampaignModel({
     this.image,
@@ -60,22 +60,21 @@ class CampaignModel {
     this.endDate,
     this.isComplete,
     this.creatorAddress,
-    this.contributors,
+    this.address,
   });
 
   factory CampaignModel.fromJson(List<dynamic> list) {
-    print("list: $list");
     return CampaignModel(
       image: list[0],
       title: list[1],
       description: list[2],
       balance: list[3],
       target: list[4],
-      // startDate: list[5],
-      // endDate: list[6],
-      isComplete: list[5],
-      creatorAddress: list[6],
-      contributors: (list[7] as List<dynamic>).cast<EthereumAddress>(),
+      startDate: list[5],
+      endDate: list[6],
+      isComplete: list[7],
+      creatorAddress: list[8],
+      address: list[9],
     );
   }
 }

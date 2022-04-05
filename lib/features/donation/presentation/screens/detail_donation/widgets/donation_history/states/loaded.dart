@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../../data/models/contributor_model.dart';
 import '../widgets/donation_history_card.dart';
 
 class Loaded extends StatelessWidget {
-  const Loaded({Key? key}) : super(key: key);
+  const Loaded({
+    Key? key,
+    required this.contributors,
+  }) : super(key: key);
+
+  final List<ContributorModel?> contributors;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ...[1, 2, 3, 4, 5]
+        ...(contributors)
             .asMap()
             .map(
-              (key, value) => MapEntry(
+              (key, contributor) => MapEntry(
                 key,
                 Padding(
-                  // TODO => Change [4] to real data length
-                  padding: EdgeInsets.only(bottom: (key == 4) ? 0 : 10),
-                  child: DonationHistoryCard(),
+                  padding: EdgeInsets.only(
+                      bottom: (key == contributors.length) ? 0 : 10),
+                  child: DonationHistoryCard(
+                    contributor: contributor,
+                  ),
                 ),
               ),
             )

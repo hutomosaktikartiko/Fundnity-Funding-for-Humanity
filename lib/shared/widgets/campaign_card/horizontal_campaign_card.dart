@@ -65,9 +65,16 @@ class HorizontalCampaignCard extends StatelessWidget {
                       CircularPercentIndicator(
                         radius: 20,
                         lineWidth: 3,
-                        percent: campaign.balance.bigIntToCalculatePercentDouble(target: campaign.target) / 100,
+                        percent: campaign.balance
+                                .bigIntToCalculatePercentDouble(
+                                    target: campaign.target) /
+                            100,
                         center: Text(
-                          campaign.balance.bigIntToCalculatePercentDouble(target: campaign.target).toStringAsFixed(1) + "%",
+                          campaign.balance
+                                  .bigIntToCalculatePercentDouble(
+                                      target: campaign.target)
+                                  .toStringAsFixed(1) +
+                              "%",
                           style: CustomTextStyle.gray3TextStyle.copyWith(
                             fontSize: 11,
                           ),
@@ -122,6 +129,7 @@ class HorizontalCampaignCard extends StatelessWidget {
   }
 
   void _openDetailCampaignScreen(BuildContext context) {
-    ScreenNavigator.startScreen(context, DetailDonationScreen());
+    ScreenNavigator.startScreen(
+        context, DetailDonationScreen(campaign: campaign));
   }
 }

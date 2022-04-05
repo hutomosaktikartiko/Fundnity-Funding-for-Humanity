@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../../../../../shared/config/custom_color.dart';
 import '../../../../../../shared/config/custom_text_style.dart';
 import '../../../../../../shared/config/size_config.dart';
+import '../../../../../../shared/extension/big_int_parsing.dart';
+import '../../../../../main/data/models/campaign_model.dart';
+import '../../../cubit/contributor/contributor_cubit.dart';
 
 class DetailDonationHeader extends StatelessWidget {
+  final CampaignModel? campaign;
+
   const DetailDonationHeader({
     Key? key,
+    required this.campaign,
   }) : super(key: key);
 
   @override
@@ -22,7 +29,7 @@ class DetailDonationHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Help Avisa to Continue Her College Study on Stanford University",
+            campaign?.title ?? "-",
             style: CustomTextStyle.gray2TextStyle.copyWith(
               fontSize: 15,
               fontWeight: FontWeight.bold,
@@ -35,7 +42,7 @@ class DetailDonationHeader extends StatelessWidget {
             TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: "125 ETH",
+                  text: "${campaign?.balance} ETH",
                   style: CustomTextStyle.green4TextStyle.copyWith(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
@@ -55,7 +62,7 @@ class DetailDonationHeader extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: " 1000 ETH",
+                  text: " ${campaign?.target} ETH",
                   style: CustomTextStyle.gray2TextStyle.copyWith(
                     fontSize: 12,
                   ),
@@ -80,42 +87,44 @@ class DetailDonationHeader extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text.rich(
-                TextSpan(
-                  children: <TextSpan>[
+              BlocBuilder<ContributorCubit, ContributorState>(
+                builder: (context, state) {
+                  return Text.rich(
                     TextSpan(
-                      text: "1120",
-                      style:
-                          CustomTextStyle.gray2TextStyle.copyWith(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: (state is ContributorLoaded)
+                              ? state.contributors.length.toString()
+                              : "0",
+                          style: CustomTextStyle.gray2TextStyle.copyWith(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        TextSpan(
+                          text: " Donations",
+                          style: CustomTextStyle.gray2TextStyle.copyWith(
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
-                    TextSpan(
-                      text: " Donations",
-                      style:
-                          CustomTextStyle.gray2TextStyle.copyWith(
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
               Text.rich(
                 TextSpan(
                   children: <TextSpan>[
                     TextSpan(
-                      text: "60",
-                      style:
-                          CustomTextStyle.gray2TextStyle.copyWith(
+                      text: (campaign?.endDate.bigIntTimeStampToIntDays() ?? 0).toString(),
+                      style: CustomTextStyle.gray2TextStyle.copyWith(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     TextSpan(
                       text: " days left",
-                      style:
-                          CustomTextStyle.gray2TextStyle.copyWith(
+                      style: CustomTextStyle.gray2TextStyle.copyWith(
                         fontSize: 12,
                       ),
                     ),

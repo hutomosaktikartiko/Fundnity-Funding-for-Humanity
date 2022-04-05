@@ -5,13 +5,15 @@ import '../../../../../../../../shared/config/custom_text_style.dart';
 import '../../../../../../../../shared/config/size_config.dart';
 import '../../../../../../../../shared/extension/string_parsing.dart';
 import '../../../../../../../../shared/widgets/show_image/show_image_local.dart';
+import '../../../../../../data/models/contributor_model.dart';
 
 class DonationHistoryCard extends StatelessWidget {
   const DonationHistoryCard({
     Key? key,
+    required this.contributor,
   }) : super(key: key);
 
-  // TODO => add History Donation Model
+  final ContributorModel? contributor;
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +38,8 @@ class DonationHistoryCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // TODO => Change to real address
                 Text(
-                  "0x4994986400D969EeA1f90bE393A5F1B1b72a664A"
-                      .walletAddressSplit(),
+                 "${contributor?.contributor}".walletAddressSplit(),
                   style: CustomTextStyle.green4TextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -57,9 +57,8 @@ class DonationHistoryCard extends StatelessWidget {
                           fontSize: 13,
                         ),
                       ),
-                      // TODO => Change to real donation amount
                       TextSpan(
-                        text: " 0.00001 ETH",
+                        text: " ${contributor?.amount ?? 0} ETH",
                         style: CustomTextStyle.gray2TextStyle.copyWith(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,

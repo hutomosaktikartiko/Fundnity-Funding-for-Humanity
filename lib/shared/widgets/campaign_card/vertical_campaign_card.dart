@@ -36,8 +36,7 @@ class VerticalCampaignCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ShowImageNetwork(
-              imageUrl:
-                  campaign.image.stringHashImageToImageUrl(),
+              imageUrl: campaign.image.stringHashImageToImageUrl(),
               boxFit: BoxFit.cover,
               width: 80,
               height: 80,
@@ -100,12 +99,18 @@ class VerticalCampaignCard extends StatelessWidget {
                       height: 5,
                     ),
                     LinearPercentIndicator(
-                      percent: campaign.balance.bigIntToCalculatePercentDouble(target: campaign.target) / 100,
+                      percent: campaign.balance.bigIntToCalculatePercentDouble(
+                              target: campaign.target) /
+                          100,
                       lineHeight: 8,
                       barRadius: Radius.circular(3),
                       padding: EdgeInsets.only(right: 5),
                       trailing: Text(
-                        campaign.balance.bigIntToCalculatePercentDouble(target: campaign.target).toStringAsFixed(1) + "%",
+                        campaign.balance
+                                .bigIntToCalculatePercentDouble(
+                                    target: campaign.target)
+                                .toStringAsFixed(1) +
+                            "%",
                         style: CustomTextStyle.green4TextStyle.copyWith(
                           fontSize: 11,
                           fontWeight: FontWeight.bold,
@@ -125,6 +130,7 @@ class VerticalCampaignCard extends StatelessWidget {
   }
 
   void _openDetailCampaignScreen(BuildContext context) {
-    ScreenNavigator.startScreen(context, DetailDonationScreen());
+    ScreenNavigator.startScreen(
+        context, DetailDonationScreen(campaign: campaign));
   }
 }

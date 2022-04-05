@@ -1,4 +1,3 @@
-import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 
 import '../models/campaign_model.dart';
@@ -18,11 +17,6 @@ abstract class CampaignRemoteDataSource {
 }
 
 class CampaignRemoteDataSourceImpl implements CampaignRemoteDataSource {
-  final Client client;
-
-  CampaignRemoteDataSourceImpl({
-    required this.client,
-  });
 
   @override
   Future<List<dynamic>> getAllAddressCampaigns({

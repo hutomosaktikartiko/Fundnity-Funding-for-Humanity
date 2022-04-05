@@ -28,6 +28,9 @@ import 'features/create_campaign/presentation/cubit/create_campaign_progress/cre
 import 'features/create_campaign/presentation/cubit/create_campaign_target_data/create_campaign_data_cubit.dart';
 import 'features/create_campaign/presentation/cubit/selected_date/selected_date_cubit.dart';
 import 'features/create_campaign/presentation/cubit/selected_image/selected_image_cubit.dart';
+import 'features/donation/data/datasources/contributor_remote_data_source.dart';
+import 'features/donation/data/repositories/contributor_repository.dart';
+import 'features/donation/presentation/cubit/contributor/contributor_cubit.dart';
 import 'features/donation/presentation/cubit/selected_transaction_speed/selected_transaction_speed_cubit.dart';
 import 'features/main/data/datasources/account_remote_data_balance.dart';
 import 'features/main/data/datasources/campaign_remote_data_source.dart';
@@ -122,11 +125,14 @@ Future<void> _createCampaign() async {
 
 Future<void> _donation() async {
   // Datasource
+  sl.registerLazySingleton<ContributorRemoteDataSource>(() => ContributorRemoteDataSourceImpl());
 
   // Repository
+  sl.registerLazySingleton<ContributorRepository>(() => ContributorRepositoryImpl(campaignRemoteDataSource: sl(), networkInfo: sl()));
 
   // Cubit
   sl.registerFactory(() => SelectedTransactionSpeedCubit());
+  sl.registerFactory(() => ContributorCubit(contributorRepository: sl(), campaignDeployedContractCubit: sl()));
 }
 
 Future<void> _favoriteDonation() async {}
@@ -134,13 +140,15 @@ Future<void> _favoriteDonation() async {}
 Future<void> _main() async {
   // Datasources
   sl.registerLazySingleton<CampaignRemoteDataSource>(
-      () => CampaignRemoteDataSourceImpl(client: sl()));
-    sl.registerLazySingleton<AccountRemoteDataSource>(() => AccountRemoteDataSourceImpl());
+      () => CampaignRemoteDataSourceImpl());
+  sl.registerLazySingleton<AccountRemoteDataSource>(
+      () => AccountRemoteDataSourceImpl());
 
   // Repositories
   sl.registerLazySingleton<CampaignRepository>(() => CampaignRepositoryImpl(
       networkInfo: sl(), campaignRemoteDataSource: sl()));
-  sl.registerLazySingleton<AccountRepository>(() => AccountRepositoryImpl(networkInfo: sl(), accountRemoteDataSource: sl()));
+  sl.registerLazySingleton<AccountRepository>(() =>
+      AccountRepositoryImpl(networkInfo: sl(), accountRemoteDataSource: sl()));
 
   // Cubit
   sl.registerFactory(
