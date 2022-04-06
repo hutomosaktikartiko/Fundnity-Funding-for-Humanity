@@ -1,18 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../data/models/mock_transaction_speed.dart';
-
 part 'selected_transaction_speed_state.dart';
 
 class SelectedTransactionSpeedCubit extends Cubit<SelectedTransactionSpeedState> {
   SelectedTransactionSpeedCubit() : super(SelectedTransactionSpeedState(
-    selectedTransactionSpeed: null,
+    gasTitle: null,
   ));
 
-  void setSelectedTransactionSpeed(MockTransactionSpeed? selectedTransactionSpeed) {
+  void setSelectedTransactionSpeed({required String? gasTitle}) {
     emit(SelectedTransactionSpeedState(
-      selectedTransactionSpeed: selectedTransactionSpeed,
+      gasTitle: gasTitle,
     ));
   }
 }

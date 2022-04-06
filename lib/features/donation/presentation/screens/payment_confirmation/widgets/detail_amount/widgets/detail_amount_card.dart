@@ -4,7 +4,7 @@ import '../../../../../../../../shared/config/custom_text_style.dart';
 
 class DetailAmountCard extends StatelessWidget {
   final String title;
-  final int? value;
+  final String? value;
   final bool isBold;
 
   const DetailAmountCard({

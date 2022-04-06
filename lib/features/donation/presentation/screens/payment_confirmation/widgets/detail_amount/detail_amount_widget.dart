@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../cubit/selected_transaction_speed/selected_transaction_speed_cubit.dart';
 import 'widgets/detail_amount_card.dart';
 
 class DetailAmountWidget extends StatelessWidget {
@@ -19,18 +17,14 @@ class DetailAmountWidget extends StatelessWidget {
       children: [
         DetailAmountCard(
           title: "Donation Amount",
-          value: donationAmount,
+          value: donationAmount.toString(),
         ),
         const SizedBox(
           height: 10,
         ),
         DetailAmountCard(
           title: "Fee (Transaction Speed)",
-          value: context
-              .read<SelectedTransactionSpeedCubit>()
-              .state
-              .selectedTransactionSpeed
-              ?.basePrice,
+          value: "0"
         ),
         const Divider(
           height: 15,
@@ -38,7 +32,7 @@ class DetailAmountWidget extends StatelessWidget {
         DetailAmountCard(
           title: "Total",
           isBold: true,
-          value: donationAmount,
+          value: donationAmount.toString(),
         ),
       ],
     );

@@ -15,6 +15,7 @@ import 'features/create_campaign/presentation/cubit/create_campaign_target_data/
 import 'features/create_campaign/presentation/cubit/selected_date/selected_date_cubit.dart';
 import 'features/create_campaign/presentation/cubit/selected_image/selected_image_cubit.dart';
 import 'features/donation/presentation/cubit/contributor/contributor_cubit.dart';
+import 'features/donation/presentation/cubit/gas_tracker/gas_tracker_cubit.dart';
 import 'features/donation/presentation/cubit/selected_transaction_speed/selected_transaction_speed_cubit.dart';
 import 'features/main/presentation/cubit/account_balance/account_balance_cubit.dart';
 import 'features/main/presentation/cubit/all_campaigns/all_campaigns_cubit.dart';
@@ -72,6 +73,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<MyCampaignsCubit>()),
         BlocProvider(create: (context) => di.sl<MainCampaignCubit>()),
         BlocProvider(create: (context) => di.sl<ContributorCubit>()),
+        BlocProvider(create: (context) => di.sl<GasTrackerCubit>()),
       ],
       child: MaterialApp(
         home: SplashScreen(),

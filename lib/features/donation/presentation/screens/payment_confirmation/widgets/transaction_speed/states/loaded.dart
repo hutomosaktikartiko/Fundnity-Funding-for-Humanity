@@ -1,30 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../data/models/mock_transaction_speed.dart';
+import '../../../../../../data/models/gas_model.dart';
 import '../../../../../cubit/selected_transaction_speed/selected_transaction_speed_cubit.dart';
 import '../widgets/transaction_speed_card.dart';
 
-class Loaded extends StatefulWidget {
+class Loaded extends StatelessWidget {
   const Loaded({
     Key? key,
-    required this.transactionSpeeds,
+    required this.listGas,
   }) : super(key: key);
 
-  final List<MockTransactionSpeed?> transactionSpeeds;
-
-  @override
-  _LoadedState createState() => _LoadedState();
-}
-
-class _LoadedState extends State<Loaded> {
-  @override
-  void initState() {
-    super.initState();
-    context
-        .read<SelectedTransactionSpeedCubit>()
-        .setSelectedTransactionSpeed(widget.transactionSpeeds.first);
-  }
+  final List<GasModel?> listGas;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +20,7 @@ class _LoadedState extends State<Loaded> {
       builder: (context, state) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: widget.transactionSpeeds
+          children: listGas
               .asMap()
               .map(
                 (key, value) => MapEntry(
@@ -41,15 +28,16 @@ class _LoadedState extends State<Loaded> {
                   Padding(
                     padding: EdgeInsets.only(
                       bottom:
-                          (key == widget.transactionSpeeds.length - 1) ? 0 : 10,
+                          (key == listGas.length - 1) ? 0 : 10,
                     ),
                     child: GestureDetector(
                       onTap: () => _onSelectTransactionSpeed(
-                        transactionSpeed: value,
+                        gasTitle: value?.title,
+                        context: context,
                       ),
                       child: TransactionSpeedCard(
-                        transactionSpeed: value,
-                        isActive: (value == state.selectedTransactionSpeed),
+                        isActive: (value?.title == state.gasTitle),
+                        gas: value,
                       ),
                     ),
                   ),
@@ -63,10 +51,11 @@ class _LoadedState extends State<Loaded> {
   }
 
   void _onSelectTransactionSpeed({
-    required MockTransactionSpeed? transactionSpeed,
+    required String? gasTitle,
+    required BuildContext context,
   }) {
     context
         .read<SelectedTransactionSpeedCubit>()
-        .setSelectedTransactionSpeed(transactionSpeed);
+        .setSelectedTransactionSpeed(gasTitle: gasTitle);
   }
 }

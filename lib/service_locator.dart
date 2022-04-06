@@ -29,8 +29,11 @@ import 'features/create_campaign/presentation/cubit/create_campaign_target_data/
 import 'features/create_campaign/presentation/cubit/selected_date/selected_date_cubit.dart';
 import 'features/create_campaign/presentation/cubit/selected_image/selected_image_cubit.dart';
 import 'features/donation/data/datasources/contributor_remote_data_source.dart';
+import 'features/donation/data/datasources/gas_remote_data_source.dart';
 import 'features/donation/data/repositories/contributor_repository.dart';
+import 'features/donation/data/repositories/gas_repository.dart';
 import 'features/donation/presentation/cubit/contributor/contributor_cubit.dart';
+import 'features/donation/presentation/cubit/gas_tracker/gas_tracker_cubit.dart';
 import 'features/donation/presentation/cubit/selected_transaction_speed/selected_transaction_speed_cubit.dart';
 import 'features/main/data/datasources/account_remote_data_balance.dart';
 import 'features/main/data/datasources/campaign_remote_data_source.dart';
@@ -126,13 +129,16 @@ Future<void> _createCampaign() async {
 Future<void> _donation() async {
   // Datasource
   sl.registerLazySingleton<ContributorRemoteDataSource>(() => ContributorRemoteDataSourceImpl());
+  sl.registerLazySingleton<GasRemoteDataSource>(() => GasRemoteDataSourceImpl(dio: sl()));
 
   // Repository
   sl.registerLazySingleton<ContributorRepository>(() => ContributorRepositoryImpl(campaignRemoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<GasRepository>(() => GasRepositoryImpl(gasRemoteDataSource: sl(), networkInfo: sl()));
 
   // Cubit
   sl.registerFactory(() => SelectedTransactionSpeedCubit());
   sl.registerFactory(() => ContributorCubit(contributorRepository: sl(), campaignDeployedContractCubit: sl()));
+  sl.registerFactory(() => GasTrackerCubit(gasRepository: sl()));
 }
 
 Future<void> _favoriteDonation() async {}

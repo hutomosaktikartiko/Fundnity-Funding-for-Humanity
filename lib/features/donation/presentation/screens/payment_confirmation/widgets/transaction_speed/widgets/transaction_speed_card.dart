@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../../../shared/config/custom_color.dart';
 import '../../../../../../../../shared/config/custom_text_style.dart';
-import '../../../../../../data/models/mock_transaction_speed.dart';
+import '../../../../../../../../shared/extension/string_parsing.dart';
+import '../../../../../../data/models/gas_model.dart';
 
 class TransactionSpeedCard extends StatelessWidget {
   const TransactionSpeedCard({
     Key? key,
+    required this.gas,
     required this.isActive,
-    required this.transactionSpeed,
   }) : super(key: key);
 
-  final MockTransactionSpeed? transactionSpeed;
+  final GasModel? gas;
   final bool isActive;
 
   @override
@@ -46,7 +47,7 @@ class TransactionSpeedCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      transactionSpeed?.title ?? "-",
+                      gas?.title ?? "-",
                       style: CustomTextStyle.gray1TextStyle.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
@@ -55,7 +56,7 @@ class TransactionSpeedCard extends StatelessWidget {
                       height: 3,
                     ),
                     Text(
-                      "Gas Price ${transactionSpeed?.gasPrice ?? 0} GWEI",
+                      "Gas Price ${gas?.gasPriceInGwei ?? 0} GWEI",
                       style: CustomTextStyle.gray2TextStyle.copyWith(
                         fontSize: 10,
                       ),
@@ -63,7 +64,7 @@ class TransactionSpeedCard extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  "< ${transactionSpeed?.speed ?? 0}",
+                  "~ ${gas?.estimationTime.stringSecondsToStringMinutes() ?? 0}",
                   style: CustomTextStyle.gray3TextStyle,
                 ),
               ],

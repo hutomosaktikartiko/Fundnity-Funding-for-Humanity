@@ -16,4 +16,17 @@ extension StringParsing on String? {
     if (this == null) return "";
     return "https://$this" + UrlsConfig.infuraIPFSClient;
   }
+
+  String stringGweiToWei() {
+    if (this == null) return "";
+    return (int.parse(this!) * 1000000000).toString();
+  }
+
+  String stringSecondsToStringMinutes() {
+    if (this == null) return "";
+    int seconds = int.parse(this!);
+    int minutes = seconds ~/ 60;
+    int secondsLeft = seconds % 60;
+    return "$minutes mins: $secondsLeft secs";
+  }
 }
