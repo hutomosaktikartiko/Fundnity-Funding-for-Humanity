@@ -17,7 +17,7 @@ class VerticalCampaignCard extends StatelessWidget {
     required this.campaign,
   }) : super(key: key);
 
-  final CampaignModel campaign;
+  final CampaignModel? campaign;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class VerticalCampaignCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ShowImageNetwork(
-              imageUrl: campaign.image.stringHashImageToImageUrl(),
+              imageUrl: campaign?.image.stringHashImageToImageUrl() ?? "",
               boxFit: BoxFit.cover,
               width: 80,
               height: 80,
@@ -51,7 +51,7 @@ class VerticalCampaignCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      campaign.title ?? "-",
+                      campaign?.title ?? "-",
                       style: CustomTextStyle.gray2TextStyle.copyWith(
                         fontSize: 13,
                         fontWeight: FontWeight.bold,
@@ -66,21 +66,20 @@ class VerticalCampaignCard extends StatelessWidget {
                       TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                            text: "${campaign.balance} ETH",
+                            text: "${campaign?.balance} ETH",
                             style: CustomTextStyle.green4TextStyle.copyWith(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                           TextSpan(
-                            text: " Funds Collected |",
+                            text: " Funds Collected | ",
                             style: CustomTextStyle.gray3TextStyle.copyWith(
                               fontSize: 12,
                             ),
                           ),
-                          // TODO: calculate days left
                           TextSpan(
-                            text: " 10",
+                            text: (campaign?.endDate.bigIntTimeStampToIntDays() ?? 0).toString(),
                             style: CustomTextStyle.green4TextStyle.copyWith(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -99,17 +98,17 @@ class VerticalCampaignCard extends StatelessWidget {
                       height: 5,
                     ),
                     LinearPercentIndicator(
-                      percent: campaign.balance.bigIntToCalculatePercentDouble(
-                              target: campaign.target) /
+                      percent: (campaign?.balance.bigIntToCalculatePercentDouble(
+                              target: campaign?.target) ?? 0) /
                           100,
                       lineHeight: 8,
                       barRadius: Radius.circular(3),
                       padding: EdgeInsets.only(right: 5),
                       trailing: Text(
-                        campaign.balance
+                        (campaign?.balance
                                 .bigIntToCalculatePercentDouble(
-                                    target: campaign.target)
-                                .toStringAsFixed(1) +
+                                    target: campaign?.target)
+                                .toStringAsFixed(1) ?? "0") +
                             "%",
                         style: CustomTextStyle.green4TextStyle.copyWith(
                           fontSize: 11,

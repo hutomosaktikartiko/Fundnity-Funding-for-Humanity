@@ -18,7 +18,7 @@ class HorizontalCampaignCard extends StatelessWidget {
     required this.campaign,
   }) : super(key: key);
 
-  final CampaignModel campaign;
+  final CampaignModel? campaign;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class HorizontalCampaignCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ShowImageNetwork(
-              imageUrl: campaign.image.stringHashImageToImageUrl(),
+              imageUrl: campaign?.image.stringHashImageToImageUrl() ?? "",
               boxFit: BoxFit.cover,
               height: 150,
               width: SizeConfig.screenWidth,
@@ -53,7 +53,7 @@ class HorizontalCampaignCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          campaign.title ?? "-",
+                          campaign?.title ?? "-",
                           style: CustomTextStyle.gray2TextStyle.copyWith(
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
@@ -65,15 +65,15 @@ class HorizontalCampaignCard extends StatelessWidget {
                       CircularPercentIndicator(
                         radius: 20,
                         lineWidth: 3,
-                        percent: campaign.balance
+                        percent: (campaign?.balance
                                 .bigIntToCalculatePercentDouble(
-                                    target: campaign.target) /
+                                    target: campaign?.target) ?? 0)/
                             100,
                         center: Text(
-                          campaign.balance
+                          (campaign?.balance
                                   .bigIntToCalculatePercentDouble(
-                                      target: campaign.target)
-                                  .toStringAsFixed(1) +
+                                      target: campaign?.target)
+                                  .toStringAsFixed(1) ?? "0") +
                               "%",
                           style: CustomTextStyle.gray3TextStyle.copyWith(
                             fontSize: 11,
@@ -91,20 +91,20 @@ class HorizontalCampaignCard extends StatelessWidget {
                     TextSpan(
                       children: <TextSpan>[
                         TextSpan(
-                          text: "${campaign.balance ?? 0} ETH",
+                          text: "${campaign?.balance ?? 0} ETH",
                           style: CustomTextStyle.green4TextStyle.copyWith(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         TextSpan(
-                          text: " Funds Collected |",
+                          text: " Funds Collected | ",
                           style: CustomTextStyle.gray3TextStyle.copyWith(
                             fontSize: 12,
                           ),
                         ),
                         TextSpan(
-                          text: " 15",
+                          text: (campaign?.endDate.bigIntTimeStampToIntDays() ?? 0).toString(),
                           style: CustomTextStyle.green4TextStyle.copyWith(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
