@@ -32,11 +32,11 @@ class Loaded extends StatelessWidget {
                     ),
                     child: GestureDetector(
                       onTap: () => _onSelectTransactionSpeed(
-                        gasTitle: value?.title,
+                        gas: value,
                         context: context,
                       ),
                       child: TransactionSpeedCard(
-                        isActive: (value?.title == state.gasTitle),
+                        isActive: (value?.title == state.gas?.title),
                         gas: value,
                       ),
                     ),
@@ -51,11 +51,11 @@ class Loaded extends StatelessWidget {
   }
 
   void _onSelectTransactionSpeed({
-    required String? gasTitle,
+    required GasModel? gas,
     required BuildContext context,
   }) {
     context
         .read<SelectedTransactionSpeedCubit>()
-        .setSelectedTransactionSpeed(gasTitle: gasTitle);
+        .setSelectedTransactionSpeed(gas: gas);
   }
 }

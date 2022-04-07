@@ -1,12 +1,12 @@
 part of 'selected_transaction_speed_cubit.dart';
 
 class SelectedTransactionSpeedState extends Equatable {
-  final String? gasTitle;
+  final GasModel? gas;
 
   SelectedTransactionSpeedState({
-    required this.gasTitle
+    required this.gas
   });
 
   @override
-  List<Object?> get props => [gasTitle];
+  List<Object?> get props => [gas];
 }

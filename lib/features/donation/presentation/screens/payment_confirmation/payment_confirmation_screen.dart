@@ -6,9 +6,12 @@ import '../../../../../shared/config/custom_text_style.dart';
 import '../../../../../shared/config/size_config.dart';
 import '../../../../../shared/extension/string_parsing.dart';
 import '../../../../../shared/widgets/button/custom_button_label.dart';
+import '../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../shared/widgets/show_image/show_image_network.dart';
 import '../../../../main/data/models/campaign_model.dart';
+import '../../../data/models/gas_model.dart';
 import '../../cubit/gas_tracker/gas_tracker_cubit.dart';
+import '../../cubit/selected_transaction_speed/selected_transaction_speed_cubit.dart';
 import 'widgets/detail_amount/detail_amount_widget.dart';
 import 'widgets/transaction_speed/transaction_speed_widget.dart';
 
@@ -120,9 +123,14 @@ class PaymentConfirmationScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomButtonLabel(
-              label: "Send Donation",
-              onTap: _onSendDonation,
+            BlocBuilder<SelectedTransactionSpeedCubit,
+                SelectedTransactionSpeedState>(
+              builder: (context, state) {
+                return buildSendDonationButton(
+                  gas: state.gas,
+                  context: context,
+                );
+              },
             ),
           ],
         ),
@@ -130,11 +138,46 @@ class PaymentConfirmationScreen extends StatelessWidget {
     );
   }
 
-  void _onSendDonation() {
-    // TODO => Handle send donation
+  Widget buildSendDonationButton({
+    required GasModel? gas,
+    required BuildContext context,
+  }) {
+    if (gas != null) {
+      return CustomButtonLabel(
+        label: "Send Donation",
+        onTap: () => _onSendDonation(
+          gas: gas,
+          context: context,
+        ),
+      );
+    } else {
+      return CustomButtonLabel(
+        label: "Send Donation",
+        backgroundColor: BackgroundColor.bgGray,
+        borderColor: BackgroundColor.bgGray,
+        labelColor: UniversalColor.gray5,
+        onTap: () {
+          CustomDialog.showToast(
+            message: "Please select the transaction speed berfore",
+            context: context,
+            backgroundColor: UniversalColor.red,
+          );
+        },
+      );
+    }
+  }
+
+  void _onSendDonation({
+    required GasModel? gas,
+    required BuildContext context,
+  }) {
+    
   }
 
   Future<void> _onRefresh(BuildContext context) async {
+    context
+        .read<SelectedTransactionSpeedCubit>()
+        .emit(SelectedTransactionSpeedState(gas: null));
     await context.read<GasTrackerCubit>().getGasTracker();
   }
 }
