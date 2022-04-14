@@ -1,33 +1,28 @@
 class DonationAmountModel {
-  int? amount;
-  String? amountInString;
+  BigInt? amountInGwei;
 
-  DonationAmountModel({this.amount, this.amountInString,});
+  DonationAmountModel({
+    this.amountInGwei,
+  });
 }
 
 final List<DonationAmountModel> mockListDonationAmounts = [
   DonationAmountModel(
-    amount: 00001,
-    amountInString: "0.0001",
+    amountInGwei: BigInt.from(100000),
   ),
   DonationAmountModel(
-    amount: 0001,
-    amountInString: "0.001",
+    amountInGwei: BigInt.from(1000000),
   ),
   DonationAmountModel(
-    amount: 01,
-    amountInString: "0.1",
+    amountInGwei: BigInt.from(10000000),
   ),
   DonationAmountModel(
-    amount: 01,
-    amountInString: "0.1",
+    amountInGwei: BigInt.from(100000000),
   ),
   DonationAmountModel(
-    amount: 1,
-    amountInString: "1",
+    amountInGwei: BigInt.from(1000000000),
   ),
   DonationAmountModel(
-    amount: 10,
-    amountInString: "10",
+    amountInGwei: BigInt.from(10000000000),
   ),
 ];

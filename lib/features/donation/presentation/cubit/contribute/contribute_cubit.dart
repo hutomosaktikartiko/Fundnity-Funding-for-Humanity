@@ -4,25 +4,26 @@ import 'package:web3dart/web3dart.dart';
 
 import '../../../../../core/models/return_value_model.dart';
 import '../../../../main/presentation/cubit/campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
-import '../../../data/models/contributor_model.dart';
 import '../../../data/repositories/contribute_repository.dart';
 
-part 'contributor_state.dart';
+part 'contribute_state.dart';
 
-class ContributorCubit extends Cubit<ContributorState> {
-  ContributorCubit({
+class ContributeCubit extends Cubit<ContributeState> {
+  ContributeCubit({
     required this.contributeRepository,
     required this.campaignDeployedContractCubit,
-  }) : super(ContributorInitial());
+  }) : super(ContributeInitial());
 
   final ContributeRepository contributeRepository;
   final CampaignDeployedContractCubit campaignDeployedContractCubit;
 
-  void getContributors({
-    required EthereumAddress? address,
+  Future<ReturnValueModel> contribute({
     required Web3Client web3Client,
+    required String walletPrivateKey,
+    required BigInt amount,
+    required EthereumAddress? address,
   }) async {
-    emit(ContributorLoading());
+    emit(ContributeLoading());
 
     // Get CampaignDeployedContract
     final ReturnValueModel<DeployedContract> deployedContract =
@@ -30,26 +31,23 @@ class ContributorCubit extends Cubit<ContributorState> {
             address: address);
 
     if (deployedContract.isSuccess && deployedContract.value != null) {
-      // Get Contributors
-      final ReturnValueModel<List<ContributorModel?>> result =
-          await contributeRepository.getContributors(
+      // Contribute
+      final ReturnValueModel result = await contributeRepository.contribute(
+        amount: amount,
         deployedContract: deployedContract.value!,
         web3Client: web3Client,
+        walletPrivateKey: walletPrivateKey,
       );
-
-      if (result.isSuccess && result.value != null) {
-        if (result.value!.length > 0) {
-          emit(ContributorLoaded(
-            contributors: result.value!,
-          ));
-        } else {
-          emit(ContributorEmpty());
-        }
+      if (result.isSuccess) {
+        emit(ContributeLoaded());
       } else {
-        emit(ContributorLoadingFailure(message: result.message));
+        emit(ContributeLoadingFailure(message: result.message));
       }
+      return result;
     } else {
-      emit(ContributorLoadingFailure(message: deployedContract.message));
+      emit(ContributeLoadingFailure(message: deployedContract.message));
+
+      return deployedContract;
     }
   }
 }

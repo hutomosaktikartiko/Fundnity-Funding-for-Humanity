@@ -28,10 +28,11 @@ import 'features/create_campaign/presentation/cubit/create_campaign_progress/cre
 import 'features/create_campaign/presentation/cubit/create_campaign_target_data/create_campaign_data_cubit.dart';
 import 'features/create_campaign/presentation/cubit/selected_date/selected_date_cubit.dart';
 import 'features/create_campaign/presentation/cubit/selected_image/selected_image_cubit.dart';
-import 'features/donation/data/datasources/contributor_remote_data_source.dart';
+import 'features/donation/data/datasources/contribute_remote_data_source.dart';
 import 'features/donation/data/datasources/gas_remote_data_source.dart';
-import 'features/donation/data/repositories/contributor_repository.dart';
+import 'features/donation/data/repositories/contribute_repository.dart';
 import 'features/donation/data/repositories/gas_repository.dart';
+import 'features/donation/presentation/cubit/contribute/contribute_cubit.dart';
 import 'features/donation/presentation/cubit/contributor/contributor_cubit.dart';
 import 'features/donation/presentation/cubit/gas_tracker/gas_tracker_cubit.dart';
 import 'features/donation/presentation/cubit/selected_transaction_speed/selected_transaction_speed_cubit.dart';
@@ -128,17 +129,18 @@ Future<void> _createCampaign() async {
 
 Future<void> _donation() async {
   // Datasource
-  sl.registerLazySingleton<ContributorRemoteDataSource>(() => ContributorRemoteDataSourceImpl());
+  sl.registerLazySingleton<ContributeRemoteDataSource>(() => ContributeRemoteDataSourceImpl());
   sl.registerLazySingleton<GasRemoteDataSource>(() => GasRemoteDataSourceImpl(dio: sl()));
 
   // Repository
-  sl.registerLazySingleton<ContributorRepository>(() => ContributorRepositoryImpl(campaignRemoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<ContributeRepository>(() => ContributeRepositoryImpl(contributeRemoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<GasRepository>(() => GasRepositoryImpl(gasRemoteDataSource: sl(), networkInfo: sl()));
 
   // Cubit
   sl.registerFactory(() => SelectedTransactionSpeedCubit());
-  sl.registerFactory(() => ContributorCubit(contributorRepository: sl(), campaignDeployedContractCubit: sl()));
+  sl.registerFactory(() => ContributorCubit(contributeRepository: sl(), campaignDeployedContractCubit: sl()));
   sl.registerFactory(() => GasTrackerCubit(gasRepository: sl()));
+  sl.registerFactory(() => ContributeCubit(contributeRepository: sl(), campaignDeployedContractCubit: sl()));
 }
 
 Future<void> _favoriteDonation() async {}

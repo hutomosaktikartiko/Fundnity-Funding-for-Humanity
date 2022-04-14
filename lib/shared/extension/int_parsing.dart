@@ -11,4 +11,9 @@ extension IntParsing on int? {
 
     return date;
   }
+
+  double gweiToEther() {
+    if (this == null) return 0.0;
+    return this!.toInt() / 1000000000;
+  }
 }

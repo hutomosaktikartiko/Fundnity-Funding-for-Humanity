@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../shared/config/custom_color.dart';
 import '../../../../../../shared/config/custom_text_style.dart';
+import '../../../../../../shared/extension/big_int_parsing.dart';
 import '../../../../data/models/donation_amount_model.dart';
 import 'custom_container_with_border.dart';
 
@@ -20,7 +21,7 @@ class CustomAmountCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "${amount?.amountInString ?? 0} ETH",
+            "${amount?.amountInGwei?.gweiToEther() ?? 0} ETH",
             style: CustomTextStyle.gray2TextStyle.copyWith(
               fontSize: 15,
               fontWeight: FontWeight.bold,

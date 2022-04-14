@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../../../shared/extension/big_int_parsing.dart';
+import '../../../../../../../shared/extension/int_parsing.dart';
+import '../../../../../data/models/gas_model.dart';
 import 'widgets/detail_amount_card.dart';
 
 class DetailAmountWidget extends StatelessWidget {
-  final int? donationAmount;
+  final BigInt? donation;
+  final GasModel? gas;
 
   const DetailAmountWidget({
     Key? key,
-    required this.donationAmount,
+    required this.donation,
+    required this.gas,
   }) : super(key: key);
 
   @override
@@ -17,14 +22,14 @@ class DetailAmountWidget extends StatelessWidget {
       children: [
         DetailAmountCard(
           title: "Donation Amount",
-          value: donationAmount.toString(),
+          value: donation.gweiToEther().toString(),
         ),
         const SizedBox(
           height: 10,
         ),
         DetailAmountCard(
           title: "Fee (Transaction Speed)",
-          value: "0"
+          value: (int.parse(gas?.gasPriceInGwei ?? "0") * 1500000).gweiToEther().toString()
         ),
         const Divider(
           height: 15,
@@ -32,7 +37,7 @@ class DetailAmountWidget extends StatelessWidget {
         DetailAmountCard(
           title: "Total",
           isBold: true,
-          value: donationAmount.toString(),
+          value: (donation.gweiToEther() + (int.parse(gas?.gasPriceInGwei ?? "0") * 1500000).gweiToEther()).toString(),
         ),
       ],
     );

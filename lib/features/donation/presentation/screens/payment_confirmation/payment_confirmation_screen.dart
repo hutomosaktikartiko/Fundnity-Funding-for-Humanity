@@ -1,28 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart';
+import 'package:ndialog/ndialog.dart';
+import 'package:web3dart/web3dart.dart';
 
+import '../../../../../core/models/return_value_model.dart';
+import '../../../../../core/utils/screen_navigator.dart';
+import '../../../../../service_locator.dart';
 import '../../../../../shared/config/custom_color.dart';
 import '../../../../../shared/config/custom_text_style.dart';
+import '../../../../../shared/config/keys_config.dart';
 import '../../../../../shared/config/size_config.dart';
+import '../../../../../shared/config/urls_config.dart';
 import '../../../../../shared/extension/string_parsing.dart';
 import '../../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../shared/widgets/show_image/show_image_network.dart';
 import '../../../../main/data/models/campaign_model.dart';
 import '../../../data/models/gas_model.dart';
+import '../../cubit/contribute/contribute_cubit.dart';
 import '../../cubit/gas_tracker/gas_tracker_cubit.dart';
 import '../../cubit/selected_transaction_speed/selected_transaction_speed_cubit.dart';
 import 'widgets/detail_amount/detail_amount_widget.dart';
 import 'widgets/transaction_speed/transaction_speed_widget.dart';
 
 class PaymentConfirmationScreen extends StatelessWidget {
-  final int? donationAmount;
+  final BigInt donationAmount;
   final CampaignModel? campaign;
+  final EthereumAddress? address;
 
   const PaymentConfirmationScreen({
     Key? key,
     required this.donationAmount,
     required this.campaign,
+    required this.address,
   }) : super(key: key);
 
   @override
@@ -108,8 +119,14 @@ class PaymentConfirmationScreen extends StatelessWidget {
             const Divider(
               height: 30,
             ),
-            DetailAmountWidget(
-              donationAmount: donationAmount,
+            BlocBuilder<SelectedTransactionSpeedCubit,
+                SelectedTransactionSpeedState>(
+              builder: (context, state) {
+                return DetailAmountWidget(
+                  donation: donationAmount,
+                  gas: state.gas,
+                );
+              },
             ),
           ],
         ),
@@ -170,8 +187,45 @@ class PaymentConfirmationScreen extends StatelessWidget {
   void _onSendDonation({
     required GasModel? gas,
     required BuildContext context,
-  }) {
-    
+  }) async {
+    ProgressDialog progressDialog = CustomDialog.showProgressDialog(
+      context: context,
+      message: "Sedang menyimpan data",
+    );
+    // Show progressDialog
+    progressDialog.show();
+    // Send donation
+    final ReturnValueModel result =
+        await context.read<ContributeCubit>().contribute(
+              web3Client: Web3Client(
+                UrlsConfig.infuraRinkbeyProvider +
+                    KeysConfig.infuraEthereumProjectId,
+                sl<Client>(),
+              ),
+              walletPrivateKey: KeysConfig.privateKeyAkun1,
+              amount: donationAmount,
+              address: address,
+            );
+
+    // Dismiss progressDialog
+    progressDialog.dismiss();
+
+    if (result.isSuccess) {
+      CustomDialog.showToast(
+        message: result.message,
+        context: context,
+        backgroundColor: UniversalColor.green4,
+      );
+      // Close Screen
+      ScreenNavigator.closeScreen(context);
+      ScreenNavigator.closeScreen(context);
+    } else {
+      CustomDialog.showToast(
+        message: result.message,
+        context: context,
+        backgroundColor: UniversalColor.red,
+      );
+    }
   }
 
   Future<void> _onRefresh(BuildContext context) async {

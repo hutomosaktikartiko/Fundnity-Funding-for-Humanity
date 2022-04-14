@@ -19,6 +19,11 @@ extension BigIntParsing on BigInt? {
     return this!.toInt() / 1000000000000000000;
   }
 
+  double gweiToEther() {
+    if (this == null) return 0.0;
+    return this!.toInt() / 1000000000;
+  }
+
   int? bigIntTimeStampToIntDays() {
     if (this == null) return null;
     return DateTime.fromMillisecondsSinceEpoch(this!.toInt()).daysBetween();

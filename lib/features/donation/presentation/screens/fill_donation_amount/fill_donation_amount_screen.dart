@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web3dart/web3dart.dart';
 
 import '../../../../../core/utils/screen_navigator.dart';
 import '../../../../../core/utils/utils.dart';
@@ -18,9 +19,11 @@ class FillDonationAmount extends StatefulWidget {
   const FillDonationAmount({
     Key? key,
     required this.campaign,
+    required this.address,
   }) : super(key: key);
 
   final CampaignModel? campaign;
+  final EthereumAddress? address;
 
   @override
   _FillDonationAmountState createState() => _FillDonationAmountState();
@@ -104,6 +107,7 @@ class _FillDonationAmountState extends State<FillDonationAmount> {
                   const SizedBox(
                     height: 10,
                   ),
+                  // TODO: Fix manual input donation amount
                   CustomTextField(
                     controller: amountController,
                     fillColor: UniversalColor.gray6,
@@ -192,8 +196,9 @@ class _FillDonationAmountState extends State<FillDonationAmount> {
     ScreenNavigator.startScreen(
         context,
         PaymentConfirmationScreen(
-          donationAmount: amount?.amount,
+          donationAmount: amount!.amountInGwei!,
           campaign: widget.campaign,
+          address: widget.address,
         ));
   }
 
@@ -210,7 +215,9 @@ class _FillDonationAmountState extends State<FillDonationAmount> {
           context,
           PaymentConfirmationScreen(
             campaign: widget.campaign,
-            donationAmount: int.parse(amountController.text),
+            // TODO: Fix manual input donation amount
+            donationAmount: BigInt.from(int.parse(amountController.text)),
+            address: widget.address,
           ));
     }
   }
