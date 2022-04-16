@@ -42,7 +42,7 @@ class DetailDonationHeader extends StatelessWidget {
             TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: "${campaign?.balance} ETH",
+                  text: "${campaign?.balance.etherInWeiToEther()} ETH",
                   style: CustomTextStyle.green4TextStyle.copyWith(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
@@ -74,7 +74,7 @@ class DetailDonationHeader extends StatelessWidget {
             height: 10,
           ),
           LinearPercentIndicator(
-            percent: 0.25,
+            percent: campaign?.balance.bigIntToCalculatePercentDouble(target: campaign?.target) ?? 0,
             lineHeight: 8,
             barRadius: Radius.circular(3),
             padding: EdgeInsets.only(right: 5),

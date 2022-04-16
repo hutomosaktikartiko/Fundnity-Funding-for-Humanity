@@ -11,7 +11,7 @@ extension BigIntParsing on BigInt? {
   }) {
     if (this == null) return 0.0;
     if (target == null) return 0.0;
-    return this!.toDouble() / target.toDouble() * 100;
+    return this!.etherInWeiToEther() / target.toDouble() * 100;
   }
 
   double etherInWeiToEther() {

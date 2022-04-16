@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../../../shared/config/custom_color.dart';
 import '../../../../../../../../shared/config/custom_text_style.dart';
 import '../../../../../../../../shared/config/size_config.dart';
+import '../../../../../../../../shared/extension/big_int_parsing.dart';
 import '../../../../../../../../shared/extension/string_parsing.dart';
 import '../../../../../../../../shared/widgets/show_image/show_image_local.dart';
 import '../../../../../../data/models/contributor_model.dart';
@@ -23,7 +24,9 @@ class DonationHistoryCard extends StatelessWidget {
         horizontal: SizeConfig.defaultMargin - 8,
       ),
       decoration: BoxDecoration(
-          color: UniversalColor.gray6, borderRadius: BorderRadius.circular(5)),
+        color: UniversalColor.gray6,
+        borderRadius: BorderRadius.circular(5),
+      ),
       child: Row(
         children: [
           // TODO => Change image to generated random image by wallet address
@@ -39,7 +42,7 @@ class DonationHistoryCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                 "${contributor?.contributor}".walletAddressSplit(),
+                  "${contributor?.contributor}".walletAddressSplit(),
                   style: CustomTextStyle.green4TextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -58,7 +61,7 @@ class DonationHistoryCard extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: " ${contributor?.amount ?? 0} ETH",
+                        text: " ${contributor?.amount.etherInWeiToEther() ?? 0} ETH",
                         style: CustomTextStyle.gray2TextStyle.copyWith(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,

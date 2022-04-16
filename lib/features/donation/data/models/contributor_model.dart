@@ -9,10 +9,10 @@ class ContributorModel {
     required this.contributor,
   });
 
-  factory ContributorModel.fromJson(List<dynamic> list) {
+  factory ContributorModel.fromJson(List list) {
     return ContributorModel(
-      amount: list[0],
-      contributor: list[1],
+      contributor: list[0] ?? null,
+      amount: list[1] ?? null,
     );
   }
 }

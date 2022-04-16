@@ -18,7 +18,7 @@ class ContributorCubit extends Cubit<ContributorState> {
   final ContributeRepository contributeRepository;
   final CampaignDeployedContractCubit campaignDeployedContractCubit;
 
-  void getContributors({
+  Future<void> getContributors({
     required EthereumAddress? address,
     required Web3Client web3Client,
   }) async {

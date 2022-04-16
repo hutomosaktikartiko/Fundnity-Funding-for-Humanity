@@ -65,14 +65,9 @@ class HorizontalCampaignCard extends StatelessWidget {
                       CircularPercentIndicator(
                         radius: 20,
                         lineWidth: 3,
-                        percent: (campaign?.balance
-                                .bigIntToCalculatePercentDouble(
-                                    target: campaign?.target) ?? 0)/
-                            100,
+                        percent: campaign?.balance.bigIntToCalculatePercentDouble(target: campaign?.target) ?? 0,
                         center: Text(
-                          (campaign?.balance
-                                  .bigIntToCalculatePercentDouble(
-                                      target: campaign?.target)
+                          (campaign?.balance.bigIntToCalculatePercentDouble(target: campaign?.target)
                                   .toStringAsFixed(1) ?? "0") +
                               "%",
                           style: CustomTextStyle.gray3TextStyle.copyWith(
@@ -91,7 +86,7 @@ class HorizontalCampaignCard extends StatelessWidget {
                     TextSpan(
                       children: <TextSpan>[
                         TextSpan(
-                          text: "${campaign?.balance ?? 0} ETH",
+                          text: "${campaign?.balance.etherInWeiToEther() ?? 0} ETH",
                           style: CustomTextStyle.green4TextStyle.copyWith(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,

@@ -28,19 +28,28 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
         params: [],
       );
 
-      if (result[0].length < 1) {
+      if (result.length < 1) {
         return [];
       }
 
-      return result[0]
-          .map((contributor) => ContributorModel.fromJson(contributor))
-          .toList();
+      List<ContributorModel> contributors = [];
+
+      if (result[0] is List) {
+        for (int i = 0; i < result[0].length; i++) {
+          contributors.add(ContributorModel(
+              contributor: result[0][i], amount: result[1][i]));
+        }
+      } else {
+        contributors.add(ContributorModel.fromJson(result));
+      }
+
+      return contributors;
     } catch (error) {
       throw error;
     }
   }
 
-   @override
+  @override
   Future<String> contribute({
     required DeployedContract deployedContract,
     required Web3Client web3Client,
@@ -57,6 +66,7 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
           contract: deployedContract,
           function: deployedContract.function('contribute'),
           parameters: [],
+          // TODO: Send amount as ether, so convert amount to ether first
           value: EtherAmount.fromUnitAndValue(EtherUnit.gwei, amount),
           maxGas: 1500000,
         ),
