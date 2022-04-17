@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
-import 'package:web3dart/web3dart.dart';
 
-import '../../../../../../../../../../service_locator.dart';
-import '../../../../../../../../../../shared/config/keys_config.dart';
-import '../../../../../../../../../../shared/config/urls_config.dart';
 import '../../../../../../../../../auth/presentation/cubit/wallet/wallet_cubit.dart';
 import '../../../../../../../cubit/account_balance/account_balance_cubit.dart';
+import '../../../../../../../cubit/web3client/web3client_cubit.dart';
 import '../widgets/balance_card.dart';
 
 class Error extends StatelessWidget {
@@ -35,10 +31,7 @@ class Error extends StatelessWidget {
               .wallet
               .privateKey
               .address,
-          web3client: Web3Client(
-              UrlsConfig.infuraRinkbeyProvider +
-                  KeysConfig.infuraEthereumProjectId,
-              sl<Client>()),
+          web3Client:  context.read<Web3ClientCubit>().state.web3client,
         );
   }
 }

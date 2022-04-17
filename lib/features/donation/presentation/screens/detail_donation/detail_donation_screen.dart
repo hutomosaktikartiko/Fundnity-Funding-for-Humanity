@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
-import 'package:web3dart/web3dart.dart';
 
 import '../../../../../core/utils/screen_navigator.dart';
-import '../../../../../service_locator.dart';
 import '../../../../../shared/config/custom_color.dart';
-import '../../../../../shared/config/keys_config.dart';
 import '../../../../../shared/config/size_config.dart';
-import '../../../../../shared/config/urls_config.dart';
 import '../../../../../shared/extension/string_parsing.dart';
 import '../../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../../main/data/models/campaign_model.dart';
+import '../../../../main/presentation/cubit/web3client/web3client_cubit.dart';
 import '../../cubit/contributor/contributor_cubit.dart';
 import '../fill_donation_amount/fill_donation_amount_screen.dart';
 import 'widgets/detail_donation_body_widget.dart';
@@ -122,17 +118,17 @@ class DetailDonationScreen extends StatelessWidget {
   Future<void> _onRefresh(BuildContext context) async {
     await context.read<ContributorCubit>().getContributors(
           address: campaign?.address,
-          web3Client: Web3Client(
-              UrlsConfig.infuraRinkbeyProvider +
-                  KeysConfig.infuraEthereumProjectId,
-              sl<Client>()),
+          web3Client: context.read<Web3ClientCubit>().state.web3client,
         );
   }
 
   void _onDonateNow(BuildContext context) {
-    ScreenNavigator.startScreen(context, FillDonationAmount(
-      campaign: campaign,
-      address: campaign?.address,
-    ));
+    ScreenNavigator.startScreen(
+      context,
+      FillDonationAmount(
+        campaign: campaign,
+        address: campaign?.address,
+      ),
+    );
   }
 }

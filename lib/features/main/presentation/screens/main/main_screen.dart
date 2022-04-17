@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
-import 'package:web3dart/web3dart.dart';
 
-import '../../../../../service_locator.dart';
-import '../../../../../shared/config/keys_config.dart';
-import '../../../../../shared/config/urls_config.dart';
 import '../../../../../shared/widgets/custom_box_shadow.dart';
 import '../../../../auth/presentation/cubit/wallet/wallet_cubit.dart';
 import '../../../data/models/tab_model.dart';
 import '../../cubit/account_balance/account_balance_cubit.dart';
 import '../../cubit/campaigns/campaigns_cubit.dart';
 import '../../cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
+import '../../cubit/web3client/web3client_cubit.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -88,19 +84,13 @@ class _MainScreenState extends State<MainScreen> {
               .wallet
               .privateKey
               .address,
-          web3client: Web3Client(
-              UrlsConfig.infuraRinkbeyProvider +
-                  KeysConfig.infuraEthereumProjectId,
-              sl<Client>()),
+          web3Client: context.read<Web3ClientCubit>().state.web3client,
         );
   }
 
   void _getCampaigns() {
     context.read<CampaignsCubit>().getCampaigns(
-          web3Client: Web3Client(
-              UrlsConfig.infuraRinkbeyProvider +
-                  KeysConfig.infuraEthereumProjectId,
-              sl<Client>()),
+          web3Client: context.read<Web3ClientCubit>().state.web3client,
           crowdfundindContract: (context
                   .read<CrowdfundingDeployedContractCubit>()
                   .state as CrowdfundingDeployedContractLoaded)

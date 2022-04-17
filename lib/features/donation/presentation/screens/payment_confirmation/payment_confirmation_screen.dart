@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
 import 'package:ndialog/ndialog.dart';
 import 'package:web3dart/web3dart.dart';
 
 import '../../../../../core/models/return_value_model.dart';
 import '../../../../../core/utils/screen_navigator.dart';
-import '../../../../../service_locator.dart';
 import '../../../../../shared/config/custom_color.dart';
 import '../../../../../shared/config/custom_text_style.dart';
 import '../../../../../shared/config/keys_config.dart';
 import '../../../../../shared/config/size_config.dart';
-import '../../../../../shared/config/urls_config.dart';
 import '../../../../../shared/extension/string_parsing.dart';
 import '../../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../shared/widgets/show_image/show_image_network.dart';
 import '../../../../main/data/models/campaign_model.dart';
+import '../../../../main/presentation/cubit/web3client/web3client_cubit.dart';
 import '../../../data/models/gas_model.dart';
 import '../../cubit/contribute/contribute_cubit.dart';
 import '../../cubit/gas_tracker/gas_tracker_cubit.dart';
@@ -197,11 +195,7 @@ class PaymentConfirmationScreen extends StatelessWidget {
     // Send donation
     final ReturnValueModel result =
         await context.read<ContributeCubit>().contribute(
-              web3Client: Web3Client(
-                UrlsConfig.infuraRinkbeyProvider +
-                    KeysConfig.infuraEthereumProjectId,
-                sl<Client>(),
-              ),
+              web3Client: context.read<Web3ClientCubit>().state.web3client,
               walletPrivateKey: KeysConfig.privateKeyAkun1,
               amount: donationAmount,
               address: address,

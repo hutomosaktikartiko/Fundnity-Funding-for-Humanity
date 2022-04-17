@@ -16,14 +16,14 @@ class AccountBalanceCubit extends Cubit<AccountBalanceState> {
 
   Future<void> getBalance({
     required EthereumAddress address,
-    required Web3Client web3client,
+    required Web3Client web3Client,
   }) async {
     emit(AccountBalanceLoading());
 
     final ReturnValueModel<EtherAmount> result =
         await accountRepository.getBalance(
       address: address,
-      web3client: web3client,
+      web3client: web3Client,
     );
 
     if (result.isSuccess && result.value != null) {

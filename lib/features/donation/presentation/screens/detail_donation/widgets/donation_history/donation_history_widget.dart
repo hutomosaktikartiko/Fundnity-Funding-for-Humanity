@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 
-import '../../../../../../../service_locator.dart';
-import '../../../../../../../shared/config/keys_config.dart';
 import '../../../../../../../shared/config/size_config.dart';
-import '../../../../../../../shared/config/urls_config.dart';
+import '../../../../../../main/presentation/cubit/web3client/web3client_cubit.dart';
 import '../../../../cubit/contributor/contributor_cubit.dart';
 import 'states/empty.dart';
 import 'states/error.dart';
@@ -32,10 +29,7 @@ class _DonationHistoryWidgetState extends State<DonationHistoryWidget> {
     super.initState();
     context.read<ContributorCubit>().getContributors(
           address: widget.address,
-          web3Client: Web3Client(
-              UrlsConfig.infuraRinkbeyProvider +
-                  KeysConfig.infuraEthereumProjectId,
-              sl<Client>()),
+          web3Client: context.read<Web3ClientCubit>().state.web3client,
         );
   }
 

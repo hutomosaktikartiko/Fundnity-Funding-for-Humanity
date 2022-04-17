@@ -11,7 +11,13 @@ part 'web3client_state.dart';
 class Web3ClientCubit extends Cubit<Web3ClientState> {
   Web3ClientCubit({
     required this.client,
-  }) : super(Web3ClientState()){
+  }) : super(Web3ClientState(
+          web3client: Web3Client(
+            UrlsConfig.infuraRinkbeyProvider +
+                KeysConfig.infuraEthereumProjectId,
+            client,
+          ),
+        )) {
     setDefaultNetwork();
   }
 
@@ -20,7 +26,7 @@ class Web3ClientCubit extends Cubit<Web3ClientState> {
   void setDefaultNetwork() {
     emit(Web3ClientState(
       web3client: Web3Client(
-        UrlsConfig.alchemyRinkbey + KeysConfig.alchemyPrivateKey,
+        UrlsConfig.infuraRinkbeyProvider + KeysConfig.infuraEthereumProjectId,
         client,
       ),
     ));

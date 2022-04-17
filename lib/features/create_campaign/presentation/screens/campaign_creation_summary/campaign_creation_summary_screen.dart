@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
 import 'package:ndialog/ndialog.dart';
-import 'package:web3dart/web3dart.dart';
 
 import '../../../../../core/models/return_value_model.dart';
 import '../../../../../core/utils/screen_navigator.dart';
-import '../../../../../service_locator.dart';
 import '../../../../../shared/config/custom_color.dart';
 import '../../../../../shared/config/custom_text_style.dart';
 import '../../../../../shared/config/keys_config.dart';
 import '../../../../../shared/config/size_config.dart';
-import '../../../../../shared/config/urls_config.dart';
 import '../../../../../shared/extension/int_parsing.dart';
 import '../../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
+import '../../../../main/presentation/cubit/web3client/web3client_cubit.dart';
 import '../../../data/models/create_campaign_model.dart';
 import '../../../data/models/ipfs_upload_model.dart';
 import '../../cubit/create_campaign/create_campaign_cubit.dart';
@@ -149,15 +146,14 @@ class CampaignCreationSummary extends StatelessWidget {
                   campaign: CreateCampaignModel(
                     title: createCampaignDataState.title,
                     description: createCampaignDataState.description,
-                    endDate: BigInt.from(createCampaignDataState.time.calculateDayToDateTime()?.millisecondsSinceEpoch ?? 0),
+                    endDate: BigInt.from(createCampaignDataState.time
+                            .calculateDayToDateTime()
+                            ?.millisecondsSinceEpoch ??
+                        0),
                     target: BigInt.from(createCampaignDataState.amount ?? 0),
                     image: resultUploadImage.value?.hash ?? "-",
                   ),
-                  web3Client: Web3Client(
-                    UrlsConfig.infuraRinkbeyProvider +
-                        KeysConfig.infuraEthereumProjectId,
-                    sl<Client>(),
-                  ),
+                  web3Client: context.read<Web3ClientCubit>().state.web3client,
                   contract: (context
                           .read<CrowdfundingDeployedContractCubit>()
                           .state as CrowdfundingDeployedContractLoaded)
