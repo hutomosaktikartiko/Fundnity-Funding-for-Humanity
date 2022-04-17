@@ -54,48 +54,31 @@ class _BalanceCardState extends State<BalanceCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${widget.address ?? ''}".walletAddressSplit(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 13,
-                        ),
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${widget.address ?? ''}".walletAddressSplit(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
                       ),
-                      const SizedBox(
-                        height: 5,
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      "${widget.amount?.getInWei.etherInWeiToEther().toStringAsFixed(5)} ETH",
+                      overflow: TextOverflow.clip,
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
-                      Row(
-                        children: [
-                          // TODO: Fix 'ETH' text
-                          Expanded(
-                            child: Text(
-                              "${widget.amount?.getInWei.etherInWeiToEther() ?? 0}",
-                              overflow: TextOverflow.clip,
-                              maxLines: 1,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            " ETH",
-                            overflow: TextOverflow.clip,
-                            maxLines: 1,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+                    ),
+                  ],
+                )),
                 const SizedBox(
                   width: 10,
                 ),
