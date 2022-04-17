@@ -15,7 +15,7 @@ abstract class ContributeRepository {
     required BigInt amount,
     required DeployedContract deployedContract,
     required Web3Client web3Client,
-    required String walletPrivateKey,
+    required EthPrivateKey walletPrivateKey,
   });
 }
 
@@ -58,7 +58,7 @@ class ContributeRepositoryImpl implements ContributeRepository {
     required BigInt amount,
     required DeployedContract deployedContract,
     required Web3Client web3Client,
-    required String walletPrivateKey,
+    required EthPrivateKey walletPrivateKey,
   }) async {
     if (await networkInfo.isConnected) {
       try {

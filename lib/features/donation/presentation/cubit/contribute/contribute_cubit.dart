@@ -19,7 +19,7 @@ class ContributeCubit extends Cubit<ContributeState> {
 
   Future<ReturnValueModel> contribute({
     required Web3Client web3Client,
-    required String walletPrivateKey,
+    required EthPrivateKey walletPrivateKey,
     required BigInt amount,
     required EthereumAddress? address,
   }) async {

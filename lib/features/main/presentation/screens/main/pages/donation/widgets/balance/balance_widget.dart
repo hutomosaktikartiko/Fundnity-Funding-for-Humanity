@@ -28,7 +28,6 @@ class _BalanceWidgetState extends State<BalanceWidget> {
               .wallet
               .privateKey
               .address,
-          
           web3Client: context.read<Web3ClientCubit>().state.web3client,
         );
   }

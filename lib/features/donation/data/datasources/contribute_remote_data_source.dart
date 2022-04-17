@@ -11,7 +11,7 @@ abstract class ContributeRemoteDataSource {
     required BigInt amount,
     required DeployedContract deployedContract,
     required Web3Client web3Client,
-    required String walletPrivateKey,
+    required EthPrivateKey walletPrivateKey,
   });
 }
 
@@ -53,7 +53,7 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
   Future<String> contribute({
     required DeployedContract deployedContract,
     required Web3Client web3Client,
-    required String walletPrivateKey,
+    required EthPrivateKey walletPrivateKey,
     required BigInt amount,
   }) async {
     print(amount);
@@ -61,7 +61,7 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
     print(walletPrivateKey);
     try {
       final String result = await web3Client.sendTransaction(
-        EthPrivateKey.fromHex(walletPrivateKey),
+        walletPrivateKey,
         Transaction.callContract(
           contract: deployedContract,
           function: deployedContract.function('contribute'),

@@ -7,12 +7,12 @@ import '../../../../../core/models/return_value_model.dart';
 import '../../../../../core/utils/screen_navigator.dart';
 import '../../../../../shared/config/custom_color.dart';
 import '../../../../../shared/config/custom_text_style.dart';
-import '../../../../../shared/config/keys_config.dart';
 import '../../../../../shared/config/size_config.dart';
 import '../../../../../shared/extension/string_parsing.dart';
 import '../../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../shared/widgets/show_image/show_image_network.dart';
+import '../../../../auth/presentation/cubit/wallet/wallet_cubit.dart';
 import '../../../../main/data/models/campaign_model.dart';
 import '../../../../main/presentation/cubit/web3client/web3client_cubit.dart';
 import '../../../data/models/gas_model.dart';
@@ -196,7 +196,10 @@ class PaymentConfirmationScreen extends StatelessWidget {
     final ReturnValueModel result =
         await context.read<ContributeCubit>().contribute(
               web3Client: context.read<Web3ClientCubit>().state.web3client,
-              walletPrivateKey: KeysConfig.privateKeyAkun1,
+              walletPrivateKey:
+                  (context.read<WalletCubit>().state as WalletLoaded)
+                      .wallet
+                      .privateKey,
               amount: donationAmount,
               address: address,
             );
