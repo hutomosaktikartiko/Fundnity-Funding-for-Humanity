@@ -7,7 +7,9 @@ import '../../../../../service_locator.dart';
 import '../../../../../shared/config/keys_config.dart';
 import '../../../../../shared/config/urls_config.dart';
 import '../../../../../shared/widgets/custom_box_shadow.dart';
+import '../../../../auth/presentation/cubit/wallet/wallet_cubit.dart';
 import '../../../data/models/tab_model.dart';
+import '../../cubit/account_balance/account_balance_cubit.dart';
 import '../../cubit/campaigns/campaigns_cubit.dart';
 import '../../cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
 
@@ -66,8 +68,12 @@ class _MainScreenState extends State<MainScreen> {
 
   void _moveTab(int index) {
     // Check index
-    if (index == 0 || index == 1) {
-      // DonationPage || MyCampaignPage
+    if (index == 0) {
+      // DonationPage
+      _getBalance();
+      _getCampaigns();
+    } else if (index == 1) {
+      // My Campaign Page
       _getCampaigns();
     }
     setState(() => currentTab = index);
@@ -75,6 +81,19 @@ class _MainScreenState extends State<MainScreen> {
 
   // TODO => Tambah animation ketika tab tekan dari nonaktif menjadi aktif
   // TODO => Perubahan icon tab ketika aktif
+
+  void _getBalance() {
+    context.read<AccountBalanceCubit>().getBalance(
+          address: (context.read<WalletCubit>().state as WalletLoaded)
+              .wallet
+              .privateKey
+              .address,
+          web3client: Web3Client(
+              UrlsConfig.infuraRinkbeyProvider +
+                  KeysConfig.infuraEthereumProjectId,
+              sl<Client>()),
+        );
+  }
 
   void _getCampaigns() {
     context.read<CampaignsCubit>().getCampaigns(
