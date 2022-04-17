@@ -31,7 +31,7 @@ class CreateCampaignCubit extends Cubit<CreateCampaignState> {
     required CreateCampaignModel campaign,
     required Web3Client web3Client,
     required DeployedContract contract,
-    required String walletPrivateKey,
+    required EthPrivateKey walletPrivateKey,
   }) async {
     final ReturnValueModel result =
         await createCampaignRepository.createCampaign(

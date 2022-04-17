@@ -6,11 +6,11 @@ import '../../../../../core/models/return_value_model.dart';
 import '../../../../../core/utils/screen_navigator.dart';
 import '../../../../../shared/config/custom_color.dart';
 import '../../../../../shared/config/custom_text_style.dart';
-import '../../../../../shared/config/keys_config.dart';
 import '../../../../../shared/config/size_config.dart';
 import '../../../../../shared/extension/int_parsing.dart';
 import '../../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../../../shared/widgets/custom_dialog.dart';
+import '../../../../auth/presentation/cubit/wallet/wallet_cubit.dart';
 import '../../../../main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
 import '../../../../main/presentation/cubit/web3client/web3client_cubit.dart';
 import '../../../data/models/create_campaign_model.dart';
@@ -142,7 +142,7 @@ class CampaignCreationSummary extends StatelessWidget {
         // Upload Campaign Data
         final ReturnValueModel resultCreateCampaign =
             await context.read<CreateCampaignCubit>().createCampaign(
-                  walletPrivateKey: KeysConfig.privateKeyAkun1,
+                  walletPrivateKey: (context.read<WalletCubit>().state as WalletLoaded).wallet.privateKey,
                   campaign: CreateCampaignModel(
                     title: createCampaignDataState.title,
                     description: createCampaignDataState.description,

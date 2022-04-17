@@ -14,7 +14,7 @@ abstract class CreateCampaignRepository {
     required CreateCampaignModel campaign,
     required Web3Client web3Client,
     required DeployedContract contract,
-    required String walletPrivateKey,
+    required EthPrivateKey walletPrivateKey,
   });
   Future<ReturnValueModel<IpfsUploadModel>> uploadImage({
     required File image,
@@ -57,7 +57,7 @@ class CreateCampaignRepositoryImpl implements CreateCampaignRepository {
     required CreateCampaignModel campaign,
     required Web3Client web3Client,
     required DeployedContract contract,
-    required String walletPrivateKey,
+    required EthPrivateKey walletPrivateKey,
   }) async {
     if (await networkInfo.isConnected) {
       try {

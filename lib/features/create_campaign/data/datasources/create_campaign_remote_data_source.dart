@@ -14,7 +14,7 @@ abstract class CreateCampaignRemoteDataSource {
     required CreateCampaignModel campaign,
     required DeployedContract contract,
     required Web3Client web3Client,
-    required String walletPrivateKey,
+    required EthPrivateKey walletPrivateKey,
   });
   Future<IpfsUploadModel> uploadImage({
     required File image,
@@ -36,11 +36,11 @@ class CreateCampaignRemoteDataSourceImpl
     required CreateCampaignModel campaign,
     required DeployedContract contract,
     required Web3Client web3Client,
-    required String walletPrivateKey,
+    required EthPrivateKey walletPrivateKey,
   }) async {
     try {
       final String result = await web3Client.sendTransaction(
-        EthPrivateKey.fromHex(walletPrivateKey),
+        walletPrivateKey,
         Transaction.callContract(
           contract: contract,
           function: contract.function('createCampaign'),
