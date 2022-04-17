@@ -246,6 +246,10 @@
       {
         "name": "_endDate",
         "type": "uint256"
+      },
+      {
+        "name": "_creatorAddress",
+        "type": "address"
       }
     ],
     "payable": false,
