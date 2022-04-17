@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart';
+import 'package:web3dart/web3dart.dart';
 
+import '../../../../../../../service_locator.dart';
+import '../../../../../../../shared/config/keys_config.dart';
+import '../../../../../../../shared/config/urls_config.dart';
 import '../../../../../../../shared/widgets/custom_app_bar_with_search_form.dart';
 import '../../../../../../../shared/widgets/widget_with_default_horizontal_padding.dart';
+import '../../../../../../auth/presentation/cubit/wallet/wallet_cubit.dart';
+import '../../../../cubit/account_balance/account_balance_cubit.dart';
+import '../../../../cubit/campaigns/campaigns_cubit.dart';
+import '../../../../cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
 import 'widgets/all_campaigns/all_campaigns_widget.dart';
 import 'widgets/balance/balance_widget.dart';
 import 'widgets/campaign_by_wallet_address/campaign_by_wallet_address_widget.dart';
@@ -17,9 +27,9 @@ class DonationPage extends StatelessWidget {
         formHintText: "Type Children, Health, etc...",
         openSearchScreen: _openSearchScreen,
       ).build(context),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body: RefreshIndicator(
+        onRefresh: () => _onRefresh(context),
+        child: ListView(
           children: [
             SizedBox(
               height: 10,
@@ -38,5 +48,36 @@ class DonationPage extends StatelessWidget {
 
   void _openSearchScreen() {
     // TODO => Navigator to search screen
+  }
+
+  Future<void> _onRefresh(BuildContext context) async {
+     _getBalance(context);
+     _getCampaigns(context);
+  }
+
+  Future<void> _getBalance(BuildContext context) async {
+    await context.read<AccountBalanceCubit>().getBalance(
+          address: (context.read<WalletCubit>().state as WalletLoaded)
+              .wallet
+              .privateKey
+              .address,
+          web3client: Web3Client(
+              UrlsConfig.infuraRinkbeyProvider +
+                  KeysConfig.infuraEthereumProjectId,
+              sl<Client>()),
+        );
+  }
+
+  Future<void> _getCampaigns(BuildContext context) async {
+    await context.read<CampaignsCubit>().getCampaigns(
+          web3Client: Web3Client(
+              UrlsConfig.infuraRinkbeyProvider +
+                  KeysConfig.infuraEthereumProjectId,
+              sl<Client>()),
+          crowdfundindContract: (context
+                  .read<CrowdfundingDeployedContractCubit>()
+                  .state as CrowdfundingDeployedContractLoaded)
+              .deployedContract,
+        );
   }
 }
