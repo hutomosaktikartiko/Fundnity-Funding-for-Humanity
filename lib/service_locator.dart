@@ -50,6 +50,7 @@ import 'features/main/presentation/cubit/campaigns/campaigns_cubit.dart';
 import 'features/main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
 import 'features/main/presentation/cubit/main_campaign/main_campaign_cubit.dart';
 import 'features/main/presentation/cubit/my_campaigns/my_campaigns_cubit.dart';
+import 'features/main/presentation/cubit/selected_filter_campaign/selected_filter_campaign_cubit.dart';
 import 'features/main/presentation/cubit/web3client/web3client_cubit.dart';
 
 final GetIt sl = GetIt.instance;
@@ -169,6 +170,8 @@ Future<void> _main() async {
   sl.registerFactory(() => AccountBalanceCubit(accountRepository: sl()));
   sl.registerFactory(() => MyCampaignsCubit());
   sl.registerFactory(() => MainCampaignCubit());
+  sl.registerFactory(() => SelectedFilterCampaignCubit());
+
 }
 
 Future<void> _notification() async {
