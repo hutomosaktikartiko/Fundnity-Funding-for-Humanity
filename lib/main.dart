@@ -24,6 +24,7 @@ import 'features/main/presentation/cubit/campaign_by_wallet_addresses/campaign_b
 import 'features/main/presentation/cubit/campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
 import 'features/main/presentation/cubit/campaigns/campaigns_cubit.dart';
 import 'features/main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
+import 'features/main/presentation/cubit/history/history_cubit.dart';
 import 'features/main/presentation/cubit/main_campaign/main_campaign_cubit.dart';
 import 'features/main/presentation/cubit/my_campaigns/my_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/selected_filter_campaign/selected_filter_campaign_cubit.dart';
@@ -78,6 +79,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<GasTrackerCubit>()),
         BlocProvider(create: (context) => di.sl<ContributeCubit>()),
         BlocProvider(create: (context) => di.sl<SelectedFilterCampaignCubit>()),
+        BlocProvider(create: (context) => di.sl<HistoryCubit>()),
       ],
       child: MaterialApp(
         home: SplashScreen(),

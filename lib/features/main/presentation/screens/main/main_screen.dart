@@ -29,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: mockListTabModel[currentTab].widget,
+      body: mockListTabsMain[currentTab].widget,
       bottomNavigationBar: buildBottomNavigationBar(),
     );
   }
@@ -43,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
         child: BottomNavigationBar(
           currentIndex: currentTab,
           onTap: _moveTab,
-          items: mockListTabModel
+          items: mockListTabsMain
               .map(
                 (tab) => BottomNavigationBarItem(
                   icon: Padding(

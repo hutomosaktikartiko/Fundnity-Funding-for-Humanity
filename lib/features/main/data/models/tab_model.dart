@@ -19,9 +19,14 @@ class TabModel {
   });
 }
 
-final List<TabModel> mockListTabModel = [
+final List<TabModel> mockListTabsMain = [
   TabModel(id: 1, label: "Donation", iconData: Icons.volunteer_activism, widget: DonationPage()),
   TabModel(id: 2, label: "My Campaign", iconData: Icons.campaign, widget: MyCampaignPage()),
   TabModel(id: 3, label: "History", iconData: Icons.history, widget: HistoryPage()),
   TabModel(id: 4, label: "Account", iconData: Icons.person, widget: ProfilePage()),
+];
+
+final List<TabModel> mockListTabsHistoryModel = [
+  TabModel(id: 1, label: "My Donation", iconData: Icons.volunteer_activism, widget: DonationPage()),
+  TabModel(id: 2, label: "Create Campaign", iconData: Icons.campaign, widget: MyCampaignPage()),
 ];

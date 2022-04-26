@@ -16,6 +16,6 @@ class SelectedFilterCampaignCubit extends Cubit<SelectedFilterCampaignState> {
   }
 
   void setDefaultFilter() {
-    emit(SelectedFilterCampaignState(filter: mockListFiltersMyCampaigs.first));
+    emit(SelectedFilterCampaignState(filter: mockListFiltersMyCampaign.first));
   }
 }

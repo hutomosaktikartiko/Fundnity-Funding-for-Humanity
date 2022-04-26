@@ -1,21 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../../shared/widgets/custom_app_bar_with_search_form.dart';
+import '../../../../../../auth/presentation/cubit/wallet/wallet_cubit.dart';
+import '../../../../cubit/history/history_cubit.dart';
+import 'states/empty.dart';
+import 'states/error.dart';
+import 'states/loaded.dart';
+import 'states/loading.dart';
 
-class HistoryPage extends StatelessWidget {
+class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
 
   @override
+  _HistoryPageState createState() => _HistoryPageState();
+}
+
+class _HistoryPageState extends State<HistoryPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<HistoryCubit>().getListHistory(
+        address: (context.read<WalletCubit>().state as WalletLoaded)
+            .wallet
+            .privateKey
+            .address
+            .hex);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBarWithSearchForm(
-        formHintText: "Search history",
-        openSearchScreen: _openSearchScreen,
-      ).build(context),
+    return RefreshIndicator(
+      onRefresh: _onRefresh,
+      child: BlocBuilder<HistoryCubit, HistoryState>(
+        builder: (context, state) {
+          if (state is HistoryLoaded) {
+            return Loaded(history: state.history);
+          } else if (state is HistoryEmpty) {
+            return Empty();
+          } else if (state is HistoryFailure) {
+            return Error(message: state.message);
+          } else {
+            return Loading();
+          }
+        },
+      ),
     );
   }
 
-  void _openSearchScreen() {
-    // TODO => Navigator open search history screen
+  Future<void> _onRefresh() async {
+    await context.read<HistoryCubit>().getListHistory(
+        address: (context.read<WalletCubit>().state as WalletLoaded)
+            .wallet
+            .privateKey
+            .address
+            .hex);
   }
 }

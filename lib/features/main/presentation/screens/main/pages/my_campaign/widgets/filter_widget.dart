@@ -28,7 +28,7 @@ class _FilterWidgetState extends State<FilterWidget> {
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: mockListFiltersMyCampaigs
+            children: mockListFiltersMyCampaign
                 .asMap()
                 .map(
                   (key, value) => MapEntry(
@@ -36,7 +36,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                     Padding(
                       padding: EdgeInsets.only(
                         left: (key == 0) ? SizeConfig.defaultMargin : 5,
-                        right: (key == mockListFiltersMyCampaigs.length - 1)
+                        right: (key == mockListFiltersMyCampaign.length - 1)
                             ? SizeConfig.defaultMargin
                             : 0,
                       ),

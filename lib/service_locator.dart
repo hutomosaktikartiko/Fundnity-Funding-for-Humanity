@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:crowdfunding/features/main/data/repositories/history_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -39,6 +41,7 @@ import 'features/donation/presentation/cubit/selected_transaction_speed/selected
 import 'features/main/data/datasources/account_remote_data_balance.dart';
 import 'features/main/data/datasources/campaign_remote_data_source.dart';
 import 'features/main/data/datasources/deployed_contract_local_data_source.dart';
+import 'features/main/data/datasources/history_remote_data_srouce.dart';
 import 'features/main/data/repositories/account_repository.dart';
 import 'features/main/data/repositories/campaign_repository.dart';
 import 'features/main/data/repositories/deployed_contract_repository.dart';
@@ -48,6 +51,7 @@ import 'features/main/presentation/cubit/campaign_by_wallet_addresses/campaign_b
 import 'features/main/presentation/cubit/campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
 import 'features/main/presentation/cubit/campaigns/campaigns_cubit.dart';
 import 'features/main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
+import 'features/main/presentation/cubit/history/history_cubit.dart';
 import 'features/main/presentation/cubit/main_campaign/main_campaign_cubit.dart';
 import 'features/main/presentation/cubit/my_campaigns/my_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/selected_filter_campaign/selected_filter_campaign_cubit.dart';
@@ -130,18 +134,24 @@ Future<void> _createCampaign() async {
 
 Future<void> _donation() async {
   // Datasource
-  sl.registerLazySingleton<ContributeRemoteDataSource>(() => ContributeRemoteDataSourceImpl());
-  sl.registerLazySingleton<GasRemoteDataSource>(() => GasRemoteDataSourceImpl(dio: sl()));
+  sl.registerLazySingleton<ContributeRemoteDataSource>(
+      () => ContributeRemoteDataSourceImpl());
+  sl.registerLazySingleton<GasRemoteDataSource>(
+      () => GasRemoteDataSourceImpl(dio: sl()));
 
   // Repository
-  sl.registerLazySingleton<ContributeRepository>(() => ContributeRepositoryImpl(contributeRemoteDataSource: sl(), networkInfo: sl()));
-  sl.registerLazySingleton<GasRepository>(() => GasRepositoryImpl(gasRemoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<ContributeRepository>(() => ContributeRepositoryImpl(
+      contributeRemoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<GasRepository>(
+      () => GasRepositoryImpl(gasRemoteDataSource: sl(), networkInfo: sl()));
 
   // Cubit
   sl.registerFactory(() => SelectedTransactionSpeedCubit());
-  sl.registerFactory(() => ContributorCubit(contributeRepository: sl(), campaignDeployedContractCubit: sl()));
+  sl.registerFactory(() => ContributorCubit(
+      contributeRepository: sl(), campaignDeployedContractCubit: sl()));
   sl.registerFactory(() => GasTrackerCubit(gasRepository: sl()));
-  sl.registerFactory(() => ContributeCubit(contributeRepository: sl(), campaignDeployedContractCubit: sl()));
+  sl.registerFactory(() => ContributeCubit(
+      contributeRepository: sl(), campaignDeployedContractCubit: sl()));
 }
 
 Future<void> _favoriteDonation() async {}
@@ -152,12 +162,15 @@ Future<void> _main() async {
       () => CampaignRemoteDataSourceImpl());
   sl.registerLazySingleton<AccountRemoteDataSource>(
       () => AccountRemoteDataSourceImpl());
+  sl.registerLazySingleton<HistoryRemoteDataSource>(
+      () => HistoryRemoteDataSourceImpl(firestore: sl()));
 
   // Repositories
   sl.registerLazySingleton<CampaignRepository>(() => CampaignRepositoryImpl(
       networkInfo: sl(), campaignRemoteDataSource: sl()));
   sl.registerLazySingleton<AccountRepository>(() =>
       AccountRepositoryImpl(networkInfo: sl(), accountRemoteDataSource: sl()));
+  sl.registerLazySingleton<HistoryRepository>(() => HistoryRepositoryImpl(historyRemoteDataSource: sl(), networkInfo: sl()));
 
   // Cubit
   sl.registerFactory(
@@ -171,7 +184,7 @@ Future<void> _main() async {
   sl.registerFactory(() => MyCampaignsCubit());
   sl.registerFactory(() => MainCampaignCubit());
   sl.registerFactory(() => SelectedFilterCampaignCubit());
-
+  sl.registerFactory(() => HistoryCubit(historyRepository: sl()));
 }
 
 Future<void> _notification() async {
@@ -199,8 +212,8 @@ Future<void> _core() async {
   // UpdateInfo
   sl.registerLazySingleton<UpdateInfo>(() => UpdateInfoImpl(newVersion: sl()));
   // FirebaseAnalyticsObserverInfo
-  sl.registerLazySingleton<FirebaseAnalyticsObserverInfo>(
-      () => FirebaseAnalyticsObserverInfoImpl(analytics: sl()));
+  // sl.registerLazySingleton<FirebaseAnalyticsObserverInfo>(
+  //     () => FirebaseAnalyticsObserverInfoImpl(analytics: sl()));
   // PreferencesInfo
   sl.registerLazySingleton<PreferencesInfo>(
       () => PreferencesInfoImpl(shared: sl()));
@@ -221,7 +234,9 @@ Future<void> _external() async {
   // FilePicker
   sl.registerLazySingleton<FilePicker>(() => FilePicker.platform);
   // FirebaseAnalytics
-  sl.registerLazySingleton<FirebaseAnalytics>(() => FirebaseAnalytics.instance);
+  // sl.registerLazySingleton<FirebaseAnalytics>(() => FirebaseAnalytics.instance);
+  // Cloud Firestore
+  sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
   // HTTPClient
   sl.registerLazySingleton<Client>(() => Client());
   // Web3Client
