@@ -1,3 +1,4 @@
+import 'package:crowdfunding/features/auth/presentation/cubit/biometric_auth/biometric_auth_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -80,6 +81,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<ContributeCubit>()),
         BlocProvider(create: (context) => di.sl<SelectedFilterCampaignCubit>()),
         BlocProvider(create: (context) => di.sl<HistoryCubit>()),
+        BlocProvider(create: (context) => di.sl<BiometricAuthCubit>()),
       ],
       child: MaterialApp(
         home: SplashScreen(),

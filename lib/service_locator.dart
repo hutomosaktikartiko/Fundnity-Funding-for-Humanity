@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:crowdfunding/features/auth/presentation/cubit/biometric_auth/biometric_auth_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 // import 'package:firebase_analytics/firebase_analytics.dart';
@@ -7,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:new_version/new_version.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web3dart/web3dart.dart';
@@ -184,6 +186,7 @@ Future<void> _main() async {
   sl.registerFactory(() => MainCampaignCubit());
   sl.registerFactory(() => SelectedFilterCampaignCubit());
   sl.registerFactory(() => HistoryCubit(historyRepository: sl()));
+  sl.registerFactory(() => BiometricAuthCubit(localAuth: sl()));
 }
 
 Future<void> _notification() async {
@@ -245,4 +248,6 @@ Future<void> _external() async {
   // Dio
   sl.registerLazySingleton<Dio>(
       () => Dio()..interceptors.add(InterceptorInfo()));
+  // Local auth
+  sl.registerLazySingleton<LocalAuthentication>(() => LocalAuthentication());
 }

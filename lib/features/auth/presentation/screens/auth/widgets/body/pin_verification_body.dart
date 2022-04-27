@@ -14,6 +14,7 @@ import '../../../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../../../shared/widgets/show_svg/show_svg_asset.dart';
 import '../../../../../../main/presentation/screens/main/main_screen.dart';
 import '../../../../cubit/auth_body/auth_body_cubit.dart';
+import '../../../../cubit/biometric_auth/biometric_auth_cubit.dart';
 import '../../../../cubit/wallet/wallet_cubit.dart';
 import '../label_text.dart';
 
@@ -28,107 +29,116 @@ class _PinVerificationBodyState extends State<PinVerificationBody> {
   List<String?> pins = [null, null, null, null, null, null];
 
   @override
+  void initState() {
+    super.initState();
+    biometricAuth();
+  }
+
+  void biometricAuth() async {
+    await context.read<BiometricAuthCubit>().checkAuth().then((value) => _showFingerprintAlertDialog());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Column(
-              children: [
-                SizedBox(
-                  height: SizeConfig.screenHeight * 0.01,
-                ),
-                const LabelText(
-                  text: "Pin Verification",
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                ShowSvgAsset(
-                  assetUrl: AssetPathConfig.lockPath,
-                  height: 130,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                const LabelText(
-                  text: "Enter Your Pin",
-                ),
-              ],
-            ),
-            Spacer(),
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.defaultMargin * 2,
+      body: Column(
+        children: [
+          Column(
+            children: [
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.01,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: pins
-                    .asMap()
-                    .map(
-                      (key, value) => MapEntry(
-                        key,
-                        Container(
-                          height: 10,
-                          width: 10,
-                          margin: EdgeInsets.only(
-                            left: (key == 0) ? 0 : 20,
-                          ),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
+              const LabelText(
+                text: "Pin Verification",
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              ShowSvgAsset(
+                assetUrl: AssetPathConfig.lockPath,
+                height: 130,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const LabelText(
+                text: "Enter Your Pin",
+              ),
+            ],
+          ),
+          Spacer(),
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.defaultMargin * 2,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: pins
+                  .asMap()
+                  .map(
+                    (key, value) => MapEntry(
+                      key,
+                      Container(
+                        height: 10,
+                        width: 10,
+                        margin: EdgeInsets.only(
+                          left: (key == 0) ? 0 : 20,
+                        ),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: (value != null)
+                              ? UniversalColor.green4
+                              : Colors.transparent,
+                          border: Border.all(
                             color: (value != null)
-                                ? UniversalColor.green4
-                                : Colors.transparent,
-                            border: Border.all(
-                              color: (value != null)
-                                  ? Colors.transparent
-                                  : UniversalColor.gray3,
-                            ),
+                                ? Colors.transparent
+                                : UniversalColor.gray3,
                           ),
                         ),
                       ),
-                    )
-                    .values
-                    .toList(),
-              ),
+                    ),
+                  )
+                  .values
+                  .toList(),
             ),
-            Spacer(),
-            NumericKeyboard(
-              onKeyboardTap: _onKeyboardTap,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              textColor: UniversalColor.gray1,
-              rightIcon: Icon(
-                Icons.backspace_outlined,
-                color: UniversalColor.gray1,
-              ),
-              leftIcon: Icon(
-                Icons.fingerprint,
-                color: UniversalColor.gray1,
-              ),
-              rightButtonFn: _onKeyboardBackspaceTap,
+          ),
+          Spacer(),
+          NumericKeyboard(
+            onKeyboardTap: _onKeyboardTap,
+            leftButtonFn: _showFingerprintAlertDialog,
+            rightButtonFn: _onKeyboardBackspaceTap,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            textColor: UniversalColor.gray1,
+            rightIcon: Icon(
+              Icons.backspace_outlined,
+              color: UniversalColor.gray1,
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 22),
-              child: GestureDetector(
-                onTap: () =>
-                    context.read<AuthBodyCubit>().emit(AuthBodyImportWallet()),
-                child: Text.rich(
-                  TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: "Signin with another wallet? ",
-                      ),
-                      TextSpan(
-                          text: "import wallet",
-                          style: CustomTextStyle.green4TextStyle),
-                    ],
-                  ),
+            leftIcon: Icon(
+              Icons.fingerprint,
+              color: UniversalColor.gray1,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 22),
+            child: GestureDetector(
+              onTap: () =>
+                  context.read<AuthBodyCubit>().emit(AuthBodyImportWallet()),
+              child: Text.rich(
+                TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: "Signin with another wallet? ",
+                    ),
+                    TextSpan(
+                        text: "import wallet",
+                        style: CustomTextStyle.green4TextStyle),
+                  ],
                 ),
               ),
             ),
-            Spacer(),
-          ],
-        ),
+          ),
+          Spacer(),
+        ],
       ),
     );
   }
@@ -157,7 +167,63 @@ class _PinVerificationBodyState extends State<PinVerificationBody> {
     }
   }
 
-  void _onSigninWithFingerprint () {
+  void _showFingerprintAlertDialog() {
+    Future.delayed(Duration.zero, () {
+      final BiometricAuthState biometricAuthState =
+          context.read<BiometricAuthCubit>().state;
+      if (biometricAuthState is BiometricAuthSuccess) {
+        NAlertDialog(
+          title: Center(
+            child: Text(
+              "Crowdfunding Biometric Login",
+              style: CustomTextStyle.gray1TextStyle.copyWith(
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Signin using your biomteric credential",
+                style: CustomTextStyle.gray1TextStyle.copyWith(
+                  fontSize: 12,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Icon(
+                Icons.fingerprint,
+                size: 40,
+                color: UniversalColor.gray2,
+              ),
+            ],
+          ),
+          actions: [
+            GestureDetector(
+              onTap: () => ScreenNavigator.closeScreen(context),
+              child: Center(
+                child: Text(
+                  "Use PIN",
+                  style: CustomTextStyle.blue2TextStyle.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ).show(context);
+      } else if (biometricAuthState is BiometricAuthNotAvailable) {
+        CustomDialog.showToast(
+          message: "Fingerprint auth not found",
+          context: context,
+          backgroundColor: UniversalColor.red,
+        );
+      }
+    });
+  }
+
+  void _onSigninWithFingerprint() {
     // TODO: Signin with fingerprint
   }
 

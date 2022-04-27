@@ -70,6 +70,8 @@ dependencies:
   intl: ^0.17.0
   # keyboard
   numeric_keyboard: ^1.1.0
+  # local auth
+  local_auth: ^1.1.7
 
 dev_dependencies:
   flutter_test:
