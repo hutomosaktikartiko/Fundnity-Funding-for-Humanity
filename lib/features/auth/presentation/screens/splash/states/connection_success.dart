@@ -1,5 +1,3 @@
-import 'package:crowdfunding/features/auth/presentation/screens/splash/states/connection_error.dart';
-import 'package:crowdfunding/features/main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,10 +8,12 @@ import '../../../../../../core/utils/screen_navigator.dart';
 import '../../../../../../core/utils/update_info.dart';
 import '../../../../../../service_locator.dart';
 import '../../../../../../shared/widgets/custom_dialog.dart';
+import '../../../../../main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
 import '../../../cubit/auth_body/auth_body_cubit.dart';
 import '../../auth/auth_screen.dart';
 import '../../onboarding/onboarding_screen.dart';
 import '../widgets/body.dart';
+import 'connection_error.dart';
 
 class ConnectionSuccess extends StatelessWidget {
   const ConnectionSuccess({Key? key}) : super(key: key);

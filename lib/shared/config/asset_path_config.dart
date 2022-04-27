@@ -8,6 +8,7 @@ class AssetPathConfig {
   static const String notificationEmptyPath = 'assets/images/notification_empty.png';
   static const String logoPath = 'assets/images/logo.png';
   static const String placeholderPath = 'assets/images/placeholder.png';
+  static const String lockPath = 'assets/images/lock.svg';
 
   // onboarding
   static const String onBoardingFirstPath = 'assets/images/onboarding/first.png';

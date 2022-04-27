@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:crowdfunding/features/main/data/repositories/history_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 // import 'package:firebase_analytics/firebase_analytics.dart';
@@ -13,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web3dart/web3dart.dart';
 
 import 'core/error/interceptor_info.dart';
-import 'core/observer/firebase_analytics_observer_info.dart';
 import 'core/utils/network_info.dart';
 import 'core/utils/preferences_info.dart';
 import 'core/utils/update_info.dart';
@@ -45,6 +43,7 @@ import 'features/main/data/datasources/history_remote_data_srouce.dart';
 import 'features/main/data/repositories/account_repository.dart';
 import 'features/main/data/repositories/campaign_repository.dart';
 import 'features/main/data/repositories/deployed_contract_repository.dart';
+import 'features/main/data/repositories/history_repository.dart';
 import 'features/main/presentation/cubit/account_balance/account_balance_cubit.dart';
 import 'features/main/presentation/cubit/all_campaigns/all_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/campaign_by_wallet_addresses/campaign_by_wallet_addresses_cubit.dart';

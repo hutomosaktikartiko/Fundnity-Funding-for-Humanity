@@ -15,7 +15,7 @@ class LabelText extends StatelessWidget {
     return Text(
       text,
       style: CustomTextStyle.blackTextStyle.copyWith(
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: FontWeight.w600,
       ),
     );
