@@ -27,12 +27,3 @@ class BiometricAuthNotAvailable extends BiometricAuthState {
   @override
   List<Object> get props => [];
 }
-
-class BiometricAuthFailure extends BiometricAuthState {
-  final String error;
-
-  BiometricAuthFailure({required this.error});
-
-  @override
-  List<Object> get props => [error];
-}

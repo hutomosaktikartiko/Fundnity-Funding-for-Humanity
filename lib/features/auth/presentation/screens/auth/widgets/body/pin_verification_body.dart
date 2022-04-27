@@ -35,7 +35,10 @@ class _PinVerificationBodyState extends State<PinVerificationBody> {
   }
 
   void biometricAuth() async {
-    await context.read<BiometricAuthCubit>().checkAuth().then((value) => _showFingerprintAlertDialog());
+    await context
+        .read<BiometricAuthCubit>()
+        .checkAuth()
+        .then((value) => _showFingerprintAlertDialog());
   }
 
   @override
@@ -172,47 +175,7 @@ class _PinVerificationBodyState extends State<PinVerificationBody> {
       final BiometricAuthState biometricAuthState =
           context.read<BiometricAuthCubit>().state;
       if (biometricAuthState is BiometricAuthSuccess) {
-        NAlertDialog(
-          title: Center(
-            child: Text(
-              "Crowdfunding Biometric Login",
-              style: CustomTextStyle.gray1TextStyle.copyWith(
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "Signin using your biomteric credential",
-                style: CustomTextStyle.gray1TextStyle.copyWith(
-                  fontSize: 12,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Icon(
-                Icons.fingerprint,
-                size: 40,
-                color: UniversalColor.gray2,
-              ),
-            ],
-          ),
-          actions: [
-            GestureDetector(
-              onTap: () => ScreenNavigator.closeScreen(context),
-              child: Center(
-                child: Text(
-                  "Use PIN",
-                  style: CustomTextStyle.blue2TextStyle.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ).show(context);
+        _onSigninWithFingerprint();
       } else if (biometricAuthState is BiometricAuthNotAvailable) {
         CustomDialog.showToast(
           message: "Fingerprint auth not found",
@@ -223,8 +186,23 @@ class _PinVerificationBodyState extends State<PinVerificationBody> {
     });
   }
 
-  void _onSigninWithFingerprint() {
-    // TODO: Signin with fingerprint
+  void _onSigninWithFingerprint() async {
+    final ReturnValueModel result =
+        await context.read<BiometricAuthCubit>().fingerprintAuth();
+
+    if (result.isSuccess) {
+      CustomDialog.showToast(
+        message: result.message,
+        context: context,
+        backgroundColor: UniversalColor.green4,
+      );
+    } else {
+      CustomDialog.showToast(
+        message: result.message,
+        context: context,
+        backgroundColor: UniversalColor.red,
+      );
+    }
   }
 
   void _onLoading() async {
