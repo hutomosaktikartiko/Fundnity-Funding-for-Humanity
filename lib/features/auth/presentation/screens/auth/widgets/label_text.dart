@@ -14,6 +14,7 @@ class LabelText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      textAlign: TextAlign.center,
       style: CustomTextStyle.blackTextStyle.copyWith(
         fontSize: 18,
         fontWeight: FontWeight.w600,

@@ -1,3 +1,4 @@
+import 'package:crowdfunding/shared/config/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ndialog/ndialog.dart';
@@ -30,8 +31,8 @@ class _CreateWalletBodyState extends State<CreateWalletBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: SizeConfig.defaultMargin),
         children: [
           CustomBackButton(
             onTap: () =>
@@ -56,6 +57,9 @@ class _CreateWalletBodyState extends State<CreateWalletBody> {
             height: 10,
           ),
           CustomButtonLabel(label: "Buat Wallet", onTap: _createWallet),
+          SizedBox(
+            height: 22,
+          ),
           Center(
             child: GestureDetector(
               onTap: () =>

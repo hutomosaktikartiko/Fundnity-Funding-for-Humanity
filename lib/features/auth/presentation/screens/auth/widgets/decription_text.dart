@@ -13,7 +13,10 @@ class DescriptionText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: CustomTextStyle.gray3TextStyle.copyWith(fontSize: 12),
+      style: CustomTextStyle.gray2TextStyle.copyWith(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 }
