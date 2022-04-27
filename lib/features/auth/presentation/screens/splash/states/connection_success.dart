@@ -59,7 +59,7 @@ class ConnectionSuccess extends StatelessWidget {
                   if (sl<PreferencesInfo>().wallet != null) {
                     // User local wallet is exist
                     // Set auth body to login
-                    context.read<AuthBodyCubit>().emit(AuthBodyLogin());
+                    context.read<AuthBodyCubit>().emit(AuthBodyPinVerification());
                   }
                   // User must be login back to wallet
                   // Navigator to authScreen

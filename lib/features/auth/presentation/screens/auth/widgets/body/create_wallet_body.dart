@@ -17,63 +17,65 @@ import '../custom_back_button.dart';
 import '../decription_text.dart';
 import '../label_text.dart';
 
-class CreateWallet extends StatefulWidget {
-  const CreateWallet({Key? key}) : super(key: key);
+class CreateWalletBody extends StatefulWidget {
+  const CreateWalletBody({Key? key}) : super(key: key);
 
   @override
-  _CreateWalletState createState() => _CreateWalletState();
+  _CreateWalletBodyState createState() => _CreateWalletBodyState();
 }
 
-class _CreateWalletState extends State<CreateWallet> {
+class _CreateWalletBodyState extends State<CreateWalletBody> {
   TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CustomBackButton(
-          onTap: () =>
-              context.read<AuthBodyCubit>().emit(AuthBodyImportWallet()),
-        ),
-        LabelText(
-          text: "Buat Wallet",
-        ),
-        SizedBox(
-          height: 6,
-        ),
-        DescriptionText(
-            text: "Password akan digunakan untuk login selanjutnya"),
-        SizedBox(
-          height: 22,
-        ),
-        CustomTextField(
-          controller: passwordController,
-          hintText: "Masukan password",
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        CustomButtonLabel(label: "Buat Wallet", onTap: _createWallet),
-        Center(
-          child: GestureDetector(
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomBackButton(
             onTap: () =>
                 context.read<AuthBodyCubit>().emit(AuthBodyImportWallet()),
-            child: Text.rich(
-              TextSpan(
-                children: <TextSpan>[
-                  TextSpan(
-                    text: "Masuk dengan akun lain? ",
-                  ),
-                  TextSpan(
-                      text: "import wallet",
-                      style: CustomTextStyle.green4TextStyle),
-                ],
+          ),
+          LabelText(
+            text: "Buat Wallet",
+          ),
+          SizedBox(
+            height: 6,
+          ),
+          DescriptionText(
+              text: "Password akan digunakan untuk login selanjutnya"),
+          SizedBox(
+            height: 22,
+          ),
+          CustomTextField(
+            controller: passwordController,
+            hintText: "Masukan password",
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          CustomButtonLabel(label: "Buat Wallet", onTap: _createWallet),
+          Center(
+            child: GestureDetector(
+              onTap: () =>
+                  context.read<AuthBodyCubit>().emit(AuthBodyImportWallet()),
+              child: Text.rich(
+                TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: "Masuk dengan akun lain? ",
+                    ),
+                    TextSpan(
+                        text: "import wallet",
+                        style: CustomTextStyle.green4TextStyle),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

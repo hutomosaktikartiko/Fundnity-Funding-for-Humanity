@@ -7,7 +7,7 @@ abstract class AuthBodyState extends Equatable {
   List<Object> get props => [];
 }
 
-class AuthBodyLogin extends AuthBodyState {}
+class AuthBodyPinVerification extends AuthBodyState {}
 
 class AuthBodyCreateWallet extends AuthBodyState {}
 

@@ -20,14 +20,14 @@ import '../custom_back_button.dart';
 import '../decription_text.dart';
 import '../label_text.dart';
 
-class ImportWallet extends StatefulWidget {
-  const ImportWallet({Key? key}) : super(key: key);
+class ImportWalletBody extends StatefulWidget {
+  const ImportWalletBody({Key? key}) : super(key: key);
 
   @override
-  _ImportWalletState createState() => _ImportWalletState();
+  _ImportWalletBodyState createState() => _ImportWalletBodyState();
 }
 
-class _ImportWalletState extends State<ImportWallet> {
+class _ImportWalletBodyState extends State<ImportWalletBody> {
   TextEditingController passwordController = TextEditingController();
   File? walletFile;
 
@@ -37,7 +37,7 @@ class _ImportWalletState extends State<ImportWallet> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomBackButton(
-          onTap: () => context.read<AuthBodyCubit>().emit(AuthBodyLogin()),
+          onTap: () => context.read<AuthBodyCubit>().emit(AuthBodyPinVerification()),
         ),
         LabelText(
           text: "Import Wallet",

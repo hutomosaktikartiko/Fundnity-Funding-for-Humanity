@@ -17,15 +17,15 @@ import '../../../../cubit/auth_body/auth_body_cubit.dart';
 import '../../../../cubit/wallet/wallet_cubit.dart';
 import '../label_text.dart';
 
-class LoginBody extends StatefulWidget {
-  const LoginBody({Key? key}) : super(key: key);
+class PinVerificationBody extends StatefulWidget {
+  const PinVerificationBody({Key? key}) : super(key: key);
 
   @override
-  _LoginBodyState createState() => _LoginBodyState();
+  _PinVerificationBodyState createState() => _PinVerificationBodyState();
 }
 
-class _LoginBodyState extends State<LoginBody> {
-  List<String?> pinVerification = [null, null, null, null, null, null];
+class _PinVerificationBodyState extends State<PinVerificationBody> {
+  List<String?> pins = [null, null, null, null, null, null];
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class _LoginBodyState extends State<LoginBody> {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: pinVerification
+                children: pins
                     .asMap()
                     .map(
                       (key, value) => MapEntry(
@@ -134,24 +134,24 @@ class _LoginBodyState extends State<LoginBody> {
   }
 
   void _onKeyboardTap(String value) {
-    int index = pinVerification.indexOf(null);
+    int index = pins.indexOf(null);
     if (index != -1) {
       setState(() {
-        pinVerification[index] = value;
+        pins[index] = value;
       });
-      if (!pinVerification.contains(null)) {
+      if (!pins.contains(null)) {
         _onLoading();
       }
     }
   }
 
   void _onKeyboardBackspaceTap() {
-    if (pinVerification.first != null) {
-      int index = pinVerification.indexOf(null);
+    if (pins.first != null) {
+      int index = pins.indexOf(null);
       if (index == -1) {
-        pinVerification.last = null;
+        pins.last = null;
       } else {
-        pinVerification[index - 1] = null;
+        pins[index - 1] = null;
       }
       setState(() {});
     }
@@ -168,16 +168,16 @@ class _LoginBodyState extends State<LoginBody> {
     progressDialog.show();
 
     // Save pins
-    String pins = "";
+    String newPins = "";
 
-    // Get pin from pinVerification
-    for (String? pin in pinVerification) {
-      pins += pin ?? "";
+    // Get pin from PinVerificationBody
+    for (String? pin in pins) {
+      newPins += pin ?? "";
     }
 
     // Process login wallet
     final ReturnValueModel<Wallet> result =
-        await context.read<WalletCubit>().login(password: pins);
+        await context.read<WalletCubit>().login(password: newPins);
 
     // Dimiss progressDialog
     progressDialog.dismiss();
@@ -195,9 +195,9 @@ class _LoginBodyState extends State<LoginBody> {
         context: context,
         backgroundColor: UniversalColor.red,
       );
-      // Set pinVerification to null
+      // Set PinVerificationBody to null
       setState(() {
-        pinVerification = [null, null, null, null, null, null];
+        pins = [null, null, null, null, null, null];
       });
     }
   }
