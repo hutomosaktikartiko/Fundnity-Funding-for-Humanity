@@ -1,4 +1,3 @@
-import 'package:crowdfunding/shared/config/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ndialog/ndialog.dart';
@@ -6,11 +5,15 @@ import 'package:web3dart/web3dart.dart';
 
 import '../../../../../../../core/models/return_value_model.dart';
 import '../../../../../../../core/utils/screen_navigator.dart';
+import '../../../../../../../core/utils/utils.dart';
+import '../../../../../../../shared/config/asset_path_config.dart';
 import '../../../../../../../shared/config/custom_color.dart';
 import '../../../../../../../shared/config/custom_text_style.dart';
+import '../../../../../../../shared/config/size_config.dart';
 import '../../../../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../../../shared/widgets/custom_text_field.dart';
+import '../../../../../../../shared/widgets/show_svg/show_svg_asset.dart';
 import '../../../../../../main/presentation/screens/main/main_screen.dart';
 import '../../../../cubit/auth_body/auth_body_cubit.dart';
 import '../../../../cubit/wallet/wallet_cubit.dart';
@@ -31,54 +34,79 @@ class _CreateWalletBodyState extends State<CreateWalletBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: SizeConfig.defaultMargin),
-        children: [
-          CustomBackButton(
-            onTap: () =>
-                context.read<AuthBodyCubit>().emit(AuthBodyImportWallet()),
-          ),
-          LabelText(
-            text: "Buat Wallet",
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          DescriptionText(
-              text: "Password akan digunakan untuk login selanjutnya"),
-          SizedBox(
-            height: 22,
-          ),
-          CustomTextField(
-            controller: passwordController,
-            hintText: "Masukan password",
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          CustomButtonLabel(label: "Buat Wallet", onTap: _createWallet),
-          SizedBox(
-            height: 22,
-          ),
-          Center(
-            child: GestureDetector(
-              onTap: () =>
-                  context.read<AuthBodyCubit>().emit(AuthBodyImportWallet()),
-              child: Text.rich(
-                TextSpan(
-                  children: <TextSpan>[
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () => Utils.hideKeyboard(context),
+          child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: SizeConfig.defaultMargin),
+            children: [
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.05,
+              ),
+              CustomBackButton(
+                onTap: () => context
+                    .read<AuthBodyCubit>()
+                    .emit(AuthBodyPinVerification()),
+              ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: SizeConfig.screenHeight * 0.01,
+                  ),
+                  const LabelText(
+                    text: "Create New Wallet",
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ShowSvgAsset(
+                    assetUrl: AssetPathConfig.warningPath,
+                    height: 130,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const DescriptionText(
+                    text: "Remember your password. It cannot be changed later.",
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 22,
+              ),
+              CustomTextField(
+                controller: passwordController,
+                hintText: "Enter your password",
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              CustomButtonLabel(label: "Create Wallet", onTap: _createWallet),
+              SizedBox(
+                height: 22,
+              ),
+              Center(
+                child: GestureDetector(
+                  onTap: () => context
+                      .read<AuthBodyCubit>()
+                      .emit(AuthBodyImportWallet()),
+                  child: Text.rich(
                     TextSpan(
-                      text: "Masuk dengan akun lain? ",
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: "Signin with another wallet? ",
+                        ),
+                        TextSpan(
+                            text: "import wallet",
+                            style: CustomTextStyle.green4TextStyle),
+                      ],
                     ),
-                    TextSpan(
-                        text: "import wallet",
-                        style: CustomTextStyle.green4TextStyle),
-                  ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -112,6 +140,14 @@ class _CreateWalletBodyState extends State<CreateWalletBody> {
           backgroundColor: UniversalColor.red,
         );
       }
+    } else {
+      // Password empty
+      // Show toast
+      CustomDialog.showToast(
+        message: "Password can't be empty",
+        context: context,
+        backgroundColor: UniversalColor.red,
+      );
     }
   }
 }

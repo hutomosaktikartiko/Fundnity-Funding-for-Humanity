@@ -13,6 +13,7 @@ class DescriptionText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      textAlign: TextAlign.center,
       style: CustomTextStyle.gray2TextStyle.copyWith(
         fontSize: 16,
         fontWeight: FontWeight.w600,
