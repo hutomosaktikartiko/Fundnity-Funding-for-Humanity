@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:crowdfunding/core/utils/secure_storage_info.dart';
 import 'package:crowdfunding/features/auth/presentation/cubit/biometric_auth/biometric_auth_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 // import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
@@ -219,6 +221,7 @@ Future<void> _core() async {
   // PreferencesInfo
   sl.registerLazySingleton<PreferencesInfo>(
       () => PreferencesInfoImpl(shared: sl()));
+  sl.registerLazySingleton<SecureStorageInfo>(() => SecureStorageInfoImpl(flutterSecureStorage: sl()));
 }
 
 Future<void> _external() async {
@@ -250,4 +253,6 @@ Future<void> _external() async {
       () => Dio()..interceptors.add(InterceptorInfo()));
   // Local auth
   sl.registerLazySingleton<LocalAuthentication>(() => LocalAuthentication());
+  // Secure Storage
+  sl.registerLazySingleton<FlutterSecureStorage>(() => FlutterSecureStorage());
 }

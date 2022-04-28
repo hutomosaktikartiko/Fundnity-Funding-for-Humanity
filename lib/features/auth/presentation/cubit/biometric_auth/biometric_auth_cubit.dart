@@ -5,6 +5,8 @@ import 'package:local_auth/auth_strings.dart';
 import 'package:local_auth/local_auth.dart';
 
 import '../../../../../core/models/return_value_model.dart';
+import '../../../../../core/utils/secure_storage_info.dart';
+import '../../../../../service_locator.dart';
 
 part 'biometric_auth_state.dart';
 
@@ -35,7 +37,7 @@ class BiometricAuthCubit extends Cubit<BiometricAuthState> {
     }
   }
 
-  Future<ReturnValueModel> fingerprintAuth() async {
+  Future<ReturnValueModel<List<String?>>> fingerprintAuth() async {
     try {
       final bool didAuthenticate = await localAuth.authenticate(
         localizedReason: "Login using your biomteric credential",
@@ -48,9 +50,15 @@ class BiometricAuthCubit extends Cubit<BiometricAuthState> {
         ),
       );
 
-      if (didAuthenticate) {
+      String? newPin = await sl<SecureStorageInfo>().getPinVerification();
+
+      if (didAuthenticate && newPin != null) {
+        List<String?> pins =
+            newPin.split("").map((value) => value.toString()).toList();
+
         return ReturnValueModel(
           isSuccess: didAuthenticate,
+          value: pins,
           message: "Fingerprint Authentication Successful",
         );
       } else {

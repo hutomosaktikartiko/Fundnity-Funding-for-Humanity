@@ -158,8 +158,10 @@ class _ImportWalletBodyState extends State<ImportWalletBody> {
     if (walletFile != null && passwordController.text.trim() != "") {
       // hide keyBoard
       Utils.hideKeyboard(context);
-      CustomProgressDialog progressDialog =
-          CustomDialog.showCustomProgressDialog(context: context);
+      ProgressDialog progressDialog = CustomDialog.showProgressDialog(
+      context: context,
+      message: "Checking your wallet",
+    );
       // Show progressDialog
       progressDialog.show();
 

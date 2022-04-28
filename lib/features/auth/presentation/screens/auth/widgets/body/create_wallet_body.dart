@@ -114,7 +114,10 @@ class _CreateWalletBodyState extends State<CreateWalletBody> {
   void _createWallet() async {
     // Check passwordController.text != ""
     if (passwordController.text.trim() != "") {
-      CustomProgressDialog progressDialog = CustomProgressDialog(context);
+      ProgressDialog progressDialog = CustomDialog.showProgressDialog(
+      context: context,
+      message: "Creating your wallet",
+    );
       // Show progressDialog
       progressDialog.show();
 

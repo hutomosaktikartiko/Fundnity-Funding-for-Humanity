@@ -190,15 +190,15 @@ class _PinVerificationBodyState extends State<PinVerificationBody> {
   }
 
   void _onSigninWithFingerprint() async {
-    final ReturnValueModel result =
+    final ReturnValueModel<List<String?>> result =
         await context.read<BiometricAuthCubit>().fingerprintAuth();
 
-    if (result.isSuccess) {
-      CustomDialog.showToast(
-        message: result.message,
-        context: context,
-        backgroundColor: UniversalColor.green4,
-      );
+    if (result.isSuccess && result.value != null) {
+      // Set pinVerification value from secure storage to pins
+      setState(() {
+        pins = result.value!;
+      });
+      Future.delayed(Duration.zero, () => _onLoading());
     } else {
       CustomDialog.showToast(
         message: result.message,
@@ -209,8 +209,10 @@ class _PinVerificationBodyState extends State<PinVerificationBody> {
   }
 
   void _onLoading() async {
-    CustomProgressDialog progressDialog =
-        CustomDialog.showCustomProgressDialog(context: context);
+    ProgressDialog progressDialog = CustomDialog.showProgressDialog(
+      context: context,
+      message: "Checking your wallet",
+    );
     // Show progressDialog
     progressDialog.show();
 
