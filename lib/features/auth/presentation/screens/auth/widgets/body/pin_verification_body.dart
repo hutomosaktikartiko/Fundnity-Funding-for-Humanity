@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ndialog/ndialog.dart';
-import 'package:numeric_keyboard/numeric_keyboard.dart';
 import 'package:web3dart/web3dart.dart';
 
 import '../../../../../../../core/models/return_value_model.dart';
 import '../../../../../../../core/utils/screen_navigator.dart';
+import '../../../../../../../core/utils/secure_storage_info.dart';
+import '../../../../../../../service_locator.dart';
 import '../../../../../../../shared/config/asset_path_config.dart';
 import '../../../../../../../shared/config/custom_color.dart';
 import '../../../../../../../shared/config/custom_text_style.dart';
 import '../../../../../../../shared/config/size_config.dart';
 import '../../../../../../../shared/widgets/custom_dialog.dart';
+import '../../../../../../../shared/widgets/custom_numeric_keyboard.dart';
 import '../../../../../../../shared/widgets/show_svg/show_svg_asset.dart';
 import '../../../../../../main/presentation/screens/main/main_screen.dart';
 import '../../../../cubit/auth_body/auth_body_cubit.dart';
@@ -107,16 +109,10 @@ class _PinVerificationBodyState extends State<PinVerificationBody> {
               ),
             ),
             Spacer(),
-            NumericKeyboard(
+            CustomNumericKeyboard(
               onKeyboardTap: _onKeyboardTap,
-              leftButtonFn: _showFingerprintAlertDialog,
-              rightButtonFn: _onKeyboardBackspaceTap,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              textColor: UniversalColor.gray1,
-              rightIcon: Icon(
-                Icons.backspace_outlined,
-                color: UniversalColor.gray1,
-              ),
+              onLeftButtonTap: _showFingerprintAlertDialog,
+              onRightButtonTap: _onKeyboardBackspaceTap,
               leftIcon: Icon(
                 Icons.fingerprint,
                 color: UniversalColor.gray1,
@@ -216,17 +212,9 @@ class _PinVerificationBodyState extends State<PinVerificationBody> {
     // Show progressDialog
     progressDialog.show();
 
-    // Save pins
-    String newPins = "";
-
-    // Get pin from PinVerificationBody
-    for (String? pin in pins) {
-      newPins += pin ?? "";
-    }
-
     // Process login wallet
     final ReturnValueModel<Wallet> result =
-        await context.read<WalletCubit>().login(password: newPins);
+        await context.read<WalletCubit>().login(password: await sl<SecureStorageInfo>().getPasswordWallet() ?? "");
 
     // Dimiss progressDialog
     progressDialog.dismiss();

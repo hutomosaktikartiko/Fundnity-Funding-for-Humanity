@@ -78,6 +78,8 @@ class CustomDialog {
     required BuildContext context,
     required Function() onConfirmation,
     required String buttonOkLabel,
+    Function? onCancel,
+    Function? onDismiss,
     Color? buttonOkBackgroundColor,
     Color? borderColor,
     Color? labelColor,
@@ -86,12 +88,15 @@ class CustomDialog {
     String? description,
     Color? descriptionColor,
     double? buttonWidth,
+    bool? dismissable,
   }) {
     return NAlertDialog(
       dialogStyle: DialogStyle(
         contentPadding: EdgeInsets.all(24),
         borderRadius: BorderRadius.circular(6),
       ),
+      dismissable: dismissable,
+      onDismiss: onDismiss,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -139,7 +144,13 @@ class CustomDialog {
                 labelColor: UniversalColor.gray4,
                 borderColor: Colors.white,
                 backgroundColor: Colors.white,
-                onTap: () => ScreenNavigator.closeScreen(context),
+                onTap: () {
+                  if (onCancel != null) {
+                    onCancel();
+                  } else {
+                    ScreenNavigator.closeScreen(context);
+                  }
+                }
               ),
               SizedBox(
                 width: 10,

@@ -11,4 +11,6 @@ class AuthBodyPinVerification extends AuthBodyState {}
 
 class AuthBodyCreateWallet extends AuthBodyState {}
 
+class AuthBodyCreatePin extends AuthBodyState {}
+
 class AuthBodyImportWallet extends AuthBodyState {}
