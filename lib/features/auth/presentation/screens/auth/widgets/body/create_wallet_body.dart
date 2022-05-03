@@ -6,7 +6,6 @@ import 'package:web3dart/web3dart.dart';
 import '../../../../../../../core/models/return_value_model.dart';
 import '../../../../../../../core/utils/preferences_info.dart';
 import '../../../../../../../core/utils/screen_navigator.dart';
-import '../../../../../../../core/utils/secure_storage_info.dart';
 import '../../../../../../../core/utils/utils.dart';
 import '../../../../../../../service_locator.dart';
 import '../../../../../../../shared/config/asset_path_config.dart';
@@ -224,8 +223,6 @@ class _CreateWalletBodyState extends State<CreateWalletBody> {
     // Check result create wallet
     if (result.isSuccess) {
       // Success create wallet
-      // Save Password to secureStorage
-      sl<SecureStorageInfo>().setPasswordWallet(passwordController.text);
       // Create pin
       context.read<AuthBodyCubit>().emit(AuthBodyCreatePin());
     } else {

@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:web3dart/web3dart.dart';
 
 import '../../../../core/utils/preferences_info.dart';
+import '../../../../core/utils/secure_storage_info.dart';
 
 abstract class AuthLocalDataSource {
   // Create wallet (input password and generate random privateKey)
@@ -22,9 +23,11 @@ abstract class AuthLocalDataSource {
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   final PreferencesInfo preferences;
+  final SecureStorageInfo secureStorage;
 
   AuthLocalDataSourceImpl({
     required this.preferences,
+    required this.secureStorage,
   });
 
   Future<Wallet> importWallet({
@@ -65,6 +68,10 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
       // Save wallet json to local
       preferences.wallet = wallet.toJson();
+      // Save wallet password to local
+      secureStorage.setPasswordWallet(password);
+      // Set pin wallet to null
+      secureStorage.setPinVerification(null);
 
       return wallet;
     } catch (error) {

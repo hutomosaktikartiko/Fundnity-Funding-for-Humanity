@@ -100,7 +100,7 @@ Future<void> init() async {
 Future<void> _auth() async {
   // Datasources
   sl.registerLazySingleton<AuthLocalDataSource>(
-      () => AuthLocalDataSourceImpl(preferences: sl()));
+      () => AuthLocalDataSourceImpl(preferences: sl(), secureStorage: sl()));
   sl.registerLazySingleton<DeployedContractLocalDataSource>(
       () => DeplotedContractLocalDataSourceImpl());
 
@@ -118,7 +118,8 @@ Future<void> _auth() async {
   sl.registerFactory(() => AuthBodyCubit());
   sl.registerFactory(() => SelectedOnboardingCubit());
   sl.registerFactory(() => ConnectionCheckerCubit(connectivity: sl()));
-  sl.registerFactory(() => SaveWalletCubit(directoryInfo: sl(), permissionInfo: sl()));
+  sl.registerFactory(
+      () => SaveWalletCubit(directoryInfo: sl(), permissionInfo: sl()));
 }
 
 Future<void> _createCampaign() async {
@@ -177,7 +178,8 @@ Future<void> _main() async {
       networkInfo: sl(), campaignRemoteDataSource: sl()));
   sl.registerLazySingleton<AccountRepository>(() =>
       AccountRepositoryImpl(networkInfo: sl(), accountRemoteDataSource: sl()));
-  sl.registerLazySingleton<HistoryRepository>(() => HistoryRepositoryImpl(historyRemoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<HistoryRepository>(() =>
+      HistoryRepositoryImpl(historyRemoteDataSource: sl(), networkInfo: sl()));
 
   // Cubit
   sl.registerFactory(
@@ -225,7 +227,8 @@ Future<void> _core() async {
   // PreferencesInfo
   sl.registerLazySingleton<PreferencesInfo>(
       () => PreferencesInfoImpl(shared: sl()));
-  sl.registerLazySingleton<SecureStorageInfo>(() => SecureStorageInfoImpl(flutterSecureStorage: sl()));
+  sl.registerLazySingleton<SecureStorageInfo>(
+      () => SecureStorageInfoImpl(flutterSecureStorage: sl()));
   sl.registerLazySingleton<DirectoryInfo>(() => DirectoryInfoImpl());
   sl.registerLazySingleton<PermissionInfo>(() => PermissionInfoImpl());
 }

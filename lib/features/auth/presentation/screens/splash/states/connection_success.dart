@@ -5,6 +5,7 @@ import 'package:new_version/new_version.dart';
 
 import '../../../../../../core/utils/preferences_info.dart';
 import '../../../../../../core/utils/screen_navigator.dart';
+import '../../../../../../core/utils/secure_storage_info.dart';
 import '../../../../../../core/utils/update_info.dart';
 import '../../../../../../service_locator.dart';
 import '../../../../../../shared/widgets/custom_dialog.dart';
@@ -58,8 +59,21 @@ class ConnectionSuccess extends StatelessWidget {
                   // Check user local wallet is exist
                   if (sl<PreferencesInfo>().wallet != null) {
                     // User local wallet is exist
-                    // Set auth body to login
-                    context.read<AuthBodyCubit>().emit(AuthBodyPinVerification());
+                    // Check user local pin is exist
+                    if (await sl<SecureStorageInfo>().getPinVerification() == null) {
+                      // pin is notexist
+                      // Set auth body to create pin
+                      context
+                          .read<AuthBodyCubit>()
+                          .emit(AuthBodyCreatePin());
+                    } else {
+                      // User local wallet is exist
+                      // Set auth body to login
+                      context
+                          .read<AuthBodyCubit>()
+                          .emit(AuthBodyPinVerification());
+                    }
+                    
                   }
                   // User must be login back to wallet
                   // Navigator to authScreen

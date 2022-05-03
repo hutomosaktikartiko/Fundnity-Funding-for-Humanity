@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ndialog/ndialog.dart';
+import 'package:web3dart/web3dart.dart';
 
+import '../../../../../../../core/models/return_value_model.dart';
 import '../../../../../../../core/utils/screen_navigator.dart';
 import '../../../../../../../core/utils/secure_storage_info.dart';
 import '../../../../../../../service_locator.dart';
@@ -10,6 +14,7 @@ import '../../../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../../../shared/widgets/custom_numeric_keyboard.dart';
 import '../../../../../../../shared/widgets/show_svg/show_svg_asset.dart';
 import '../../../../../../main/presentation/screens/main/main_screen.dart';
+import '../../../../cubit/wallet/wallet_cubit.dart';
 import '../decription_text.dart';
 import '../label_text.dart';
 
@@ -106,7 +111,7 @@ class _CreatePinBodyState extends State<CreatePinBody> {
         pins[index] = value;
       });
       if (!pins.contains(null)) {
-        _onLoading();
+        _onCreatePin();
       }
     }
   }
@@ -123,7 +128,7 @@ class _CreatePinBodyState extends State<CreatePinBody> {
     }
   }
 
-  void _onLoading() async {
+  void _onCreatePin() async {
     CustomDialog.alertDialogConfirmation(
       context: context,
       label:
@@ -134,23 +139,58 @@ class _CreatePinBodyState extends State<CreatePinBody> {
         // Save pins
         String newPins = "";
 
-        // Get pin from PinVerificationBody
+        // Set list pins to String newPIn
         for (String? pin in pins) {
           newPins += pin ?? "";
         }
+
+        // Save pin to local
         sl<SecureStorageInfo>().setPinVerification(newPins);
 
-        // Navigate to HomeScreen
-        ScreenNavigator.removeAllScreen(context, MainScreen());
+        // Login to wallet
+        _onLoading();
       },
       onCancel: () {
         // Clear pins
         setState(() {
-          pins = [null, null, null, null, null, null];
+          pins.last = null;
         });
         // Close dialog
         ScreenNavigator.closeScreen(context);
       },
     ).show(context);
+  }
+
+  void _onLoading() async {
+    ProgressDialog progressDialog = CustomDialog.showProgressDialog(
+      context: context,
+      message: "Login to your wallet",
+    );
+    // Show progressDialog
+    progressDialog.show();
+
+    // Process login wallet
+    final ReturnValueModel<Wallet> result = await context
+        .read<WalletCubit>()
+        .login(
+            password: await sl<SecureStorageInfo>().getPasswordWallet() ?? "");
+
+    // Dimiss progressDialog
+    progressDialog.dismiss();
+
+    // Check result
+    if (result.isSuccess) {
+      // Login wallet Success
+      // Navigator to MainScreen
+      ScreenNavigator.removeAllScreen(context, MainScreen());
+    } else {
+      // Login wallet failed
+      // Show toast
+      CustomDialog.showToast(
+        message: result.message,
+        context: context,
+        backgroundColor: UniversalColor.red,
+      );
+    }
   }
 }
