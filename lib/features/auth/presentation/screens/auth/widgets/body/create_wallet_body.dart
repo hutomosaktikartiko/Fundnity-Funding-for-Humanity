@@ -18,6 +18,7 @@ import '../../../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../../../shared/widgets/custom_text_field.dart';
 import '../../../../../../../shared/widgets/show_svg/show_svg_asset.dart';
 import '../../../../cubit/auth_body/auth_body_cubit.dart';
+import '../../../../cubit/save_wallet/save_wallet_cubit.dart';
 import '../../../../cubit/wallet/wallet_cubit.dart';
 import '../custom_back_button.dart';
 import '../decription_text.dart';
@@ -137,13 +138,48 @@ class _CreateWalletBodyState extends State<CreateWalletBody> {
       if (sl<PreferencesInfo>().wallet != null) {
         CustomDialog.alertDialogConfirmation(
             context: context,
+            label:
+                "Your last waller file is still exist, you must save it before create new wallet",
             buttonOkLabel: "Save Wallet",
             dismissable: false,
-            onConfirmation: () {
+            onConfirmation: () async {
               // Save Last Wallet file
-              // TODO: Save last wallet to local phone
-              // Create New Wallet
-              _createWallet();
+              CustomProgressDialog progressDialog =
+                  CustomDialog.showCustomProgressDialog(context: context);
+
+              //Show progressDialog
+              progressDialog.show();
+
+              // Save wallet
+              final ReturnValueModel result = await context
+                  .read<SaveWalletCubit>()
+                  .saveWallet(wallet: sl<PreferencesInfo>().wallet);
+
+              //Dismiss progressDialog
+              progressDialog.dismiss();
+
+              // Close dialog
+              ScreenNavigator.closeScreen(context);
+
+              if (result.isSuccess) {
+                // Success save wallet
+                // Show toast
+                CustomDialog.showToast(
+                  message: result.message,
+                  context: context,
+                  backgroundColor: UniversalColor.green4,
+                );
+                // Create New Wallet
+                _createWallet();
+              } else {
+                // Failed save wallet
+                // Show toast
+                CustomDialog.showToast(
+                  message: result.message,
+                  context: context,
+                  backgroundColor: UniversalColor.red,
+                );
+              }
             },
             onCancel: () {
               // Close dialog

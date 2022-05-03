@@ -73,6 +73,10 @@ dependencies:
   numeric_keyboard: ^1.1.0
   # local auth
   local_auth: ^1.1.7
+  # Permission Handler
+  permission_handler: ^8.1.6
+  # Path provider
+  path_provider:
 
 dev_dependencies:
   flutter_test:

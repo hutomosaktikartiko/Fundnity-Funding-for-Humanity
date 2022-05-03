@@ -2,6 +2,7 @@
     package="com.hutomosaktikartiko.crowdfunding">
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
    <application
         android:label="crowdfunding"
         android:usesCleartextTraffic="true"

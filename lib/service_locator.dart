@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:crowdfunding/core/utils/secure_storage_info.dart';
-import 'package:crowdfunding/features/auth/presentation/cubit/biometric_auth/biometric_auth_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -16,13 +14,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web3dart/web3dart.dart';
 
 import 'core/error/interceptor_info.dart';
+import 'core/utils/directory_info.dart';
 import 'core/utils/network_info.dart';
+import 'core/utils/permission_info.dart';
 import 'core/utils/preferences_info.dart';
+import 'core/utils/secure_storage_info.dart';
 import 'core/utils/update_info.dart';
 import 'features/auth/data/datasources/auth_local_data_source.dart';
 import 'features/auth/data/repositories/auth_repository.dart';
 import 'features/auth/presentation/cubit/auth_body/auth_body_cubit.dart';
+import 'features/auth/presentation/cubit/biometric_auth/biometric_auth_cubit.dart';
 import 'features/auth/presentation/cubit/connection_checker/connection_checker_cubit.dart';
+import 'features/auth/presentation/cubit/save_wallet/save_wallet_cubit.dart';
 import 'features/auth/presentation/cubit/selected_onboarding/selected_onboarding_cubit.dart';
 import 'features/auth/presentation/cubit/wallet/wallet_cubit.dart';
 import 'features/create_campaign/data/datasources/create_campaign_remote_data_source.dart';
@@ -115,6 +118,7 @@ Future<void> _auth() async {
   sl.registerFactory(() => AuthBodyCubit());
   sl.registerFactory(() => SelectedOnboardingCubit());
   sl.registerFactory(() => ConnectionCheckerCubit(connectivity: sl()));
+  sl.registerFactory(() => SaveWalletCubit(directoryInfo: sl(), permissionInfo: sl()));
 }
 
 Future<void> _createCampaign() async {
@@ -222,6 +226,8 @@ Future<void> _core() async {
   sl.registerLazySingleton<PreferencesInfo>(
       () => PreferencesInfoImpl(shared: sl()));
   sl.registerLazySingleton<SecureStorageInfo>(() => SecureStorageInfoImpl(flutterSecureStorage: sl()));
+  sl.registerLazySingleton<DirectoryInfo>(() => DirectoryInfoImpl());
+  sl.registerLazySingleton<PermissionInfo>(() => PermissionInfoImpl());
 }
 
 Future<void> _external() async {

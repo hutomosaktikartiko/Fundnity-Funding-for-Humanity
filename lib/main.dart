@@ -1,4 +1,3 @@
-import 'package:crowdfunding/features/auth/presentation/cubit/biometric_auth/biometric_auth_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/observer/bloc_observer_info.dart';
 import 'features/auth/presentation/cubit/auth_body/auth_body_cubit.dart';
+import 'features/auth/presentation/cubit/biometric_auth/biometric_auth_cubit.dart';
 import 'features/auth/presentation/cubit/connection_checker/connection_checker_cubit.dart';
+import 'features/auth/presentation/cubit/save_wallet/save_wallet_cubit.dart';
 import 'features/auth/presentation/cubit/selected_onboarding/selected_onboarding_cubit.dart';
 import 'features/auth/presentation/cubit/wallet/wallet_cubit.dart';
 import 'features/auth/presentation/screens/splash/splash_screen.dart';
@@ -82,6 +83,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<SelectedFilterCampaignCubit>()),
         BlocProvider(create: (context) => di.sl<HistoryCubit>()),
         BlocProvider(create: (context) => di.sl<BiometricAuthCubit>()),
+        BlocProvider(create: (context) => di.sl<SaveWalletCubit>()),
       ],
       child: MaterialApp(
         home: SplashScreen(),
