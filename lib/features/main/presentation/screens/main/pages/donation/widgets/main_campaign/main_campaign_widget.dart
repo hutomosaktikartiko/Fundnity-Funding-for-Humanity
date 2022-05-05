@@ -33,7 +33,7 @@ class MainCampaignWidget extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: Loaded(
-                    campaigns: state.campaigns,
+                    campaigns: mainCampaignState.campaigns,
                   ),
                 );
               } else if (mainCampaignState is MainCampaignEmpty) {

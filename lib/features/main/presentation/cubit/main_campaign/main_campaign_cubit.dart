@@ -11,8 +11,12 @@ class MainCampaignCubit extends Cubit<MainCampaignState> {
   void getMainCampaigns({
     required List<CampaignModel> campaigns,
   }) {
-    // TODO: Add endDate validation
-    final List<CampaignModel> _campaigns = campaigns.where((element) => element.isComplete == false).toList();
+    final List<CampaignModel> _campaigns = List.from(campaigns);
+    
+    _campaigns.sort((a, b) => (a.endDate ??
+            BigInt.from(DateTime.now().millisecondsSinceEpoch))
+        .compareTo(
+            (b.endDate ?? BigInt.from(DateTime.now().millisecondsSinceEpoch))));
 
     if (campaigns.isEmpty) {
       emit(MainCampaignEmpty());
