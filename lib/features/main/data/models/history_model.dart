@@ -16,4 +16,9 @@ class HistoryModel {
       date: json['date'] ?? null,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'category': category,
+    'date': DateTime.now().millisecondsSinceEpoch,
+  };
 }

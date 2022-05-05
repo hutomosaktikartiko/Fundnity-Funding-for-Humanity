@@ -143,7 +143,7 @@ Future<void> _createCampaign() async {
 Future<void> _donation() async {
   // Datasource
   sl.registerLazySingleton<ContributeRemoteDataSource>(
-      () => ContributeRemoteDataSourceImpl());
+      () => ContributeRemoteDataSourceImpl(firestore: sl()));
   sl.registerLazySingleton<GasRemoteDataSource>(
       () => GasRemoteDataSourceImpl(dio: sl()));
 

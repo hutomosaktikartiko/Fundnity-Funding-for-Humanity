@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart' as firebase;
 import 'package:web3dart/web3dart.dart';
 
+import '../../../main/data/models/history_model.dart';
 import '../models/contributor_model.dart';
 
 abstract class ContributeRemoteDataSource {
@@ -16,6 +18,12 @@ abstract class ContributeRemoteDataSource {
 }
 
 class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
+  final firebase.FirebaseFirestore firestore;
+
+  ContributeRemoteDataSourceImpl({
+    required this.firestore,
+  });
+
   @override
   Future<List<ContributorModel?>> getContributors({
     required DeployedContract deployedContract,
@@ -56,9 +64,6 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
     required EthPrivateKey walletPrivateKey,
     required BigInt amount,
   }) async {
-    print(amount);
-    print(deployedContract.abi.name);
-    print(walletPrivateKey);
     try {
       final String result = await web3Client.sendTransaction(
         walletPrivateKey,
@@ -73,6 +78,12 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
         chainId: 4,
       );
 
+      // Save history transaction to firestore
+      _saveToFirestore(
+        address: walletPrivateKey.address.toString(),
+        transactionHash: result,
+      );
+
       print("========= SUCCESS DONATION ========");
       print(result);
 
@@ -82,5 +93,21 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
       print(e);
       throw e;
     }
+  }
+
+  void _saveToFirestore({
+    required String? address,
+    required String? transactionHash,
+  }) {
+    firestore
+        .collection('users')
+        .doc(address)
+        .collection('history')
+        .doc(transactionHash)
+        .set(
+      HistoryModel(
+        category: 1,
+      ).toJson(),
+    );
   }
 }

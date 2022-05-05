@@ -22,6 +22,7 @@ class HorizontalCampaignCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print((campaign?.balance.bigIntToCalculatePercentDouble(target: campaign?.target) ?? 0) / 100,);
     return GestureDetector(
       onTap: () => _openDetailCampaignScreen(context),
       child: Container(
@@ -65,7 +66,7 @@ class HorizontalCampaignCard extends StatelessWidget {
                       CircularPercentIndicator(
                         radius: 20,
                         lineWidth: 3,
-                        percent: (campaign?.balance.bigIntToCalculatePercentDouble(target: campaign?.target) ?? 0) / 10,
+                        percent: (campaign?.balance.bigIntToCalculatePercentDouble(target: campaign?.target) ?? 0) / 100,
                         center: Text(
                           (campaign?.balance.bigIntToCalculatePercentDouble(target: campaign?.target)
                                   .toStringAsFixed(1) ?? "0") +

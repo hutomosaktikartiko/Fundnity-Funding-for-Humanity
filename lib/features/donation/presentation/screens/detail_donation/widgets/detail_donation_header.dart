@@ -74,7 +74,7 @@ class DetailDonationHeader extends StatelessWidget {
             height: 10,
           ),
           LinearPercentIndicator(
-            percent: (campaign?.balance.bigIntToCalculatePercentDouble(target: campaign?.target) ?? 0) / 10,
+            percent: (campaign?.balance.bigIntToCalculatePercentDouble(target: campaign?.target) ?? 0) / 100,
             lineHeight: 8,
             barRadius: Radius.circular(3),
             padding: EdgeInsets.only(right: 5),
