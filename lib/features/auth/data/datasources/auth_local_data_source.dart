@@ -46,6 +46,8 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
       // if result != null
       // Save json file to local
       preferences.wallet = wallet;
+      // Save wallet password to local
+      secureStorage.setPasswordWallet(password);
 
       return result;
     } catch (error) {
