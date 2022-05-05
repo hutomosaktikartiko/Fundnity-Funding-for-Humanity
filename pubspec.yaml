@@ -89,5 +89,6 @@ flutter:
 
   assets:
     - assets/contracts/
+    - assets/icons/
     - assets/images/
     - assets/images/onboarding/

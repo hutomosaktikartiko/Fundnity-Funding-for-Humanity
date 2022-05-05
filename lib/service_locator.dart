@@ -125,7 +125,7 @@ Future<void> _auth() async {
 Future<void> _createCampaign() async {
   // Datasources
   sl.registerLazySingleton<CreateCampaignRemoteDataSource>(
-      () => CreateCampaignRemoteDataSourceImpl(client: sl(), dio: sl()));
+      () => CreateCampaignRemoteDataSourceImpl(client: sl(), dio: sl(), firestore: sl()));
 
   // Repository
   sl.registerLazySingleton<CreateCampaignRepository>(() =>

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as firebase;
 import 'package:web3dart/web3dart.dart';
 
+import '../../../main/data/models/campaign_model.dart';
 import '../../../main/data/models/history_model.dart';
 import '../models/contributor_model.dart';
 
@@ -14,6 +15,7 @@ abstract class ContributeRemoteDataSource {
     required DeployedContract deployedContract,
     required Web3Client web3Client,
     required EthPrivateKey walletPrivateKey,
+    required CampaignModel? campaign,
   });
 }
 
@@ -63,6 +65,7 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
     required Web3Client web3Client,
     required EthPrivateKey walletPrivateKey,
     required BigInt amount,
+    required CampaignModel? campaign,
   }) async {
     try {
       final String result = await web3Client.sendTransaction(
@@ -82,6 +85,8 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
       _saveToFirestore(
         address: walletPrivateKey.address.toString(),
         transactionHash: result,
+        amount: amount.toString(),
+        campaignTitle: campaign?.title,
       );
 
       print("========= SUCCESS DONATION ========");
@@ -98,6 +103,8 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
   void _saveToFirestore({
     required String? address,
     required String? transactionHash,
+    required String? campaignTitle,
+    required String? amount,
   }) {
     firestore
         .collection('users')
@@ -107,6 +114,9 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
         .set(
       HistoryModel(
         category: 1,
+        amount: amount,
+        campaignTitle: campaignTitle,
+        transactionHash: transactionHash,
       ).toJson(),
     );
   }

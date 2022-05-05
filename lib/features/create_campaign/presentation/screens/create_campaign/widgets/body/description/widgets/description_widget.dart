@@ -40,14 +40,15 @@ class _DescriptionWidgetState extends State<DescriptionWidget> {
         CustomTextField(
           controller: descriptionController,
           enabledBorderColor: UniversalColor.gray4,
-          textInputAction: TextInputAction.done,
+          textInputAction: TextInputAction.newline,
+          keyboardType: TextInputType.multiline,
           onChanged: _onSave,
           onEditingComplete: _onSave,
           style: CustomTextStyle.blackTextStyle.copyWith(
             fontSize: 15,
           ),
           minLines: 5,
-          maxLines: 10,
+          maxLines: 15,
         ),
       ],
     );

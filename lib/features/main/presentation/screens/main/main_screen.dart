@@ -1,3 +1,4 @@
+import 'package:crowdfunding/features/main/presentation/cubit/history/history_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -71,6 +72,9 @@ class _MainScreenState extends State<MainScreen> {
     } else if (index == 1) {
       // My Campaign Page
       _getCampaigns();
+    } else if (index == 2) {
+      // Get Hisory
+      _getHistory();
     }
     setState(() => currentTab = index);
   }
@@ -96,5 +100,14 @@ class _MainScreenState extends State<MainScreen> {
                   .state as CrowdfundingDeployedContractLoaded)
               .deployedContract,
         );
+  }
+
+  void _getHistory() {
+    context.read<HistoryCubit>().getListHistory(
+        address: (context.read<WalletCubit>().state as WalletLoaded)
+            .wallet
+            .privateKey
+            .address
+            .hex);
   }
 }

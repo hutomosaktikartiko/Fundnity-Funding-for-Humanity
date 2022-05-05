@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:crowdfunding/features/main/data/models/campaign_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -22,6 +23,7 @@ class ContributeCubit extends Cubit<ContributeState> {
     required EthPrivateKey walletPrivateKey,
     required BigInt amount,
     required EthereumAddress? address,
+    required CampaignModel? campaign,
   }) async {
     emit(ContributeLoading());
 
@@ -37,6 +39,7 @@ class ContributeCubit extends Cubit<ContributeState> {
         deployedContract: deployedContract.value!,
         web3Client: web3Client,
         walletPrivateKey: walletPrivateKey,
+        campaign: campaign,
       );
       if (result.isSuccess) {
         emit(ContributeLoaded());

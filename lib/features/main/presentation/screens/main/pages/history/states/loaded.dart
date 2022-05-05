@@ -1,3 +1,5 @@
+import '../widgets/history_card.dart';
+import '../../../../../../../../shared/config/size_config.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../data/models/history_model.dart';
@@ -17,13 +19,19 @@ class Loaded extends StatelessWidget {
         title: Text("History"),
       ),
       body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: SizeConfig.defaultMargin),
         children: history
+            .asMap()
             .map(
-              (e) => ListTile(
-                title: Text(e.category.toString()),
-                subtitle: Text(e.date.toString()),
+              (key, value) => MapEntry(
+                key,
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: HistoryCard(history: value),
+                ),
               ),
             )
+            .values
             .toList(),
       ),
     );

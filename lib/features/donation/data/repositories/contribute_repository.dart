@@ -3,8 +3,9 @@ import 'package:web3dart/web3dart.dart';
 import '../../../../core/models/return_value_model.dart';
 import '../../../../core/utils/network_info.dart';
 import '../../../../shared/config/label_config.dart';
-import '../models/contributor_model.dart';
+import '../../../main/data/models/campaign_model.dart';
 import '../datasources/contribute_remote_data_source.dart';
+import '../models/contributor_model.dart';
 
 abstract class ContributeRepository {
   Future<ReturnValueModel<List<ContributorModel?>>> getContributors({
@@ -16,6 +17,7 @@ abstract class ContributeRepository {
     required DeployedContract deployedContract,
     required Web3Client web3Client,
     required EthPrivateKey walletPrivateKey,
+    required CampaignModel? campaign,
   });
 }
 
@@ -59,6 +61,7 @@ class ContributeRepositoryImpl implements ContributeRepository {
     required DeployedContract deployedContract,
     required Web3Client web3Client,
     required EthPrivateKey walletPrivateKey,
+    required CampaignModel? campaign,
   }) async {
     if (await networkInfo.isConnected) {
       try {
@@ -67,6 +70,7 @@ class ContributeRepositoryImpl implements ContributeRepository {
           deployedContract: deployedContract,
           web3Client: web3Client,
           walletPrivateKey: walletPrivateKey,
+          campaign: campaign,
         );
 
         return ReturnValueModel(

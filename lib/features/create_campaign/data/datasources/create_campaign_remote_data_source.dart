@@ -1,11 +1,14 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart' as firebase;
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:web3dart/web3dart.dart';
 
 import '../../../../shared/config/keys_config.dart';
 import '../../../../shared/config/urls_config.dart';
+import '../../../main/data/models/history_model.dart';
 import '../models/create_campaign_model.dart';
 import '../models/ipfs_upload_model.dart';
 
@@ -23,12 +26,14 @@ abstract class CreateCampaignRemoteDataSource {
 
 class CreateCampaignRemoteDataSourceImpl
     implements CreateCampaignRemoteDataSource {
+  final firebase.FirebaseFirestore firestore;
   final http.Client client;
   final Dio dio;
 
   CreateCampaignRemoteDataSourceImpl({
     required this.client,
     required this.dio,
+    required this.firestore,
   });
 
   @override
@@ -54,6 +59,12 @@ class CreateCampaignRemoteDataSourceImpl
           maxGas: 1500000,
         ),
         chainId: 4,
+      );
+
+      _saveToFirestore(
+        address: walletPrivateKey.address.toString(),
+        transactionHash: result,
+        campaign: campaign,
       );
 
       print("========= SUCCESS CREATE CAMPAIGN ========");
@@ -83,7 +94,8 @@ class CreateCampaignRemoteDataSourceImpl
           },
           options: Options(
             headers: {
-              'Authorization': 'Basic ${KeysConfig.infuraIPFSPrivateKey}',
+              'Authorization':
+                  'Basic ${base64.encode(utf8.encode(KeysConfig.infuraIPFSPrivateKey))}',
             },
           ), onSendProgress: (received, total) {
         if (total != -1) {
@@ -100,5 +112,36 @@ class CreateCampaignRemoteDataSourceImpl
     } on DioError catch (error) {
       throw error;
     }
+  }
+
+  void _saveToFirestore({
+    required String? address,
+    required String? transactionHash,
+    required CreateCampaignModel? campaign,
+  }) {
+    firestore
+        .collection('users')
+        .doc(address)
+        .collection('history')
+        .doc(transactionHash)
+        .set(
+          HistoryModel(
+            category: 2,
+            campaignTitle: campaign?.title,
+            transactionHash: transactionHash,
+          ).toJson(),
+        );
+     firestore
+        .collection('users')
+        .doc(address)
+        .collection('campaign')
+        .doc(transactionHash)
+        .set(
+          HistoryModel(
+            category: 2,
+            campaignTitle: campaign?.title,
+            transactionHash: transactionHash,
+          ).toJson(),
+        );
   }
 }

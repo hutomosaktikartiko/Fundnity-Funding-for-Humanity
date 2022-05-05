@@ -202,6 +202,7 @@ class PaymentConfirmationScreen extends StatelessWidget {
                       .privateKey,
               amount: donationAmount,
               address: address,
+              campaign: campaign,
             );
 
     // Dismiss progressDialog
