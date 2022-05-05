@@ -22,7 +22,6 @@ class HorizontalCampaignCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print((campaign?.balance.bigIntToCalculatePercentDouble(target: campaign?.target) ?? 0) / 100,);
     return GestureDetector(
       onTap: () => _openDetailCampaignScreen(context),
       child: Container(

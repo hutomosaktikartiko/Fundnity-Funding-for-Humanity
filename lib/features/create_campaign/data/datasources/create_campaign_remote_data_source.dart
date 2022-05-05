@@ -9,6 +9,7 @@ import 'package:web3dart/web3dart.dart';
 import '../../../../shared/config/keys_config.dart';
 import '../../../../shared/config/urls_config.dart';
 import '../../../main/data/models/history_model.dart';
+import '../models/campaign_firestore_model.dart';
 import '../models/create_campaign_model.dart';
 import '../models/ipfs_upload_model.dart';
 
@@ -134,13 +135,17 @@ class CreateCampaignRemoteDataSourceImpl
      firestore
         .collection('users')
         .doc(address)
-        .collection('campaign')
+        .collection('campaigns')
         .doc(transactionHash)
         .set(
-          HistoryModel(
-            category: 2,
-            campaignTitle: campaign?.title,
-            transactionHash: transactionHash,
+          CampaignFirestoreModel(
+            image: campaign?.image,
+            title: campaign?.title,
+            target: campaign?.target.toString(),
+            description: campaign?.description,
+            creatorAddress: address,
+            startDate: DateTime.now().millisecondsSinceEpoch,
+            endDate: campaign?.endDate?.toInt(),
           ).toJson(),
         );
   }

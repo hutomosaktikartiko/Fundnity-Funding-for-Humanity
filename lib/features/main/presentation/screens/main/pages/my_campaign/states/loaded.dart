@@ -157,8 +157,11 @@ class Loaded extends StatelessWidget {
                     .map(
                       (key, campaign) => MapEntry(
                         key,
-                        MyCampaignCard(
-                          campaign: campaign,
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: MyCampaignCard(
+                            campaign: campaign,
+                          ),
                         ),
                       ),
                     )
