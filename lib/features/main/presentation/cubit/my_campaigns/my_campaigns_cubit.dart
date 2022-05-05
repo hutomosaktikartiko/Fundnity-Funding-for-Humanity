@@ -20,7 +20,7 @@ class MyCampaignsCubit extends Cubit<MyCampaignsState> {
     if (groupingCampaigns[myAddress] == null) {
       emit(MyCampaignsEmpty());
     } else {
-      emit(MyCampaignsLoaded(campaigns: campaigns));
+      emit(MyCampaignsLoaded(campaigns: groupingCampaigns[myAddress] ?? []));
     }
   }
 }
