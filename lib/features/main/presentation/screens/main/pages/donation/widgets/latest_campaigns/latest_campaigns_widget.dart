@@ -9,8 +9,8 @@ import 'states/error.dart';
 import 'states/loaded.dart';
 import 'states/loading.dart';
 
-class AllCampaignsWidget extends StatelessWidget {
-  const AllCampaignsWidget({Key? key}) : super(key: key);
+class LatestCampaignsWidget extends StatelessWidget {
+  const LatestCampaignsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

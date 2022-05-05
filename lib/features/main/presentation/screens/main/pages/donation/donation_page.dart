@@ -8,7 +8,7 @@ import '../../../../cubit/account_balance/account_balance_cubit.dart';
 import '../../../../cubit/campaigns/campaigns_cubit.dart';
 import '../../../../cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
 import '../../../../cubit/web3client/web3client_cubit.dart';
-import 'widgets/all_campaigns/all_campaigns_widget.dart';
+import 'widgets/latest_campaigns/latest_campaigns_widget.dart';
 import 'widgets/balance/balance_widget.dart';
 import 'widgets/campaign_by_wallet_address/campaign_by_wallet_address_widget.dart';
 import 'widgets/main_campaign/main_campaign_widget.dart';
@@ -35,7 +35,7 @@ class DonationPage extends StatelessWidget {
             ),
             MainCampaignWidget(),
             CampaignByWalletAddressWidget(),
-            AllCampaignsWidget(),
+            LatestCampaignsWidget(),
           ],
         ),
       ),
