@@ -20,4 +20,14 @@ class CampaignByWalletAddressesCubit extends Cubit<CampaignByWalletAddressesStat
       emit(CampaignsByWalletAddressesLoaded(addresses: result.keys.toList()));
     }
   }
+
+  List<CampaignModel>? getCampaigns({
+    required String? walletAddress,
+    required List<CampaignModel> campaigns,
+  }) {
+    if (walletAddress == null) {
+      return null;
+    }
+    return campaigns.where((element) => element.creatorAddress.toString() == walletAddress).toList();
+  }
 }
