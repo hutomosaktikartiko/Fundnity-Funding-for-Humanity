@@ -22,6 +22,8 @@ class CampaignsLoaded extends CampaignsState {
   List<Object?> get props => [];
 }
 
+class CampaignsEmpty extends CampaignsState {}
+
 class CampaignsLoadingFailure extends CampaignsState {
   final String message;
 

@@ -28,23 +28,29 @@ class CampaignsCubit extends Cubit<CampaignsState> {
       web3Client: web3Client,
       crowdfundindContract: crowdfundindContract,
     );
-    
-    List<CampaignModel> campaigns = [];
 
-    for (var address in (addresses ?? [])) {
-      final CampaignModel? campaign = await getCampaign(
-        address: address,
-        web3Client: web3Client,
-      );
+    if (addresses == null) {
+      emit(CampaignsLoadingFailure(message: "Failed to get all addresses"));
+    } else {
+      if (addresses.isEmpty) {
+        emit(CampaignsEmpty());
+      } else {
+        List<CampaignModel> campaigns = [];
 
-      if (campaign != null) {
-        campaigns.add(campaign);
-        print("campaigns: $campaigns");
+        for (var address in addresses) {
+          final CampaignModel? campaign = await getCampaign(
+            address: address,
+            web3Client: web3Client,
+          );
+
+          if (campaign != null) {
+            campaigns.add(campaign);
+          }
+        }
+
+        emit(CampaignsLoaded(campaigns: campaigns));
       }
     }
-
-    // TODO: Handle if failed get all campaigns
-    emit(CampaignsLoaded(campaigns: campaigns));
   }
 
   Future<List<dynamic>?> getAllAddresses({

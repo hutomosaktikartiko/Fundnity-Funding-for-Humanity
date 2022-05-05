@@ -34,7 +34,6 @@ class DetailDonationBody extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          // TODO => Change address to real data
           UserAddressHorizontalCard(
             address: campaign?.creatorAddress,
           ),
