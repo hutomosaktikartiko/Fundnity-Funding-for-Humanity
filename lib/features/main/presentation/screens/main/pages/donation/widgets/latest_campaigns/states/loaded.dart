@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../../../../../../core/utils/screen_navigator.dart';
 import '../../../../../../../../../../shared/config/custom_text_style.dart';
 import '../../../../../../../../../../shared/widgets/campaign_card/vertical_campaign_card.dart';
 import '../../../../../../../../data/models/campaign_model.dart';
+import '../../../../../../all_campaigns/all_campaigns_screen.dart';
 import '../../view_all_widget.dart';
 
 class Loaded extends StatelessWidget {
@@ -29,7 +31,7 @@ class Loaded extends StatelessWidget {
               ),
             ),
             ViewAllWidget(
-              onTap: _openAllLatestCampaigns,
+              onTap: () => _openAllLatestCampaigns(context),
             ),
           ],
         ),
@@ -55,7 +57,7 @@ class Loaded extends StatelessWidget {
     );
   }
 
-  void _openAllLatestCampaigns() {
-    // TODO => Show All Wallet Addresses bottom sheet
+  void _openAllLatestCampaigns(BuildContext context) {
+    ScreenNavigator.startScreen(context, AllCampaignsScreen(campaigns: campaigns, title: "Latest Campaigns"));
   }
 }

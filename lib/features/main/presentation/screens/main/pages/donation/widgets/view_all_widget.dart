@@ -13,6 +13,7 @@ class ViewAllWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onTap,
       child: Text(
         "View all",
         style: CustomTextStyle.activeLinkTextStyle.copyWith(
