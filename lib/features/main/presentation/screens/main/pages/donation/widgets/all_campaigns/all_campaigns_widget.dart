@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../../../shared/widgets/widget_with_default_horizontal_padding.dart';
-import '../../../../../../cubit/all_campaigns/all_campaigns_cubit.dart';
+import '../../../../../../cubit/latest_campaigns/latest_campaigns_cubit.dart';
 import '../../../../../../cubit/campaigns/campaigns_cubit.dart';
 import 'states/empty.dart';
 import 'states/error.dart';
@@ -19,27 +19,27 @@ class AllCampaignsWidget extends StatelessWidget {
         listener: (context, state) {
           if (state is CampaignsLoaded) {
             context
-                .read<AllCampaignsCubit>()
-                .getAllCampaigns(campaigns: state.campaigns);
+                .read<LatestCampaignsCubit>()
+                .getLatestCampaigns(campaigns: state.campaigns);
           } else if (state is CampaignsLoadingFailure) {
             context
-                .read<AllCampaignsCubit>()
-                .emit(AllCampaignsFailure(message: state.message));
+                .read<LatestCampaignsCubit>()
+                .emit(LatestCampaignsFailure(message: state.message));
           }
         },
         builder: (context, state) {
           if (state is CampaignsLoaded) {
-            return BlocBuilder<AllCampaignsCubit, AllCampaignsState>(
-                builder: (context, allCampaignsState) {
-              if (allCampaignsState is AllCampaignsLoaded) {
+            return BlocBuilder<LatestCampaignsCubit, LatestCampaignsState>(
+                builder: (context, latestCampaignsState) {
+              if (latestCampaignsState is LatestCampaignsLoaded) {
                 return Loaded(
-                  campaigns: allCampaignsState.campaigns,
+                  campaigns: latestCampaignsState.campaigns,
                 );
-              } else if (allCampaignsState is AllCampaignsEmpty) {
+              } else if (latestCampaignsState is LatestCampaignsEmpty) {
                 return Empty();
-              } else if (allCampaignsState is AllCampaignsFailure) {
+              } else if (latestCampaignsState is LatestCampaignsFailure) {
                 return Error(
-                  message: allCampaignsState.message,
+                  message: latestCampaignsState.message,
                 );
               } else {
                 return SizedBox.shrink();

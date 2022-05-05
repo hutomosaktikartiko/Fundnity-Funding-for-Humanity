@@ -21,7 +21,7 @@ import 'features/donation/presentation/cubit/contributor/contributor_cubit.dart'
 import 'features/donation/presentation/cubit/gas_tracker/gas_tracker_cubit.dart';
 import 'features/donation/presentation/cubit/selected_transaction_speed/selected_transaction_speed_cubit.dart';
 import 'features/main/presentation/cubit/account_balance/account_balance_cubit.dart';
-import 'features/main/presentation/cubit/all_campaigns/all_campaigns_cubit.dart';
+import 'features/main/presentation/cubit/latest_campaigns/latest_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/campaign_by_wallet_addresses/campaign_by_wallet_addresses_cubit.dart';
 import 'features/main/presentation/cubit/campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
 import 'features/main/presentation/cubit/campaigns/campaigns_cubit.dart';
@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<SelectedImageCubit>()),
         BlocProvider(create: (context) => di.sl<CreateCampaignCubit>()),
         BlocProvider(create: (context) => di.sl<CampaignsCubit>()),
-        BlocProvider(create: (context) => di.sl<AllCampaignsCubit>()),
+        BlocProvider(create: (context) => di.sl<LatestCampaignsCubit>()),
         BlocProvider(create: (context) => di.sl<CampaignByWalletAddressesCubit>()),
         BlocProvider(create: (context) => di.sl<AccountBalanceCubit>()),
         BlocProvider(create: (context) => di.sl<MyCampaignsCubit>()),
