@@ -98,12 +98,12 @@ class VerticalCampaignCard extends StatelessWidget {
                       height: 5,
                     ),
                     LinearPercentIndicator(
-                      percent: (campaign?.balance.bigIntToCalculatePercentDouble(target: campaign?.target) ?? 0) / 100,
+                      percent: campaign?.balance.bigIntToPercentTargetMax1(target: campaign?.target) ?? 0,
                       lineHeight: 8,
                       barRadius: Radius.circular(3),
                       padding: EdgeInsets.only(right: 5),
                       trailing: Text(
-                        ( campaign?.balance.bigIntToCalculatePercentDouble(target: campaign?.target)
+                        ( campaign?.balance.bigIntToPercentTarget(target: campaign?.target)
                                 .toStringAsFixed(1) ?? "0") +
                             "%",
                         style: CustomTextStyle.green4TextStyle.copyWith(

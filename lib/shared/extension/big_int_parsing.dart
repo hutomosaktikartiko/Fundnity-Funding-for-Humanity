@@ -6,12 +6,26 @@ extension BigIntParsing on BigInt? {
     return this.toString();
   }
 
-  double bigIntToCalculatePercentDouble({
+  double bigIntToPercentTarget({
     required BigInt? target,
   }) {
     if (this == null) return 0.0;
     if (target == null) return 0.0;
     return this!.etherInWeiToEther() / target.toDouble() * 100;
+  }
+
+  // Max 1.0
+  double bigIntToPercentTargetMax1({
+    required BigInt? target,
+  }) {
+    if (this == null) return 0.0;
+    if (target == null) return 0.0;
+
+    final double result = (this!.etherInWeiToEther() / target.toDouble() * 100) / 100;
+    if (result > 1.0) {
+      return 1.0;
+    }
+    return result;
   }
 
   double etherInWeiToEther() {

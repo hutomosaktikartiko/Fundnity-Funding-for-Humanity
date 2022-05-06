@@ -65,9 +65,9 @@ class HorizontalCampaignCard extends StatelessWidget {
                       CircularPercentIndicator(
                         radius: 20,
                         lineWidth: 3,
-                        percent: (campaign?.balance.bigIntToCalculatePercentDouble(target: campaign?.target) ?? 0) / 100,
+                        percent: campaign?.balance.bigIntToPercentTargetMax1(target: campaign?.target) ?? 0,
                         center: Text(
-                          (campaign?.balance.bigIntToCalculatePercentDouble(target: campaign?.target)
+                          (campaign?.balance.bigIntToPercentTarget(target: campaign?.target)
                                   .toStringAsFixed(1) ?? "0") +
                               "%",
                           style: CustomTextStyle.gray3TextStyle.copyWith(

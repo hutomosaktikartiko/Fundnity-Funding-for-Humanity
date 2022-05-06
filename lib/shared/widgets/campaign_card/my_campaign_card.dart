@@ -100,7 +100,7 @@ class MyCampaignCard extends StatelessWidget {
             height: 5,
           ),
           LinearPercentIndicator(
-            percent: (campaign?.balance.bigIntToCalculatePercentDouble(target: campaign?.target) ?? 0) / 100,
+            percent: campaign?.balance.bigIntToPercentTargetMax1(target: campaign?.target) ?? 0,
             lineHeight: 8,
             barRadius: Radius.circular(3),
             padding: EdgeInsets.only(right: 5),
@@ -108,7 +108,7 @@ class MyCampaignCard extends StatelessWidget {
             animation: true,
             trailing: Text(
               (campaign?.balance
-                          ?.bigIntToCalculatePercentDouble(
+                          ?.bigIntToPercentTarget(
                               target: campaign?.target)
                           .toStringAsFixed(1) ??
                       "0") +
