@@ -9,6 +9,7 @@ import '../../../../../../../core/utils/secure_storage_info.dart';
 import '../../../../../../../service_locator.dart';
 import '../../../../../../../shared/config/asset_path_config.dart';
 import '../../../../../../../shared/config/custom_color.dart';
+import '../../../../../../../shared/config/secure_storage_key.dart';
 import '../../../../../../../shared/config/size_config.dart';
 import '../../../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../../../shared/widgets/custom_numeric_keyboard.dart';
@@ -145,7 +146,7 @@ class _CreatePinBodyState extends State<CreatePinBody> {
         }
 
         // Save pin to local
-        sl<SecureStorageInfo>().setPinVerification(newPins);
+        sl<SecureStorageInfo>().setValue(key: SecureStorageKey.pin,value: newPins);
 
         // Login to wallet
         _onLoading();
@@ -173,7 +174,7 @@ class _CreatePinBodyState extends State<CreatePinBody> {
     final ReturnValueModel<Wallet> result = await context
         .read<WalletCubit>()
         .login(
-            password: await sl<SecureStorageInfo>().getPasswordWallet() ?? "");
+            password: await sl<SecureStorageInfo>().getValue(key: SecureStorageKey.password) ?? "");
 
     // Dimiss progressDialog
     progressDialog.dismiss();

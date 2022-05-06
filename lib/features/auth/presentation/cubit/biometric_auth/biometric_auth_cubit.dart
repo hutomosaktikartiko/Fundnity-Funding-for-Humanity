@@ -7,6 +7,7 @@ import 'package:local_auth/local_auth.dart';
 import '../../../../../core/models/return_value_model.dart';
 import '../../../../../core/utils/secure_storage_info.dart';
 import '../../../../../service_locator.dart';
+import '../../../../../shared/config/secure_storage_key.dart';
 
 part 'biometric_auth_state.dart';
 
@@ -50,7 +51,7 @@ class BiometricAuthCubit extends Cubit<BiometricAuthState> {
         ),
       );
 
-      String? newPin = await sl<SecureStorageInfo>().getPinVerification();
+      String? newPin = await sl<SecureStorageInfo>().getValue(key: SecureStorageKey.pin);
 
       if (didAuthenticate && newPin != null) {
         List<String?> pins =

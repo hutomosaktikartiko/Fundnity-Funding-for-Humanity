@@ -5,6 +5,7 @@ import 'package:web3dart/web3dart.dart';
 
 import '../../../../core/utils/preferences_info.dart';
 import '../../../../core/utils/secure_storage_info.dart';
+import '../../../../shared/config/secure_storage_key.dart';
 
 abstract class AuthLocalDataSource {
   // Create wallet (input password and generate random privateKey)
@@ -47,7 +48,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
       // Save json file to local
       preferences.wallet = wallet;
       // Save wallet password to local
-      secureStorage.setPasswordWallet(password);
+      secureStorage.setValue(key: SecureStorageKey.password, value: password);
 
       return result;
     } catch (error) {
@@ -71,9 +72,9 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
       // Save wallet json to local
       preferences.wallet = wallet.toJson();
       // Save wallet password to local
-      secureStorage.setPasswordWallet(password);
-      // Set pin wallet to null
-      secureStorage.setPinVerification(null);
+      secureStorage.setValue(key: SecureStorageKey.password, value: password);
+      // Delete local pin
+      secureStorage.delete(key: SecureStorageKey.pin);
 
       return wallet;
     } catch (error) {

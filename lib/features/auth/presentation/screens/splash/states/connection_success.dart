@@ -8,6 +8,7 @@ import '../../../../../../core/utils/screen_navigator.dart';
 import '../../../../../../core/utils/secure_storage_info.dart';
 import '../../../../../../core/utils/update_info.dart';
 import '../../../../../../service_locator.dart';
+import '../../../../../../shared/config/secure_storage_key.dart';
 import '../../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
 import '../../../cubit/auth_body/auth_body_cubit.dart';
@@ -60,12 +61,12 @@ class ConnectionSuccess extends StatelessWidget {
                   if (sl<PreferencesInfo>().wallet != null) {
                     // User local wallet is exist
                     // Check user local pin is exist
-                    if (await sl<SecureStorageInfo>().getPinVerification() == null) {
+                    if (await sl<SecureStorageInfo>()
+                            .getValue(key: SecureStorageKey.pin) ==
+                        null) {
                       // pin is notexist
                       // Set auth body to create pin
-                      context
-                          .read<AuthBodyCubit>()
-                          .emit(AuthBodyCreatePin());
+                      context.read<AuthBodyCubit>().emit(AuthBodyCreatePin());
                     } else {
                       // User local wallet is exist
                       // Set auth body to login
@@ -73,7 +74,6 @@ class ConnectionSuccess extends StatelessWidget {
                           .read<AuthBodyCubit>()
                           .emit(AuthBodyPinVerification());
                     }
-                    
                   }
                   // User must be login back to wallet
                   // Navigator to authScreen

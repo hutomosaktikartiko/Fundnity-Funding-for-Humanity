@@ -10,6 +10,7 @@ import '../../../../../../../service_locator.dart';
 import '../../../../../../../shared/config/asset_path_config.dart';
 import '../../../../../../../shared/config/custom_color.dart';
 import '../../../../../../../shared/config/custom_text_style.dart';
+import '../../../../../../../shared/config/secure_storage_key.dart';
 import '../../../../../../../shared/config/size_config.dart';
 import '../../../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../../../shared/widgets/custom_numeric_keyboard.dart';
@@ -214,7 +215,7 @@ class _PinVerificationBodyState extends State<PinVerificationBody> {
 
     // Process login wallet
     final ReturnValueModel<Wallet> result =
-        await context.read<WalletCubit>().login(password: await sl<SecureStorageInfo>().getPasswordWallet() ?? "");
+        await context.read<WalletCubit>().login(password: await sl<SecureStorageInfo>().getValue(key: SecureStorageKey.password) ?? "");
 
     // Dimiss progressDialog
     progressDialog.dismiss();
