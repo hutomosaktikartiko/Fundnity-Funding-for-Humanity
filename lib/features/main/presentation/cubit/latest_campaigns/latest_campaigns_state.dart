@@ -1,10 +1,7 @@
 part of 'latest_campaigns_cubit.dart';
 
-abstract class LatestCampaignsState extends Equatable {
+abstract class LatestCampaignsState {
   const LatestCampaignsState();
-
-  @override
-  List<Object?> get props => [];
 }
 
 class LatestCampaignsInitial extends LatestCampaignsState {}
@@ -17,9 +14,6 @@ class LatestCampaignsLoaded extends LatestCampaignsState {
   LatestCampaignsLoaded({
     required this.campaigns,
   });
-
-  @override
-  List<Object?> get props => [];
 }
 
 class LatestCampaignsFailure extends LatestCampaignsState {
@@ -28,7 +22,4 @@ class LatestCampaignsFailure extends LatestCampaignsState {
   LatestCampaignsFailure({
     required this.message,
   });
-
-  @override
-  List<Object?> get props => [message];
 }
