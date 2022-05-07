@@ -19,7 +19,7 @@ final List<FilterModel> mockListFiltersMyCampaign = [
   ),
   FilterModel(
     id: 3,
-    filter: "Draf",
+    filter: "Draft",
   ),
   FilterModel(
     id: 4,
@@ -27,7 +27,11 @@ final List<FilterModel> mockListFiltersMyCampaign = [
   ),
   FilterModel(
     id: 5,
-    filter: "Completed",
+    filter: "Complete",
+  ),
+  FilterModel(
+    id: 6,
+    filter: "Claimed",
   ),
 ];
 

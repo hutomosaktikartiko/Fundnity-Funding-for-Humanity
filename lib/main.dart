@@ -21,12 +21,13 @@ import 'features/donation/presentation/cubit/contributor/contributor_cubit.dart'
 import 'features/donation/presentation/cubit/gas_tracker/gas_tracker_cubit.dart';
 import 'features/donation/presentation/cubit/selected_transaction_speed/selected_transaction_speed_cubit.dart';
 import 'features/main/presentation/cubit/account_balance/account_balance_cubit.dart';
-import 'features/main/presentation/cubit/latest_campaigns/latest_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/campaign_by_wallet_addresses/campaign_by_wallet_addresses_cubit.dart';
 import 'features/main/presentation/cubit/campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
 import 'features/main/presentation/cubit/campaigns/campaigns_cubit.dart';
 import 'features/main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
+import 'features/main/presentation/cubit/filtered_campaigns/filtered_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/history/history_cubit.dart';
+import 'features/main/presentation/cubit/latest_campaigns/latest_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/main_campaign/main_campaign_cubit.dart';
 import 'features/main/presentation/cubit/my_campaigns/my_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/selected_filter_campaign/selected_filter_campaign_cubit.dart';
@@ -84,6 +85,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<HistoryCubit>()),
         BlocProvider(create: (context) => di.sl<BiometricAuthCubit>()),
         BlocProvider(create: (context) => di.sl<SaveWalletCubit>()),
+        BlocProvider(create: (context) => di.sl<FilteredCampaignsCubit>()),
       ],
       child: MaterialApp(
         home: SplashScreen(),

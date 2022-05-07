@@ -58,6 +58,7 @@ import 'features/main/presentation/cubit/campaign_by_wallet_addresses/campaign_b
 import 'features/main/presentation/cubit/campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
 import 'features/main/presentation/cubit/campaigns/campaigns_cubit.dart';
 import 'features/main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
+import 'features/main/presentation/cubit/filtered_campaigns/filtered_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/history/history_cubit.dart';
 import 'features/main/presentation/cubit/latest_campaigns/latest_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/main_campaign/main_campaign_cubit.dart';
@@ -206,6 +207,7 @@ Future<void> _main() async {
   sl.registerFactory(() => SelectedFilterCampaignCubit());
   sl.registerFactory(() => HistoryCubit(historyRepository: sl()));
   sl.registerFactory(() => BiometricAuthCubit(localAuth: sl()));
+  sl.registerFactory(() => FilteredCampaignsCubit());
 }
 
 Future<void> _notification() async {

@@ -11,16 +11,31 @@ import '../../../../../../../create_campaign/presentation/screens/create_campaig
 import '../../../../../../data/models/campaign_model.dart';
 import '../../../../../cubit/campaigns/campaigns_cubit.dart';
 import '../../../../../cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
+import '../../../../../cubit/filtered_campaigns/filtered_campaigns_cubit.dart';
+import '../../../../../cubit/selected_filter_campaign/selected_filter_campaign_cubit.dart';
 import '../../../../../cubit/web3client/web3client_cubit.dart';
 import '../widgets/filter_widget.dart';
 
-class Loaded extends StatelessWidget {
+class Loaded extends StatefulWidget {
   const Loaded({
     Key? key,
     required this.campaigns,
   }) : super(key: key);
 
   final List<CampaignModel?> campaigns;
+
+  @override
+  _LoadedState createState() => _LoadedState();
+}
+
+class _LoadedState extends State<Loaded> {
+  @override
+  void initState() {
+    super.initState();
+    context
+        .read<FilteredCampaignsCubit>()
+        .setDefaultFilteredCampaigns(campaigns: widget.campaigns);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -149,26 +164,39 @@ class Loaded extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            WidgetWithDefaultHorizontalPadding(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: campaigns
-                    .asMap()
-                    .map(
-                      (key, campaign) => MapEntry(
-                        key,
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: MyCampaignCard(
-                            campaign: campaign,
+            BlocConsumer<SelectedFilterCampaignCubit,
+                    SelectedFilterCampaignState>(
+                listener: (context, selectedFilterCampaign) {
+              context.read<FilteredCampaignsCubit>().setFilteredCampaigns(
+                    campaigns: widget.campaigns,
+                    filter: selectedFilterCampaign.filter?.filter,
+                  );
+            }, builder: (context, selectedFilterCampaign) {
+              return BlocBuilder<FilteredCampaignsCubit,
+                      FilteredCampaignsState>(
+                  builder: (context, filteredCampaignsState) {
+                return WidgetWithDefaultHorizontalPadding(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: filteredCampaignsState.campaigns
+                        .asMap()
+                        .map(
+                          (key, campaign) => MapEntry(
+                            key,
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: MyCampaignCard(
+                                campaign: campaign,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    )
-                    .values
-                    .toList(),
-              ),
-            )
+                        )
+                        .values
+                        .toList(),
+                  ),
+                );
+              });
+            })
           ],
         ),
       ),
