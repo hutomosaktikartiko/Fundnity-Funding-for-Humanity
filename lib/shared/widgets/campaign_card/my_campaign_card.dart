@@ -93,22 +93,30 @@ class MyCampaignCard extends StatelessWidget {
     if (campaign?.status == CampaignStatus.Inactive) {
       return CustomButtonLabel(
         label: "Re-Create Campaign",
-        onTap: () {},
+        onTap: () {
+          // TODO: Re-create campaign
+        },
       );
     } else if (campaign?.status == CampaignStatus.Draft) {
       return CustomButtonLabel(
         label: "Continue Create Campaign",
-        onTap: () {},
+        onTap: () {
+          // TODO: Continue create campaign
+        },
       );
     } else if (campaign?.status == CampaignStatus.Complete) {
       return CustomButtonLabel(
         label: "Claim Balance",
-        onTap: () {},
+        onTap: () {
+          // TODO: Claim balance
+        },
       );
     } else if (campaign?.status == CampaignStatus.Claimed) {
       return CustomButtonLabel(
         label: "Balance Has Been Claimed",
-        onTap: () {},
+        onTap: () {
+          // TODO: Balance has been claimed
+        },
         backgroundColor: Colors.white,
         borderColor: UniversalColor.green4,
         labelColor: UniversalColor.green4,

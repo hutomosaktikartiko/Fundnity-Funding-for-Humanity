@@ -34,6 +34,7 @@ class MyCampaignsCubit extends Cubit<MyCampaignsState> {
 
     if (result.isSuccess) {
       if ((result.value?.length ?? 0) > 0) {
+        // TODO: Sort campaigns by timestamp DESC in result.value from firebase
         setLoadedCampaigns(campaignsFirestore: result.value, campaigns: campaigns);
       } else {
         emit(MyCampaignsEmpty());
