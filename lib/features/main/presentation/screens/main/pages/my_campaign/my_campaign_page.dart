@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../auth/presentation/cubit/wallet/wallet_cubit.dart';
 import '../../../../cubit/campaigns/campaigns_cubit.dart';
 import '../../../../cubit/my_campaigns/my_campaigns_cubit.dart';
+import '../../../../cubit/web3client/web3client_cubit.dart';
 import 'states/empty.dart';
 import 'states/error.dart';
 import 'states/loaded.dart';
@@ -25,11 +26,21 @@ class _MyCampaignPageState extends State<MyCampaignPage> {
           if (state is CampaignsLoaded) {
             context.read<MyCampaignsCubit>().getMyCampaigns(
                   campaigns: state.campaigns,
-                  myAddress: (context.read<WalletCubit>().state as WalletLoaded)
+                  web3Client: context.read<Web3ClientCubit>().state.web3client,
+                  address: (context.read<WalletCubit>().state as WalletLoaded)
                       .wallet
                       .privateKey
                       .address,
                 );
+          } else if (state is CampaignsEmpty) {
+            context.read<MyCampaignsCubit>().getMyCampaigns(
+              campaigns: [],
+              web3Client: context.read<Web3ClientCubit>().state.web3client,
+              address: (context.read<WalletCubit>().state as WalletLoaded)
+                  .wallet
+                  .privateKey
+                  .address,
+            );
           } else if (state is CampaignsLoadingFailure) {
             context
                 .read<MyCampaignsCubit>()
@@ -37,7 +48,7 @@ class _MyCampaignPageState extends State<MyCampaignPage> {
           }
         },
         builder: (context, state) {
-          if (state is CampaignsLoaded) {
+          if (state is CampaignsLoaded || state is CampaignsEmpty) {
             return BlocBuilder<MyCampaignsCubit, MyCampaignsState>(
               builder: (context, myCampaignsState) {
                 if (myCampaignsState is MyCampaignsLoaded) {
@@ -46,6 +57,8 @@ class _MyCampaignPageState extends State<MyCampaignPage> {
                   );
                 } else if (myCampaignsState is MyCampaignsEmpty) {
                   return Empty();
+                } else if (myCampaignsState is MyCampaignsLoading) {
+                  return Loading();
                 } else if (myCampaignsState is MyCampaignsLoadingFailure) {
                   return Error(
                     message: myCampaignsState.message,

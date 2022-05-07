@@ -9,8 +9,10 @@ abstract class MyCampaignsState extends Equatable {
 
 class MyCampaignsInitial extends MyCampaignsState {}
 
+class MyCampaignsLoading extends MyCampaignsState {}
+
 class MyCampaignsLoaded extends MyCampaignsState {
-  final List<CampaignModel> campaigns;
+  final List<CampaignModel?> campaigns;
 
   const MyCampaignsLoaded({
     required this.campaigns,

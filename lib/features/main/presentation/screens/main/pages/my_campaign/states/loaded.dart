@@ -20,7 +20,7 @@ class Loaded extends StatelessWidget {
     required this.campaigns,
   }) : super(key: key);
 
-  final List<CampaignModel> campaigns;
+  final List<CampaignModel?> campaigns;
 
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,7 @@ import '../../../../core/models/return_value_model.dart';
 import '../../../../core/utils/network_info.dart';
 import '../../../../shared/config/label_config.dart';
 import '../datasources/campaign_remote_data_source.dart';
+import '../models/campaign_firestore_model.dart';
 import '../models/campaign_model.dart';
 
 abstract class CampaignRepository {
@@ -14,6 +15,10 @@ abstract class CampaignRepository {
   Future<ReturnValueModel<CampaignModel>> getCampaignDetail({
     required DeployedContract deployedContract,
     required Web3Client web3Client,
+  });
+  Future<ReturnValueModel<List<CampaignFirestoreModel>>> getMyCampaigns({
+    required Web3Client web3Client,
+    required EthereumAddress? address,
   });
 }
 
@@ -62,6 +67,31 @@ class CampaignRepositoryImpl implements CampaignRepository {
             await campaignRemoteDataSource.getCampaignDetail(
           deployedContract: deployedContract,
           web3Client: web3Client,
+        );
+
+        return ReturnValueModel(
+          isSuccess: true,
+          value: result,
+        );
+      } catch (error) {
+        return ReturnValueModel(message: error.toString());
+      }
+    } else {
+      return ReturnValueModel(message: LabelConfig.noInternet);
+    }
+  }
+
+  @override
+  Future<ReturnValueModel<List<CampaignFirestoreModel>>> getMyCampaigns({
+    required Web3Client web3Client,
+    required EthereumAddress? address,
+  }) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final List<CampaignFirestoreModel> result =
+            await campaignRemoteDataSource.getMyCampaigns(
+          web3Client: web3Client,
+          address: address,
         );
 
         return ReturnValueModel(

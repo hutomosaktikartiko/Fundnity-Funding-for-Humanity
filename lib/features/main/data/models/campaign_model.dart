@@ -1,5 +1,14 @@
 import 'package:web3dart/web3dart.dart';
 
+enum CampaignStatus {
+  Draft,
+  Pending,
+  Active,
+  Inactive,
+  Complete,
+  Claimed,
+}
+
 // class CampaignModel {
 //   BigInt? minimumContribution, balance, totalRequests, totalAppovers, target;
 //   String? title, description, imageUrl;
@@ -44,11 +53,12 @@ import 'package:web3dart/web3dart.dart';
 // contributors => address[]
 
 class CampaignModel {
-  String? image, title, description;
+  String? image, title, description, blockHash;
   BigInt? balance, target, startDate, endDate;
   bool? isComplete;
   EthereumAddress? creatorAddress;
   EthereumAddress? address;
+  CampaignStatus? status;
 
   CampaignModel({
     this.image,
@@ -61,20 +71,86 @@ class CampaignModel {
     this.isComplete,
     this.creatorAddress,
     this.address,
+    this.status,
+    this.blockHash,
   });
 
   factory CampaignModel.fromJson(List<dynamic> list) {
     return CampaignModel(
-      image: list[0],
-      title: list[1],
-      description: list[2],
-      balance: list[3],
-      target: list[4],
-      startDate: list[5],
-      endDate: list[6],
-      isComplete: list[7],
-      creatorAddress: list[8],
-      address: list[9],
+      image: list[0] ?? null,
+      title: list[1] ?? null,
+      description: list[2] ?? null,
+      balance: list[3] ?? null,
+      target: list[4] ?? null,
+      startDate: list[5] ?? null,
+      endDate: list[6] ?? null,
+      isComplete: list[7] ?? null,
+      creatorAddress: list[8] ?? null,
+      address: list[9] ?? null,
+      blockHash: list[10] ?? null,
+      status: setCampaignStatus(
+        balance: list[3] ?? null,
+        target: list[4] ?? null,
+        startDate: list[5] ?? null,
+        endDate: list[6] ?? null,
+        isComplete: list[7] ?? null,
+      ),
+    );
+  }
+
+  static setCampaignStatus({
+    BigInt? balance,
+    BigInt? target,
+    BigInt? startDate,
+    BigInt? endDate,
+    bool? isComplete,
+  }) {
+    if (balance == null ||
+        target == null ||
+        startDate == null ||
+        endDate == null) {
+      return CampaignStatus.Active;
+    }
+    if (isComplete == true) {
+      return CampaignStatus.Claimed;
+    }
+    if (balance >= target) {
+      return CampaignStatus.Complete;
+    }
+    if (BigInt.from(DateTime.now().millisecondsSinceEpoch) > endDate) {
+      return CampaignStatus.Complete;
+    }
+
+    return CampaignStatus.Active;
+  }
+
+  CampaignModel copyWith({
+    String? image,
+    String? title,
+    String? description,
+    BigInt? balance,
+    BigInt? target,
+    BigInt? startDate,
+    BigInt? endDate,
+    bool? isComplete,
+    EthereumAddress? creatorAddress,
+    EthereumAddress? address,
+    CampaignStatus? status,
+    String? blockHash,
+  }) {
+    return CampaignModel(
+      image: image ?? this.image,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      balance: balance ?? this.balance,
+      target: target ?? this.target,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      isComplete: isComplete ?? this.isComplete,
+      creatorAddress: creatorAddress ?? this.creatorAddress,
+      address: address ?? this.address,
+      status: status ?? this.status,
+      blockHash: blockHash ?? this.blockHash,
     );
   }
 }

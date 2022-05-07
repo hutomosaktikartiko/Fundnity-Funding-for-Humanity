@@ -47,17 +47,19 @@ import 'features/main/data/datasources/account_remote_data_balance.dart';
 import 'features/main/data/datasources/campaign_remote_data_source.dart';
 import 'features/main/data/datasources/deployed_contract_local_data_source.dart';
 import 'features/main/data/datasources/history_remote_data_srouce.dart';
+import 'features/main/data/datasources/transaction_remote_data_source.dart';
 import 'features/main/data/repositories/account_repository.dart';
 import 'features/main/data/repositories/campaign_repository.dart';
 import 'features/main/data/repositories/deployed_contract_repository.dart';
 import 'features/main/data/repositories/history_repository.dart';
+import 'features/main/data/repositories/transaction_repository.dart';
 import 'features/main/presentation/cubit/account_balance/account_balance_cubit.dart';
-import 'features/main/presentation/cubit/latest_campaigns/latest_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/campaign_by_wallet_addresses/campaign_by_wallet_addresses_cubit.dart';
 import 'features/main/presentation/cubit/campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
 import 'features/main/presentation/cubit/campaigns/campaigns_cubit.dart';
 import 'features/main/presentation/cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
 import 'features/main/presentation/cubit/history/history_cubit.dart';
+import 'features/main/presentation/cubit/latest_campaigns/latest_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/main_campaign/main_campaign_cubit.dart';
 import 'features/main/presentation/cubit/my_campaigns/my_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/selected_filter_campaign/selected_filter_campaign_cubit.dart';
@@ -124,8 +126,9 @@ Future<void> _auth() async {
 
 Future<void> _createCampaign() async {
   // Datasources
-  sl.registerLazySingleton<CreateCampaignRemoteDataSource>(
-      () => CreateCampaignRemoteDataSourceImpl(client: sl(), dio: sl(), firestore: sl()));
+  sl.registerLazySingleton<CreateCampaignRemoteDataSource>(() =>
+      CreateCampaignRemoteDataSourceImpl(
+          client: sl(), dio: sl(), firestore: sl()));
 
   // Repository
   sl.registerLazySingleton<CreateCampaignRepository>(() =>
@@ -167,11 +170,13 @@ Future<void> _favoriteDonation() async {}
 Future<void> _main() async {
   // Datasources
   sl.registerLazySingleton<CampaignRemoteDataSource>(
-      () => CampaignRemoteDataSourceImpl());
+      () => CampaignRemoteDataSourceImpl(firestore: sl()));
   sl.registerLazySingleton<AccountRemoteDataSource>(
       () => AccountRemoteDataSourceImpl());
   sl.registerLazySingleton<HistoryRemoteDataSource>(
       () => HistoryRemoteDataSourceImpl(firestore: sl()));
+  sl.registerLazySingleton<TransactionRemoteDataSource>(
+      () => TransactionRemoteDataSourceImpl(dio: sl()));
 
   // Repositories
   sl.registerLazySingleton<CampaignRepository>(() => CampaignRepositoryImpl(
@@ -180,6 +185,9 @@ Future<void> _main() async {
       AccountRepositoryImpl(networkInfo: sl(), accountRemoteDataSource: sl()));
   sl.registerLazySingleton<HistoryRepository>(() =>
       HistoryRepositoryImpl(historyRemoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<TransactionRepository>(() =>
+      TransactionRepositoryImpl(
+          transactionRemoteDataSource: sl(), networkInfo: sl()));
 
   // Cubit
   sl.registerFactory(
@@ -190,7 +198,10 @@ Future<void> _main() async {
   sl.registerFactory(() => LatestCampaignsCubit());
   sl.registerFactory(() => CampaignByWalletAddressesCubit());
   sl.registerFactory(() => AccountBalanceCubit(accountRepository: sl()));
-  sl.registerFactory(() => MyCampaignsCubit());
+  sl.registerFactory(() => MyCampaignsCubit(
+        campaignRepository: sl(),
+        transactionRepository: sl(),
+      ));
   sl.registerFactory(() => MainCampaignCubit());
   sl.registerFactory(() => SelectedFilterCampaignCubit());
   sl.registerFactory(() => HistoryCubit(historyRepository: sl()));

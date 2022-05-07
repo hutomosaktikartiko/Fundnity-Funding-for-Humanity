@@ -8,8 +8,8 @@ import 'package:web3dart/web3dart.dart';
 
 import '../../../../shared/config/keys_config.dart';
 import '../../../../shared/config/urls_config.dart';
+import '../../../main/data/models/campaign_firestore_model.dart';
 import '../../../main/data/models/history_model.dart';
-import '../models/campaign_firestore_model.dart';
 import '../models/create_campaign_model.dart';
 import '../models/ipfs_upload_model.dart';
 
@@ -146,6 +146,7 @@ class CreateCampaignRemoteDataSourceImpl
             creatorAddress: address,
             startDate: DateTime.now().millisecondsSinceEpoch,
             endDate: campaign?.endDate?.toInt(),
+            transactionHash: transactionHash,
           ).toJson(),
         );
   }
