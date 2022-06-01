@@ -43,6 +43,10 @@
       {
         "name": "",
         "type": "address"
+      },
+      {
+        "name": "",
+        "type": "uint256"
       }
     ],
     "payable": false,
@@ -213,12 +217,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      {
-        "name": "_value",
-        "type": "uint256"
-      }
-    ],
+    "inputs": [],
     "name": "deliverBalance",
     "outputs": [],
     "payable": true,

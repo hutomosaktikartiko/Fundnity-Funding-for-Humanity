@@ -53,8 +53,8 @@ enum CampaignStatus {
 // contributors => address[]
 
 class CampaignModel {
-  String? image, title, description, blockHash;
-  BigInt? balance, target, startDate, endDate;
+  String? image, title, description;
+  BigInt? balance, target, startDate, endDate, blockNumber;
   bool? isComplete;
   EthereumAddress? creatorAddress;
   EthereumAddress? address;
@@ -72,7 +72,7 @@ class CampaignModel {
     this.creatorAddress,
     this.address,
     this.status,
-    this.blockHash,
+    this.blockNumber,
   });
 
   factory CampaignModel.fromJson(List<dynamic> list) {
@@ -87,7 +87,7 @@ class CampaignModel {
       isComplete: list[7] ?? null,
       creatorAddress: list[8] ?? null,
       address: list[9] ?? null,
-      blockHash: list[10] ?? null,
+      blockNumber: list[10] ?? null,
       status: setCampaignStatus(
         balance: list[3] ?? null,
         target: list[4] ?? null,
@@ -136,7 +136,7 @@ class CampaignModel {
     EthereumAddress? creatorAddress,
     EthereumAddress? address,
     CampaignStatus? status,
-    String? blockHash,
+    BigInt? blockNumber,
   }) {
     return CampaignModel(
       image: image ?? this.image,
@@ -150,7 +150,7 @@ class CampaignModel {
       creatorAddress: creatorAddress ?? this.creatorAddress,
       address: address ?? this.address,
       status: status ?? this.status,
-      blockHash: blockHash ?? this.blockHash,
+      blockNumber: blockNumber ?? this.blockNumber,
     );
   }
 }

@@ -5,7 +5,7 @@ class FilteredCampaignsState extends Equatable {
     required this.campaigns,
   });
 
-  List<CampaignModel?> campaigns;
+  final List<CampaignModel?> campaigns;
 
   @override
   List<Object> get props => [campaigns];

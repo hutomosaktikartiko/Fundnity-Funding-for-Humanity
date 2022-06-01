@@ -61,6 +61,10 @@ class CampaignRemoteDataSourceImpl implements CampaignRemoteDataSource {
         params: [],
       );
 
+      print("result $result");
+      print("result ${result[10].runtimeType}");
+      print("result ${result[10]}");
+
       return CampaignModel.fromJson(result);
     } catch (error) {
       throw error;

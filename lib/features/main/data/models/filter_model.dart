@@ -15,22 +15,26 @@ final List<FilterModel> mockListFiltersMyCampaign = [
   ),
   FilterModel(
     id: 2,
-    filter: "Active",
+    filter: "Pending",
   ),
   FilterModel(
     id: 3,
-    filter: "Draft",
+    filter: "Active",
   ),
   FilterModel(
     id: 4,
-    filter: "Inactive",
+    filter: "Draft",
   ),
   FilterModel(
     id: 5,
-    filter: "Complete",
+    filter: "Inactive",
   ),
   FilterModel(
     id: 6,
+    filter: "Complete",
+  ),
+  FilterModel(
+    id: 7,
     filter: "Claimed",
   ),
 ];
