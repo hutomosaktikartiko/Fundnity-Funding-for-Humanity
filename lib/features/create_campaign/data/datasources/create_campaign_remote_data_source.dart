@@ -143,7 +143,7 @@ class CreateCampaignRemoteDataSourceImpl
           CampaignFirestoreModel(
             image: campaign?.image,
             title: campaign?.title,
-            target: campaign?.target.toString(),
+            target: campaign?.target.doubleEtherToGweiEther(),
             description: campaign?.description,
             creatorAddress: address,
             startDate: DateTime.now().millisecondsSinceEpoch,

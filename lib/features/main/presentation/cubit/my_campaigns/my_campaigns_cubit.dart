@@ -85,7 +85,7 @@ class MyCampaignsCubit extends Cubit<MyCampaignsState> {
                   campaignFirestore.creatorAddress ?? ""),
               startDate: BigInt.from(campaignFirestore.startDate ?? 0),
               endDate: BigInt.from(campaignFirestore.endDate ?? 0),
-              target: BigInt.from(int.parse(campaignFirestore.target ?? "0")),
+              target: BigInt.from(campaignFirestore.target ?? 0),
             );
           }
           // Set campaign status
@@ -105,7 +105,7 @@ class MyCampaignsCubit extends Cubit<MyCampaignsState> {
                 EthereumAddress.fromHex(campaignFirestore.creatorAddress ?? ""),
             startDate: BigInt.from(campaignFirestore.startDate ?? 0),
             endDate: BigInt.from(campaignFirestore.endDate ?? 0),
-            target: BigInt.from(int.parse(campaignFirestore.target ?? "0")),
+            target: BigInt.from(campaignFirestore.target ?? 0),
           );
         }
       }
@@ -121,7 +121,7 @@ class MyCampaignsCubit extends Cubit<MyCampaignsState> {
               EthereumAddress.fromHex(campaignFirestore.creatorAddress ?? ""),
           startDate: BigInt.from(campaignFirestore.startDate ?? 0),
           endDate: BigInt.from(campaignFirestore.endDate ?? 0),
-          target: BigInt.from(int.parse(campaignFirestore.target ?? "0")),
+          target: BigInt.from(campaignFirestore.target ?? 0),
         );
       }
 
