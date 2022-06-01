@@ -105,7 +105,6 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
     required String? campaignTitle,
     required String? amount,
   }) {
-    // TODO: Save timestamp donate
     firestore
         .collection('users')
         .doc(address)
@@ -117,6 +116,7 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
         amount: amount,
         campaignTitle: campaignTitle,
         transactionHash: transactionHash,
+        timestamp: DateTime.now().millisecondsSinceEpoch,
       ).toJson(),
     );
   }
