@@ -68,9 +68,6 @@ class MyCampaignsCubit extends Cubit<MyCampaignsState> {
           // Get campaign from list of camapign from contract
           // and check it with campaign from firebase
           // and assign it to newCampaign
-          print(result.value!.blockNumber);
-          print(campaigns?.first.blockNumber);
-          print(campaigns?[1].blockNumber);
           newCampaign = campaigns?.firstWhereOrNull(
             (element) => element.blockNumber == result.value!.blockNumber,
           );
