@@ -45,6 +45,7 @@ class _CostWidgetState extends State<CostWidget> {
           enabledBorderColor: UniversalColor.gray4,
           textInputAction: TextInputAction.done,
           keyboardType: TextInputType.number,
+          textAlign: TextAlign.right,
           onEditingComplete: _onSave,
           onChanged: _onSave,
           style: CustomTextStyle.blackTextStyle.copyWith(
