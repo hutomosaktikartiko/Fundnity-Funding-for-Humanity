@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../config/asset_path_config.dart';
 import 'show_image_local.dart';
 
 class ShowImageLocalLogo extends StatelessWidget {
@@ -16,7 +17,7 @@ class ShowImageLocalLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShowImageLocal(
-      imageUrl: "assets/images/logo.png",
+      imageUrl: AssetPathConfig.appLogo,
       height: height,
       width: width,
       borderRadius: borderRadius,

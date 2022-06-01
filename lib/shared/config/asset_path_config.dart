@@ -13,6 +13,7 @@ class AssetPathConfig {
   static const String transferfilePath = 'assets/images/transfer_file.svg';
   static const String iconCreateCampaign = 'assets/icons/create_campaign.png';
   static const String iconDonation = 'assets/icons/donation.png';
+  static const String appLogo = 'assets/icons/app-logo.png';
 
   // onboarding
   static const String onBoardingFirstPath = 'assets/images/onboarding/first.png';

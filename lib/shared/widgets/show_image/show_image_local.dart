@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'show_image.dart';
-
 class ShowImageLocal extends StatelessWidget {
   const ShowImageLocal({
     Key? key,
@@ -19,12 +17,14 @@ class ShowImageLocal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ShowImage(
-      imageProvider: AssetImage(imageUrl),
-      height: height,
-      width: width,
-      borderRadius: borderRadius,
-      boxFit: boxFit,
+    return ClipRRect(
+      borderRadius: borderRadius ?? BorderRadius.circular(8),
+      child: Image.asset(
+        imageUrl,
+        width: width,
+        height: height,
+        fit: boxFit,
+      ),
     );
   }
 }
