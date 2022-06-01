@@ -21,7 +21,7 @@ class CustomAmountCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "${amount?.amountInGwei?.gweiToEther() ?? 0} ETH",
+            "${amount?.amountInGwei?.gweiToDouble() ?? 0} ETH",
             style: CustomTextStyle.gray2TextStyle.copyWith(
               fontSize: 15,
               fontWeight: FontWeight.bold,

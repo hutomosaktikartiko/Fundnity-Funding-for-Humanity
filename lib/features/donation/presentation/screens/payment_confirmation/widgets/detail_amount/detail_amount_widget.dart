@@ -22,7 +22,7 @@ class DetailAmountWidget extends StatelessWidget {
       children: [
         DetailAmountCard(
           title: "Donation Amount",
-          value: donation.gweiToEther().toString(),
+          value: donation.gweiToDouble().toString(),
         ),
         const SizedBox(
           height: 10,
@@ -37,7 +37,7 @@ class DetailAmountWidget extends StatelessWidget {
         DetailAmountCard(
           title: "Total",
           isBold: true,
-          value: (donation.gweiToEther() + (int.parse(gas?.gasPriceInGwei ?? "0") * 1500000).gweiToEther()).toString(),
+          value: (donation.gweiToDouble() + (int.parse(gas?.gasPriceInGwei ?? "0") * 1500000).gweiToEther()).toString(),
         ),
       ],
     );

@@ -40,7 +40,7 @@ extension BigIntParsing on BigInt? {
     return this!.toInt() / 1000000000000000000;
   }
 
-  double gweiToEther() {
+  double gweiToDouble() {
     if (this == null) return 0.0;
     return this!.toInt() / 1000000000;
   }

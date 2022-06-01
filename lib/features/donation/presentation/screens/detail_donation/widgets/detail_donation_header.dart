@@ -42,7 +42,7 @@ class DetailDonationHeader extends StatelessWidget {
             TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: "${campaign?.balance.etherInWeiToEther()} ETH",
+                  text: "${campaign?.balance.gweiToDouble()} ETH",
                   style: CustomTextStyle.green4TextStyle.copyWith(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
@@ -62,7 +62,7 @@ class DetailDonationHeader extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: " ${campaign?.target} ETH",
+                  text: " ${campaign?.target.gweiToDouble()} ETH",
                   style: CustomTextStyle.gray2TextStyle.copyWith(
                     fontSize: 12,
                   ),
