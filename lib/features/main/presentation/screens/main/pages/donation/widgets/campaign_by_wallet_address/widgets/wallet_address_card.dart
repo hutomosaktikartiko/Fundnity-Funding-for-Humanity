@@ -3,7 +3,7 @@ import 'package:web3dart/web3dart.dart';
 
 import '../../../../../../../../../../shared/config/custom_text_style.dart';
 import '../../../../../../../../../../shared/extension/string_parsing.dart';
-import '../../../../../../../../../../shared/widgets/show_image/show_image_local.dart';
+import '../../../../../../../../../../shared/widgets/show_svg/show_avatar_svg_network.dart';
 
 class WalletAddressCard extends StatelessWidget {
   const WalletAddressCard({
@@ -17,10 +17,10 @@ class WalletAddressCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // TODO => Change image to generated random image by wallet address
-        ShowImageLocal(
-          imageUrl: "",
-          borderRadius: BorderRadius.circular(100),
+        ShowAvatarSvgNetwork(
+          address: address.toString(),
+          height: 50,
+          width: 50,
         ),
         const SizedBox(
           height: 5,
