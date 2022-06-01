@@ -1,5 +1,5 @@
 extension DoubleParsing on double? {
-  BigInt etherToWei() {
+  BigInt doubleEtherToWei() {
     if (this == null) return BigInt.from(0);
     return BigInt.from(this! * 1000000000000000000);
   }

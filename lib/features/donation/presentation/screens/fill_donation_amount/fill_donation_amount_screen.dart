@@ -196,7 +196,7 @@ class _FillDonationAmountState extends State<FillDonationAmount> {
     ScreenNavigator.startScreen(
         context,
         PaymentConfirmationScreen(
-          donationAmount: amount!.amountInGwei!,
+          donationAmount: amount!.amountInWei!,
           campaign: widget.campaign,
           address: widget.address,
         ));

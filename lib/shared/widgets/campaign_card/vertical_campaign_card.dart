@@ -66,7 +66,7 @@ class VerticalCampaignCard extends StatelessWidget {
                       TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                            text: "${campaign?.balance.etherInWeiToEther()} ETH",
+                            text: "${campaign?.balance.weiEtherToDoubleEther()} ETH",
                             style: CustomTextStyle.green4TextStyle.copyWith(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,

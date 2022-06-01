@@ -55,7 +55,7 @@ class CreateCampaignRemoteDataSourceImpl
             campaign.image,
             campaign.title,
             campaign.description,
-            campaign.target.etherToGwei(),
+            campaign.target.doubleEtherToWei(),
             campaign.endDate
           ],
           maxGas: 1500000,
@@ -143,7 +143,7 @@ class CreateCampaignRemoteDataSourceImpl
           CampaignFirestoreModel(
             image: campaign?.image,
             title: campaign?.title,
-            target: campaign?.target.doubleEtherToGweiEther(),
+            target: campaign?.target.doubleEtherToWei().toInt(),
             description: campaign?.description,
             creatorAddress: address,
             startDate: DateTime.now().millisecondsSinceEpoch,

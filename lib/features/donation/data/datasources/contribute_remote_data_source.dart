@@ -74,7 +74,7 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
           contract: deployedContract,
           function: deployedContract.function('contribute'),
           parameters: [],
-          value: EtherAmount.fromUnitAndValue(EtherUnit.gwei, amount),
+          value: EtherAmount.fromUnitAndValue(EtherUnit.wei, amount),
           maxGas: 1500000,
         ),
         chainId: 4,
@@ -111,13 +111,13 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
         .collection('history')
         .doc(transactionHash)
         .set(
-      HistoryModel(
-        category: 1,
-        amount: amount,
-        campaignTitle: campaignTitle,
-        transactionHash: transactionHash,
-        timestamp: DateTime.now().millisecondsSinceEpoch,
-      ).toJson(),
-    );
+          HistoryModel(
+            category: 1,
+            amount: amount,
+            campaignTitle: campaignTitle,
+            transactionHash: transactionHash,
+            timestamp: DateTime.now().millisecondsSinceEpoch,
+          ).toJson(),
+        );
   }
 }

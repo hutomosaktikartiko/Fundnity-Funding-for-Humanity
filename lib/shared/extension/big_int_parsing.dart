@@ -12,7 +12,7 @@ extension BigIntParsing on BigInt? {
     if (this == null) return 0.0;
     if (target == null) return 0.0;
 
-    final double result = this!.etherInWeiToEther() / target.toDouble() * 100;
+    final double result = this!.weiEtherToDoubleEther() / target.weiEtherToDoubleEther().toDouble() * 100;
     if (result > 100.0) {
       return 100;
     }
@@ -28,19 +28,19 @@ extension BigIntParsing on BigInt? {
     if (target == null) return 0.0;
 
     final double result =
-        (this!.etherInWeiToEther() / target.toDouble() * 100) / 100;
+        (this!.weiEtherToDoubleEther() / target.weiEtherToDoubleEther().toDouble() * 100) / 100;
     if (result > 1.0) {
       return 1.0;
     }
     return result;
   }
 
-  double etherInWeiToEther() {
+  double weiEtherToDoubleEther() {
     if (this == null) return 0.0;
     return this!.toInt() / 1000000000000000000;
   }
 
-  double gweiToDouble() {
+  double gweiToDoubleEther() {
     if (this == null) return 0.0;
     return this!.toInt() / 1000000000;
   }
@@ -48,5 +48,10 @@ extension BigIntParsing on BigInt? {
   int? bigIntTimeStampToIntDays() {
     if (this == null) return null;
     return DateTime.fromMillisecondsSinceEpoch(this!.toInt()).daysBetween();
+  }
+
+  BigInt etherInGweiToWei() {
+    if (this == null) return BigInt.from(0);
+    return BigInt.from(this!.toInt() * 1000000000);
   }
 }

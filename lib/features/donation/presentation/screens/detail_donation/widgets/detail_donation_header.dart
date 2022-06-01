@@ -42,7 +42,7 @@ class DetailDonationHeader extends StatelessWidget {
             TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: "${campaign?.balance.gweiToDouble()} ETH",
+                  text: "${campaign?.balance.weiEtherToDoubleEther()} ETH",
                   style: CustomTextStyle.green4TextStyle.copyWith(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
@@ -62,7 +62,7 @@ class DetailDonationHeader extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: " ${campaign?.target.gweiToDouble()} ETH",
+                  text: " ${campaign?.target?.weiEtherToDoubleEther()} ETH",
                   style: CustomTextStyle.gray2TextStyle.copyWith(
                     fontSize: 12,
                   ),
@@ -74,7 +74,9 @@ class DetailDonationHeader extends StatelessWidget {
             height: 10,
           ),
           LinearPercentIndicator(
-            percent: campaign?.balance.bigIntToPercentTargetMax1(target: campaign?.target) ?? 0,
+            percent: campaign?.balance
+                    .bigIntToPercentTargetMax1(target: campaign?.target) ??
+                0,
             lineHeight: 8,
             barRadius: Radius.circular(3),
             padding: EdgeInsets.only(right: 5),
@@ -116,7 +118,8 @@ class DetailDonationHeader extends StatelessWidget {
                 TextSpan(
                   children: <TextSpan>[
                     TextSpan(
-                      text: (campaign?.endDate.bigIntTimeStampToIntDays() ?? 0).toString(),
+                      text: (campaign?.endDate.bigIntTimeStampToIntDays() ?? 0)
+                          .toString(),
                       style: CustomTextStyle.gray2TextStyle.copyWith(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,

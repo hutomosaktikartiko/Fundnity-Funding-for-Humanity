@@ -68,7 +68,7 @@ class _BalanceCardState extends State<BalanceCard> {
                       height: 5,
                     ),
                     Text(
-                      "${widget.amount?.getInWei.etherInWeiToEther().toStringAsFixed(5)} ETH",
+                      "${widget.amount?.getInWei.weiEtherToDoubleEther().toStringAsFixed(5)} ETH",
                       overflow: TextOverflow.clip,
                       maxLines: 1,
                       style: TextStyle(
