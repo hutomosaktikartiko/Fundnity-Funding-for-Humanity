@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../shared/config/custom_text_style.dart';
 import '../../../../../../shared/config/size_config.dart';
+import '../../../../../../shared/widgets/show_svg/show_svg_asset.dart';
 import '../../../../data/models/onboarding_model.dart';
 
 class PageViewItem extends StatelessWidget {
@@ -22,9 +23,8 @@ class PageViewItem extends StatelessWidget {
           Container(
             height: 180,
             width: 190,
-            child: Image.asset(
-              "assets/images/onboarding/${onboarding?.imageName}",
-              fit: BoxFit.contain,
+            child: ShowSvgAsset(
+              assetUrl: onboarding?.imagePath ?? "",
             ),
           ),
           SizedBox(

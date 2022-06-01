@@ -16,7 +16,6 @@ class AssetPathConfig {
   static const String appLogo = 'assets/icons/app-logo.png';
 
   // onboarding
-  static const String onBoardingFirstPath = 'assets/images/onboarding/first.png';
-  static const String onBoardingSecondPath = 'assets/images/onboarding/second.png';
-  static const String onBoardingThirdPath = 'assets/images/onboarding/third.png';
+  static const String onBoardingFirstPath = 'assets/images/onboarding/first.svg';
+  static const String onBoardingSecondPath = 'assets/images/onboarding/second.svg';
 }

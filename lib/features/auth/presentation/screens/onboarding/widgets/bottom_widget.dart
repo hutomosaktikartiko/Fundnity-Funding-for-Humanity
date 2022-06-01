@@ -26,7 +26,7 @@ class BottomWidget extends StatelessWidget {
       child: BlocBuilder<SelectedOnboardingCubit, SelectedOnboardingState>(
         builder: (context, state) {
           if ((context.read<SelectedOnboardingCubit>().state.index ==
-              mockListOnboarding.length - 1)) {
+              mockListOnboardings.length - 1)) {
             return CustomButtonLabel(
               label: "Masuk Sekarang",
               onTap: () => ScreenNavigator.replaceScreen(context, AuthScreen()),
@@ -37,7 +37,7 @@ class BottomWidget extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: mockListOnboarding
+                  children: mockListOnboardings
                       .asMap()
                       .map(
                         (key, value) => MapEntry(

@@ -1,34 +1,29 @@
+import '../../../../shared/config/asset_path_config.dart';
 import '../../../../shared/config/label_config.dart';
 
 class OnboardingModel {
   int? id;
-  String? label, description, imageName;
+  String? label, description, imagePath;
 
   OnboardingModel({
     this.id,
     this.description,
     this.label,
-    this.imageName,
+    this.imagePath,
   });
 }
 
-final List<OnboardingModel> mockListOnboarding = [
+final List<OnboardingModel> mockListOnboardings = [
   OnboardingModel(
     id: 1,
-     imageName: 'onboarding_1.png',
+     imagePath: AssetPathConfig.onBoardingFirstPath,
           label: LabelConfig.onboarding1Label,
           description: LabelConfig.onboarding1Description,
   ),
   OnboardingModel(
     id: 2,
-     imageName: 'onboarding_2.png',
+     imagePath: AssetPathConfig.onBoardingSecondPath,
           label: LabelConfig.onboarding2Label,
           description: LabelConfig.onboarding2Description,
-  ),
-  OnboardingModel(
-    id: 3,
-    imageName: 'onboarding_3.png',
-          label: LabelConfig.onboarding3Label,
-          description: LabelConfig.onboarding3Description,
   ),
 ];

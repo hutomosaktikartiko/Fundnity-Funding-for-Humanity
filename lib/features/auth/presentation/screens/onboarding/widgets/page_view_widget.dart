@@ -21,7 +21,7 @@ class PageViewWidget extends StatelessWidget {
       onPageChanged: (int index) => context
           .read<SelectedOnboardingCubit>()
           .changeOnboarding(index: index),
-      children: mockListOnboarding
+      children: mockListOnboardings
           .map(
             (onboarding) => PageViewItem(onboarding: onboarding),
           )
