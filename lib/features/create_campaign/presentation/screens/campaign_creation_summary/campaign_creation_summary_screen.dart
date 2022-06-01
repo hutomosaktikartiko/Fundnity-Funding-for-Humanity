@@ -150,7 +150,7 @@ class CampaignCreationSummary extends StatelessWidget {
                             .calculateDayToDateTime()
                             ?.millisecondsSinceEpoch ??
                         0),
-                    target: BigInt.from(createCampaignDataState.amount ?? 0),
+                    target: createCampaignDataState.amount,
                     image: resultUploadImage.value?.hash ?? "-",
                   ),
                   web3Client: context.read<Web3ClientCubit>().state.web3client,

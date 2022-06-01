@@ -1,6 +1,7 @@
 class ContractConfig {
   static const String crowdfunding = "0xf7A3B293D4f5047A22e0f7E57F6c12f4512abF53";
-  static const String crowdfundingInfura = "0xC14dDEDc35E0F46964Ae82528BfA995319EEcb55";
+  static const String crowdfundingInfura = "0xed7Dcb94a5ca94f1e57D50223a32388fEcD1d49D";
+  // static const String crowdfundingInfura = "0xC14dDEDc35E0F46964Ae82528BfA995319EEcb55";
   // static const String crowdfundingInfura = "0xf8B6c442b007A2C239Ce123e2ef977F6Ee1f63aB";
   // static const String crowdfundingInfura = "0xA714838Cb5c83628D9f01AfafC5DDea96551f5D0";
   // static const String crowdfundingInfura = "0xb4f3eb01B45E06ce1E60EABb991b32F1ea3Ad74a";

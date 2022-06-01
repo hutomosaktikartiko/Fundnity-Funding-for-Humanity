@@ -8,6 +8,7 @@ import 'package:web3dart/web3dart.dart';
 
 import '../../../../shared/config/keys_config.dart';
 import '../../../../shared/config/urls_config.dart';
+import '../../../../shared/extension/double_parsing.dart';
 import '../../../main/data/models/campaign_firestore_model.dart';
 import '../../../main/data/models/history_model.dart';
 import '../models/create_campaign_model.dart';
@@ -54,7 +55,7 @@ class CreateCampaignRemoteDataSourceImpl
             campaign.image,
             campaign.title,
             campaign.description,
-            campaign.target,
+            campaign.target.etherToGwei(),
             campaign.endDate
           ],
           maxGas: 1500000,
@@ -133,7 +134,7 @@ class CreateCampaignRemoteDataSourceImpl
             transactionHash: transactionHash,
           ).toJson(),
         );
-     firestore
+    firestore
         .collection('users')
         .doc(address)
         .collection('campaigns')

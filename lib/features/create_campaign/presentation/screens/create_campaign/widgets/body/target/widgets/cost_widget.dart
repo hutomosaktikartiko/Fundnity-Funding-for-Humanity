@@ -69,6 +69,7 @@ class _CostWidgetState extends State<CostWidget> {
   }
 
   void _onSave() {
+    // TODO: Add Validation to input just number or double
     context.read<CreateCampaignDataCubit>().setAmount(
           amount: double.parse(amountController?.text ?? "0"),
         );

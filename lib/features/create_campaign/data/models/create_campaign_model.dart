@@ -45,8 +45,9 @@ import 'package:web3dart/web3dart.dart';
 
 class CreateCampaignModel {
   String? image, title, description;
-  BigInt? balance, target, startDate, endDate;
+  BigInt? balance, startDate, endDate;
   bool? isComplete;
+  double? target;
   EthereumAddress? creatorAddress;
   List<EthereumAddress?>? contributors;
 
