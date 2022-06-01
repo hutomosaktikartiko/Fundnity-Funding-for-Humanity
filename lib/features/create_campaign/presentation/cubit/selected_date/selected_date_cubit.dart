@@ -20,8 +20,8 @@ class SelectedDateCubit extends Cubit<SelectedDateState> {
   }) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: state.selectedDate ?? DateTime.now(),
-      firstDate: DateTime.now(),
+      initialDate: state.selectedDate ?? DateTime.now().add(const Duration(days: 2)),
+      firstDate: DateTime.now().add(const Duration(days: 2)),
       lastDate: DateTime(DateTime.now().year + 1),
     );
     

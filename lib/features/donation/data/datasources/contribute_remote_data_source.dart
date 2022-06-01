@@ -74,7 +74,6 @@ class ContributeRemoteDataSourceImpl implements ContributeRemoteDataSource {
           contract: deployedContract,
           function: deployedContract.function('contribute'),
           parameters: [],
-          // TODO: Send amount as ether, so convert amount to ether first
           value: EtherAmount.fromUnitAndValue(EtherUnit.gwei, amount),
           maxGas: 1500000,
         ),
