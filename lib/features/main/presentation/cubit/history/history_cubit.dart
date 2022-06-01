@@ -24,7 +24,8 @@ class HistoryCubit extends Cubit<HistoryState> {
 
     if (result.isSuccess && result.value != null) {
       if ((result.value?.length ?? 0) > 0) {
-        // TODO: Sort history by timestamp DESC in result.value from firebase
+        // Sort
+        result.value!.sort((a, b) => b.timestamp!.compareTo(a.timestamp!));
         emit(HistoryLoaded(history: result.value!));
       } else {
         emit(HistoryEmpty());
