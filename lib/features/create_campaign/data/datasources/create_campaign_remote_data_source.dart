@@ -121,7 +121,6 @@ class CreateCampaignRemoteDataSourceImpl
     required String? transactionHash,
     required CreateCampaignModel? campaign,
   }) {
-    // TODO: Save timestamp creating campaign
     firestore
         .collection('users')
         .doc(address)
@@ -132,6 +131,7 @@ class CreateCampaignRemoteDataSourceImpl
             category: 2,
             campaignTitle: campaign?.title,
             transactionHash: transactionHash,
+            timestamp: DateTime.now().millisecondsSinceEpoch,
           ).toJson(),
         );
     firestore
@@ -149,6 +149,7 @@ class CreateCampaignRemoteDataSourceImpl
             startDate: DateTime.now().millisecondsSinceEpoch,
             endDate: campaign?.endDate?.toInt(),
             transactionHash: transactionHash,
+            timestamp: DateTime.now().millisecondsSinceEpoch,
           ).toJson(),
         );
   }

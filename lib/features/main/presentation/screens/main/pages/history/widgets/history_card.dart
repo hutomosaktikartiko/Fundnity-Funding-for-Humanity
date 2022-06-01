@@ -68,7 +68,7 @@ class HistoryCard extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      "${history?.date.intDateToString() ?? 0}",
+                      "${history?.timestamp.intDateToString() ?? 0}",
                       style: CustomTextStyle.gray2TextStyle.copyWith(
                         fontSize: 10,
                         fontWeight: FontWeight.w600,

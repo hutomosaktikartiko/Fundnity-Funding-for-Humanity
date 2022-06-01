@@ -1,6 +1,6 @@
 class CampaignFirestoreModel {
   String? image, title, description, target, creatorAddress, transactionHash;
-  int? startDate, endDate;
+  int? startDate, endDate, timestamp;
 
   CampaignFirestoreModel({
     this.image,
@@ -11,6 +11,7 @@ class CampaignFirestoreModel {
     this.startDate,
     this.endDate,
     this.transactionHash,
+    this.timestamp,
   });
 
   factory CampaignFirestoreModel.fromJson(Map<String, dynamic> json) =>
@@ -23,6 +24,7 @@ class CampaignFirestoreModel {
         startDate: json['start_date'],
         endDate: json['end_date'],
         transactionHash: json['transaction_hash'],
+        timestamp: json['timestamp'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,5 +36,6 @@ class CampaignFirestoreModel {
         'start_date': startDate,
         'end_date': endDate,
         'transaction_hash': transactionHash,
+        'timestamp': timestamp,
       };
 }
