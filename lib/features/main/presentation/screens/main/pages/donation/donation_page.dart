@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../../core/utils/screen_navigator.dart';
 import '../../../../../../../shared/widgets/custom_app_bar_with_search_form.dart';
 import '../../../../../../../shared/widgets/widget_with_default_horizontal_padding.dart';
 import '../../../../../../auth/presentation/cubit/wallet/wallet_cubit.dart';
+import '../../../../../../search_donation/presentation/screens/search_screen.dart';
 import '../../../../cubit/account_balance/account_balance_cubit.dart';
 import '../../../../cubit/campaigns/campaigns_cubit.dart';
 import '../../../../cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
 import '../../../../cubit/web3client/web3client_cubit.dart';
-import 'widgets/latest_campaigns/latest_campaigns_widget.dart';
 import 'widgets/balance/balance_widget.dart';
 import 'widgets/campaign_by_wallet_address/campaign_by_wallet_address_widget.dart';
+import 'widgets/latest_campaigns/latest_campaigns_widget.dart';
 import 'widgets/main_campaign/main_campaign_widget.dart';
 
 class DonationPage extends StatelessWidget {
@@ -21,7 +23,9 @@ class DonationPage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBarWithSearchForm(
         formHintText: "Type Children, Health, etc...",
-        openSearchScreen: _openSearchScreen,
+        isShowFavoriteButton: true,
+        isReadOnly: true,
+        onTap: () => _openSearchScreen(context),
       ).build(context),
       body: RefreshIndicator(
         onRefresh: () => _onRefresh(context),
@@ -42,8 +46,8 @@ class DonationPage extends StatelessWidget {
     );
   }
 
-  void _openSearchScreen() {
-    // TODO => Navigator to search screen
+  void _openSearchScreen(BuildContext context) {
+    ScreenNavigator.startScreen(context, SearchScreen());
   }
 
   Future<void> _onRefresh(BuildContext context) async {
