@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../../../shared/config/asset_path_config.dart';
 import '../../../../../../../../shared/config/custom_text_style.dart';
+import '../../../../../../../../shared/extension/big_int_parsing.dart';
 import '../../../../../../../../shared/extension/int_parsing.dart';
 import '../../../../../../../../shared/widgets/custom_box_shadow.dart';
 import '../../../../../../../../shared/widgets/show_image/show_image_local.dart';
@@ -94,7 +95,7 @@ class HistoryCard extends StatelessWidget {
 
   String title() {
     if (history?.category == 1) {
-      return 'You donation ${history?.amount ?? 0} ETH';
+      return 'You donation ${BigInt.from(int.parse(history?.amount ?? "0")).weiEtherToDoubleEther()} ETH';
     } else {
       return 'You create campaign';
     }
