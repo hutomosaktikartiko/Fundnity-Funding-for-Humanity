@@ -85,7 +85,7 @@ class AllCampaignsCard extends StatelessWidget {
                       buildOther(
                         title: "Found",
                         value:
-                            "${campaign?.balance.weiEtherToDoubleEther().toString() ?? 0} ETH",
+                            "${campaign?.balance.weiEtherToDoubleEther().toStringAsFixed(4) ?? 0} ETH",
                       ),
                       buildOther(
                         title: "Days left",

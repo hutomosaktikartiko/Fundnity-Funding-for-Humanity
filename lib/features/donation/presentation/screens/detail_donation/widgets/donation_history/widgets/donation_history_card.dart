@@ -61,7 +61,7 @@ class DonationHistoryCard extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: " ${contributor?.amount.weiEtherToDoubleEther() ?? 0} ETH",
+                        text: " ${contributor?.amount.weiEtherToDoubleEther().toStringAsFixed(4) ?? 0} ETH",
                         style: CustomTextStyle.gray2TextStyle.copyWith(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
