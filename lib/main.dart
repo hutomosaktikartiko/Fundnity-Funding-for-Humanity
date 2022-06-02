@@ -32,6 +32,7 @@ import 'features/main/presentation/cubit/main_campaign/main_campaign_cubit.dart'
 import 'features/main/presentation/cubit/my_campaigns/my_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/selected_filter_campaign/selected_filter_campaign_cubit.dart';
 import 'features/main/presentation/cubit/web3client/web3client_cubit.dart';
+import 'features/search_donation/presentation/cubit/recommended_campaign/recommended_campaign_cubit.dart';
 import 'service_locator.dart' as di;
 import 'shared/config/theme_config.dart';
 
@@ -74,7 +75,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<CreateCampaignCubit>()),
         BlocProvider(create: (context) => di.sl<CampaignsCubit>()),
         BlocProvider(create: (context) => di.sl<LatestCampaignsCubit>()),
-        BlocProvider(create: (context) => di.sl<CampaignByWalletAddressesCubit>()),
+        BlocProvider(
+            create: (context) => di.sl<CampaignByWalletAddressesCubit>()),
         BlocProvider(create: (context) => di.sl<AccountBalanceCubit>()),
         BlocProvider(create: (context) => di.sl<MyCampaignsCubit>()),
         BlocProvider(create: (context) => di.sl<MainCampaignCubit>()),
@@ -86,6 +88,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<BiometricAuthCubit>()),
         BlocProvider(create: (context) => di.sl<SaveWalletCubit>()),
         BlocProvider(create: (context) => di.sl<FilteredCampaignsCubit>()),
+        BlocProvider(create: (context) => di.sl<RecommendedCampaignCubit>()),
       ],
       child: MaterialApp(
         home: SplashScreen(),

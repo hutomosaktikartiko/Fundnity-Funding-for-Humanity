@@ -65,6 +65,7 @@ import 'features/main/presentation/cubit/main_campaign/main_campaign_cubit.dart'
 import 'features/main/presentation/cubit/my_campaigns/my_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/selected_filter_campaign/selected_filter_campaign_cubit.dart';
 import 'features/main/presentation/cubit/web3client/web3client_cubit.dart';
+import 'features/search_donation/presentation/cubit/recommended_campaign/recommended_campaign_cubit.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -220,6 +221,7 @@ Future<void> _searchDonation() async {
   // Datasources
   // Repository
   // Cubit
+  sl.registerFactory(() => RecommendedCampaignCubit());
 }
 
 Future<void> _settings() async {

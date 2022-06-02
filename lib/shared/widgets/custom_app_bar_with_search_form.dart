@@ -15,10 +15,11 @@ class CustomAppBarWithSearchForm extends StatelessWidget {
     this.isReadOnly = false,
     this.onTap,
     this.isAutoFocus = false,
+    this.onChanged,
   }) : super(key: key);
 
   final String formHintText;
-  final Function()? onTap;
+  final Function()? onTap, onChanged;
   final bool isShowBackButton, isShowFavoriteButton, isReadOnly, isAutoFocus;
   final TextEditingController? textEditingController;
 
@@ -41,6 +42,7 @@ class CustomAppBarWithSearchForm extends StatelessWidget {
               onTap: onTap,
               autofocus: isAutoFocus,
               hintText: formHintText,
+              onChanged: onChanged,
               style: CustomTextStyle.gray2TextStyle.copyWith(fontSize: 15),
               hintStyle: CustomTextStyle.gray4TextStyle.copyWith(fontSize: 15),
             ),
@@ -48,6 +50,7 @@ class CustomAppBarWithSearchForm extends StatelessWidget {
           ShowFavoriteButton(
             isShowFavoriteButton: isShowFavoriteButton,
           ),
+          // TODO: Add clear button, when keyword is not empty
         ],
       ),
     );

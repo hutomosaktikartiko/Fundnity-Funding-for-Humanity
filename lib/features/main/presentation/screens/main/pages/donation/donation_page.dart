@@ -5,7 +5,7 @@ import '../../../../../../../core/utils/screen_navigator.dart';
 import '../../../../../../../shared/widgets/custom_app_bar_with_search_form.dart';
 import '../../../../../../../shared/widgets/widget_with_default_horizontal_padding.dart';
 import '../../../../../../auth/presentation/cubit/wallet/wallet_cubit.dart';
-import '../../../../../../search_donation/presentation/screens/search_screen.dart';
+import '../../../../../../search_donation/presentation/screens/search_campaign/campaign_search_screen.dart';
 import '../../../../cubit/account_balance/account_balance_cubit.dart';
 import '../../../../cubit/campaigns/campaigns_cubit.dart';
 import '../../../../cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
@@ -25,7 +25,7 @@ class DonationPage extends StatelessWidget {
         formHintText: "Type Children, Health, etc...",
         isShowFavoriteButton: true,
         isReadOnly: true,
-        onTap: () => _openSearchScreen(context),
+        onTap: () => _openCampaignSearchScreen(context),
       ).build(context),
       body: RefreshIndicator(
         onRefresh: () => _onRefresh(context),
@@ -46,8 +46,8 @@ class DonationPage extends StatelessWidget {
     );
   }
 
-  void _openSearchScreen(BuildContext context) {
-    ScreenNavigator.startScreen(context, SearchScreen());
+  void _openCampaignSearchScreen(BuildContext context) {
+    ScreenNavigator.startScreen(context, CampaignSearchScreen());
   }
 
   Future<void> _onRefresh(BuildContext context) async {
