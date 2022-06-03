@@ -76,6 +76,42 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333235710422:android:a4653b467224a1f8481c77",
+        "android_client_info": {
+          "package_name": "com.hutomosaktikartiko.fundnity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333235710422-ng33vj7u5a5a95f0tpiaetjmdb4jhj0m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUnrNB56kzTyubgNz2pLt7aN06sHwCnEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333235710422-ng33vj7u5a5a95f0tpiaetjmdb4jhj0m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "333235710422-30ne472fl85h4bnegdq0cskf4ekgm11m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hutomosaktikartiko.crowdfunding"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

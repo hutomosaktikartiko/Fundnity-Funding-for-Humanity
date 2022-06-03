@@ -1,4 +1,4 @@
-package com.hutomosaktikartiko.crowdfunding
+package com.hutomosaktikartiko.fundnity
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine
