@@ -28,7 +28,7 @@ class BottomWidget extends StatelessWidget {
           if ((context.read<SelectedOnboardingCubit>().state.index ==
               mockListOnboardings.length - 1)) {
             return CustomButtonLabel(
-              label: "Masuk Sekarang",
+              label: "Get Started",
               onTap: () => ScreenNavigator.replaceScreen(context, AuthScreen()),
             );
           } else {
@@ -57,7 +57,7 @@ class BottomWidget extends StatelessWidget {
                     curve: Curves.ease,
                   ),
                   child: Text(
-                    "Selanjutnya",
+                    "Next",
                     style: CustomTextStyle.green4TextStyle.copyWith(
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
