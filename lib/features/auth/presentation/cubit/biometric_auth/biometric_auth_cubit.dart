@@ -47,7 +47,7 @@ class BiometricAuthCubit extends Cubit<BiometricAuthState> {
         biometricOnly: true,
         androidAuthStrings: AndroidAuthMessages(
           cancelButton: 'Use PIN',
-          signInTitle: "Crowdfunding Biometric Login",
+          signInTitle: "Fundnity Biometric Login",
         ),
       );
 
