@@ -1,6 +1,5 @@
 class LabelConfig {
-  static const String noInternet =
-      "Gagal terhubung dengan internet, silahkan cek internet anda";
+  static const String noInternet = "Failed connecting to the server";
   
   // Onboarding
   static const String onboarding1Label = "Funding for #Humanity";
