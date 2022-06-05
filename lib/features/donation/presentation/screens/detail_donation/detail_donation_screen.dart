@@ -3,9 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/screen_navigator.dart';
 import '../../../../../shared/config/custom_color.dart';
+import '../../../../../shared/config/label_config.dart';
 import '../../../../../shared/config/size_config.dart';
 import '../../../../../shared/extension/string_parsing.dart';
 import '../../../../../shared/widgets/button/custom_button_label.dart';
+import '../../../../../shared/widgets/custom_dialog.dart';
+import '../../../../auth/presentation/cubit/wallet/wallet_cubit.dart';
 import '../../../../main/data/models/campaign_model.dart';
 import '../../../../main/presentation/cubit/web3client/web3client_cubit.dart';
 import '../../cubit/contributor/contributor_cubit.dart';
@@ -123,12 +126,20 @@ class DetailDonationScreen extends StatelessWidget {
   }
 
   void _onDonateNow(BuildContext context) {
-    ScreenNavigator.startScreen(
-      context,
-      FillDonationAmount(
-        campaign: campaign,
-        address: campaign?.address,
-      ),
-    );
+    if (context.read<WalletCubit>().state is WalletLoaded) {
+      ScreenNavigator.startScreen(
+        context,
+        FillDonationAmount(
+          campaign: campaign,
+          address: campaign?.address,
+        ),
+      );
+    } else {
+      CustomDialog.showToast(
+        message: LabelConfig.notLogin,
+        context: context,
+        backgroundColor: UniversalColor.red,
+      );
+    }
   }
 }

@@ -39,7 +39,9 @@ class ProfileData extends StatelessWidget {
           );
         }
 
-        return SizedBox();
+        // Not Login
+        // TODO: Not login UI
+        return SizedBox.shrink();
       },
     );
   }

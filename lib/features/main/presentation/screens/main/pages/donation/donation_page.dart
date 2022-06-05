@@ -25,7 +25,7 @@ class DonationPage extends StatelessWidget {
         formHintText: "Type Children, Health, etc...",
         isShowFavoriteButton: true,
         isReadOnly: true,
-        onTap: () => _openCampaignSearchScreen(context),
+        onTap: () => _onSearchingCampaignTap(context),
       ).build(context),
       body: RefreshIndicator(
         onRefresh: () => _onRefresh(context),
@@ -34,8 +34,16 @@ class DonationPage extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            WidgetWithDefaultHorizontalPadding(
-              child: BalanceWidget(),
+            BlocBuilder<WalletCubit, WalletState>(
+              builder: (context, state) {
+                if (state is WalletLoaded) {
+                  return WidgetWithDefaultHorizontalPadding(
+                    child: BalanceWidget(),
+                  );
+                }
+
+                return SizedBox.shrink();
+              },
             ),
             MainCampaignWidget(),
             CampaignByWalletAddressWidget(),
@@ -46,7 +54,7 @@ class DonationPage extends StatelessWidget {
     );
   }
 
-  void _openCampaignSearchScreen(BuildContext context) {
+  void _onSearchingCampaignTap(BuildContext context) {
     ScreenNavigator.startScreen(context, CampaignSearchScreen());
   }
 
@@ -56,13 +64,15 @@ class DonationPage extends StatelessWidget {
   }
 
   Future<void> _getBalance(BuildContext context) async {
-    await context.read<AccountBalanceCubit>().getBalance(
-          address: (context.read<WalletCubit>().state as WalletLoaded)
-              .wallet
-              .privateKey
-              .address,
-          web3Client: context.read<Web3ClientCubit>().state.web3client,
-        );
+    if (context.read<WalletCubit>().state is WalletLoaded) {
+      await context.read<AccountBalanceCubit>().getBalance(
+            address: (context.read<WalletCubit>().state as WalletLoaded)
+                .wallet
+                .privateKey
+                .address,
+            web3Client: context.read<Web3ClientCubit>().state.web3client,
+          );
+    }
   }
 
   Future<void> _getCampaigns(BuildContext context) async {

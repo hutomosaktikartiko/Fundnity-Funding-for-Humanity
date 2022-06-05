@@ -1,4 +1,3 @@
-import 'package:crowdfunding/features/main/presentation/cubit/history/history_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,6 +7,7 @@ import '../../../data/models/tab_model.dart';
 import '../../cubit/account_balance/account_balance_cubit.dart';
 import '../../cubit/campaigns/campaigns_cubit.dart';
 import '../../cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
+import '../../cubit/history/history_cubit.dart';
 import '../../cubit/web3client/web3client_cubit.dart';
 
 class MainScreen extends StatefulWidget {
@@ -83,13 +83,15 @@ class _MainScreenState extends State<MainScreen> {
   // TODO => Perubahan icon tab ketika aktif
 
   void _getBalance() {
-    context.read<AccountBalanceCubit>().getBalance(
-          address: (context.read<WalletCubit>().state as WalletLoaded)
-              .wallet
-              .privateKey
-              .address,
-          web3Client: context.read<Web3ClientCubit>().state.web3client,
-        );
+    if (context.read<WalletCubit>().state is WalletLoaded) {
+      context.read<AccountBalanceCubit>().getBalance(
+            address: (context.read<WalletCubit>().state as WalletLoaded)
+                .wallet
+                .privateKey
+                .address,
+            web3Client: context.read<Web3ClientCubit>().state.web3client,
+          );
+    }
   }
 
   void _getCampaigns() {
@@ -103,11 +105,13 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   void _getHistory() {
-    context.read<HistoryCubit>().getListHistory(
-        address: (context.read<WalletCubit>().state as WalletLoaded)
-            .wallet
-            .privateKey
-            .address
-            .hex);
+    if (context.read<WalletCubit>().state is WalletLoaded) {
+      context.read<HistoryCubit>().getListHistory(
+          address: (context.read<WalletCubit>().state as WalletLoaded)
+              .wallet
+              .privateKey
+              .address
+              .hex);
+    }
   }
 }

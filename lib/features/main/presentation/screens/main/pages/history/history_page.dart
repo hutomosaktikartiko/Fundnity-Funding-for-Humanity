@@ -19,40 +19,48 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   void initState() {
     super.initState();
-    context.read<HistoryCubit>().getListHistory(
-        address: (context.read<WalletCubit>().state as WalletLoaded)
-            .wallet
-            .privateKey
-            .address
-            .hex);
+    _getHistory();
   }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: _onRefresh,
-      child: BlocBuilder<HistoryCubit, HistoryState>(
-        builder: (context, state) {
-          if (state is HistoryLoaded) {
-            return Loaded(history: state.history);
-          } else if (state is HistoryEmpty) {
-            return Empty();
-          } else if (state is HistoryFailure) {
-            return Error(message: state.message);
-          } else {
-            return Loading();
+      onRefresh: _getHistory,
+      child: BlocBuilder<WalletCubit, WalletState>(
+        builder: (context, walletState) {
+          if (walletState is WalletLoaded) {
+            return BlocBuilder<HistoryCubit, HistoryState>(
+              builder: (context, state) {
+                if (state is HistoryLoaded) {
+                  return Loaded(history: state.history);
+                } else if (state is HistoryEmpty) {
+                  return Empty();
+                } else if (state is HistoryFailure) {
+                  return Error(message: state.message);
+                } else {
+                  return Loading();
+                }
+              },
+            );
           }
+
+          // Not login
+          // TODO: Not login UI
+          return SizedBox.shrink();
         },
       ),
     );
   }
 
-  Future<void> _onRefresh() async {
-    await context.read<HistoryCubit>().getListHistory(
-        address: (context.read<WalletCubit>().state as WalletLoaded)
-            .wallet
-            .privateKey
-            .address
-            .hex);
+  Future<void> _getHistory() async {
+    if (context.read<WalletCubit>().state is WalletLoaded) {
+      await context.read<HistoryCubit>().getListHistory(
+            address: (context.read<WalletCubit>().state as WalletLoaded)
+                .wallet
+                .privateKey
+                .address
+                .hex,
+          );
+    }
   }
 }

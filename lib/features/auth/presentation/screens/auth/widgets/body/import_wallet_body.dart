@@ -7,6 +7,7 @@ import 'package:web3dart/web3dart.dart';
 
 import '../../../../../../../core/models/return_value_model.dart';
 import '../../../../../../../core/utils/preferences_info.dart';
+import '../../../../../../../core/utils/screen_navigator.dart';
 import '../../../../../../../core/utils/utils.dart';
 import '../../../../../../../service_locator.dart';
 import '../../../../../../../shared/config/asset_path_config.dart';
@@ -17,6 +18,7 @@ import '../../../../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../../../shared/widgets/custom_text_field.dart';
 import '../../../../../../../shared/widgets/show_svg/show_svg_asset.dart';
+import '../../../../../../main/presentation/screens/main/main_screen.dart';
 import '../../../../cubit/auth_body/auth_body_cubit.dart';
 import '../../../../cubit/wallet/wallet_cubit.dart';
 import '../custom_back_button.dart';
@@ -126,13 +128,20 @@ class _ImportWalletBodyState extends State<ImportWalletBody> {
                   label: "Import Wallet",
                   onTap: _onLoading,
                 ),
+                const SizedBox(
+                  height: 5,
+                ),
+                CustomButtonLabel(
+                  label: "Get Started",
+                  backgroundColor: Colors.white,
+                  labelColor: UniversalColor.green4,
+                  onTap: _onGetStartedTap,
+                ),
                 SizedBox(
                   height: 22,
                 ),
                 GestureDetector(
-                  onTap: () => context
-                      .read<AuthBodyCubit>()
-                      .emit(AuthBodyCreateWallet()),
+                  onTap: _onCreateWalletTap,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Center(
@@ -158,6 +167,14 @@ class _ImportWalletBodyState extends State<ImportWalletBody> {
         ),
       ),
     );
+  }
+
+  void _onGetStartedTap() {
+    ScreenNavigator.replaceScreen(context, MainScreen());
+  }
+
+  void _onCreateWalletTap() {
+    context.read<AuthBodyCubit>().emit(AuthBodyCreateWallet());
   }
 
   void _selectFile() async {
