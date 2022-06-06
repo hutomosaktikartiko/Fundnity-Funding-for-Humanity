@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 import '../../../../main/data/models/campaign_model.dart';
 
@@ -7,6 +6,26 @@ part 'recommended_campaign_state.dart';
 
 class RecommendedCampaignCubit extends Cubit<RecommendedCampaignState> {
   RecommendedCampaignCubit() : super(RecommendedCampaignInitial());
+
+  void getSearchCampaigns({
+    required String keyword,
+    required List<CampaignModel> campaigns,
+  }) {
+    final List<CampaignModel> _campaigns = campaigns
+        .where((element) =>
+            element.title?.toLowerCase().contains(keyword.toLowerCase()) ??
+            false)
+        .toList();
+
+    if (_campaigns.isEmpty) {
+      getRecommendedCampaigns(campaigns: campaigns);
+    } else {
+      emit(RecommendedCampaignLoaded(
+        campaigns: _campaigns,
+        isSearching: true,
+      ));
+    }
+  }
 
   void getRecommendedCampaigns({
     required List<CampaignModel> campaigns,
@@ -19,26 +38,11 @@ class RecommendedCampaignCubit extends Cubit<RecommendedCampaignState> {
     if (campaigns.isEmpty) {
       emit(RecommendedCampaignEmpty());
     } else {
-      // Just save 5 campaigns
-      emit(RecommendedCampaignLoaded(campaigns: _campaigns.take(5).toList()));
-    }
-  }
-
-  void getSearchCampaigns({
-    required String keyword,
-  }) {
-    if (this.state is RecommendedCampaignLoaded) {
-      final List<CampaignModel> _campaigns =
-          (this.state as RecommendedCampaignLoaded)
-              .campaigns
-              .where((element) => element.title?.contains(keyword) ?? false)
-              .toList();
-
-      if (_campaigns.isEmpty) {
-        emit(RecommendedCampaignEmpty());
-      } else {
-        emit(RecommendedCampaignLoaded(campaigns: _campaigns));
-      }
+      // Just assign 5 campaigns
+      emit(RecommendedCampaignLoaded(
+        isSearching: false,
+        campaigns: _campaigns.take(5).toList(),
+      ));
     }
   }
 }

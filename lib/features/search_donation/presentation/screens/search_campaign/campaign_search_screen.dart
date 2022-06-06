@@ -59,6 +59,9 @@ class _CampaignSearchScreenState extends State<CampaignSearchScreen> {
                           is RecommendedCampaignLoaded) {
                         return Loaded(
                           campaigns: recommendedCampaignState.campaigns,
+                          label: recommendedCampaignState.isSearching
+                              ? "Results"
+                              : "Campaigns for you",
                         );
                       } else if (state is RecommendedCampaignEmpty) {
                         return Empty();
@@ -85,14 +88,18 @@ class _CampaignSearchScreenState extends State<CampaignSearchScreen> {
   }
 
   void _onChanged() {
-    context.read<RecommendedCampaignCubit>().getSearchCampaigns(
-          keyword: searchController.text,
-        );
+    if (context.read<CampaignsCubit>().state is CampaignsLoaded) {
+      context.read<RecommendedCampaignCubit>().getSearchCampaigns(
+            keyword: searchController.text,
+            campaigns: (context.read<CampaignsCubit>().state as CampaignsLoaded)
+                .campaigns,
+          );
+    }
     // Sudah berhasil search
     // Tapi
     // FIXME
-    // Terdapat butuh 2 result yang berbeda
-    // 1 -> result recommended campaign -> Ketika keyword yang diinputkan masih kosong (baru masuk atau keyword yang diinputkan kosong)
-    // 2 -> result search campaign -> Result dari keyword yang diinputkan
+    // Tapi Ketika keyword searhing dihapus,
+    // status isSearching tidak berubah menjadi false
+    // masih tetap true
   }
 }

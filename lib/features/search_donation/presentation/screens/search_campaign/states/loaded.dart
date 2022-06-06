@@ -8,9 +8,11 @@ class Loaded extends StatelessWidget {
   const Loaded({
     Key? key,
     required this.campaigns,
+    required this.label,
   }) : super(key: key);
 
   final List<CampaignModel> campaigns;
+  final String label;
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +23,12 @@ class Loaded extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Campaigns for you",
+             label,
               style: CustomTextStyle.blackTextStyle.copyWith(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            // ViewAllWidget(
-            //   onTap: () => _openAllLatestCampaigns(context),
-            // ),
           ],
         ),
         ...((campaigns.length > 5) ? campaigns.sublist(0, 5) : campaigns)

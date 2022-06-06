@@ -1,21 +1,19 @@
 part of 'recommended_campaign_cubit.dart';
 
-abstract class RecommendedCampaignState extends Equatable {
+abstract class RecommendedCampaignState {
   const RecommendedCampaignState();
-
-  @override
-  List<Object?> get props => [];
 }
 
 class RecommendedCampaignInitial extends RecommendedCampaignState {}
 
 class RecommendedCampaignLoaded extends RecommendedCampaignState {
   final List<CampaignModel> campaigns;
+  final bool isSearching;
 
-  RecommendedCampaignLoaded({required this.campaigns});
-
-  @override
-  List<Object?> get props => [campaigns];
+  RecommendedCampaignLoaded({
+    required this.campaigns,
+    this.isSearching = false,
+  });
 }
 
 class RecommendedCampaignEmpty extends RecommendedCampaignState {}
