@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:web3dart/web3dart.dart';
 
 import '../../../../shared/config/keys_config.dart';
+import '../../../../shared/config/label_config.dart';
 import '../../../../shared/config/urls_config.dart';
 import '../../../../shared/extension/double_parsing.dart';
 import '../../../main/data/models/campaign_firestore_model.dart';
@@ -72,7 +73,7 @@ class CreateCampaignRemoteDataSourceImpl
       print("========= SUCCESS CREATE CAMPAIGN ========");
       print(result);
 
-      return "Pembuatan campaign sedang diproses, silahkan tunggu beberapa saat";
+      return LabelConfig.createCampaignPending;
     } catch (error) {
       throw error;
     }
