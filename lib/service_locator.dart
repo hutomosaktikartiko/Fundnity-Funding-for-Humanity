@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:crowdfunding/shared/config/urls_config.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -254,8 +255,9 @@ Future<void> _external() async {
       await SharedPreferences.getInstance();
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
   // NewVersion
-  // TODO: Set androidId with app packages name in ps
-  sl.registerLazySingleton<NewVersion>(() => NewVersion());
+  sl.registerLazySingleton<NewVersion>(() => NewVersion(
+        androidId: UrlsConfig.playstoreAndroidId,
+      ));
   // Connectivity
   sl.registerLazySingleton<Connectivity>(() => Connectivity());
   // ImagePicker
