@@ -14,6 +14,7 @@ import '../../../../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../../../auth/presentation/cubit/auth_body/auth_body_cubit.dart';
 import '../../../../../../../auth/presentation/cubit/save_wallet/save_wallet_cubit.dart';
 import '../../../../../../../auth/presentation/cubit/selected_onboarding/selected_onboarding_cubit.dart';
+import '../../../../../../../auth/presentation/cubit/wallet/wallet_cubit.dart';
 import '../../../../../../../auth/presentation/screens/splash/splash_screen.dart';
 
 class LogoutButton extends StatelessWidget {
@@ -26,8 +27,14 @@ class LogoutButton extends StatelessWidget {
       backgroundColor: Colors.white,
       labelColor: UniversalColor.red,
       borderColor: UniversalColor.red,
-      onTap: () => _onSaveWallet(context),
+      onTap: () => _onLogoutTap(context),
     );
+  }
+
+  void _onLogoutTap(BuildContext context) {
+    if (context.read<WalletCubit>().state is WalletLoaded) {
+      _onSaveWallet(context);
+    }
   }
 
   void _onSaveWallet(BuildContext context) {
