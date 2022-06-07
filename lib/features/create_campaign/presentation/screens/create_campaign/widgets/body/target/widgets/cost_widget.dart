@@ -7,6 +7,8 @@ import '../../../../../../../../../shared/widgets/custom_text_field.dart';
 import '../../../../../../cubit/create_campaign_target_data/create_campaign_data_cubit.dart';
 import '../../../custom_text_title.dart';
 
+import 'package:crowdfunding/shared/extension/string_parsing.dart';
+
 class CostWidget extends StatefulWidget {
   const CostWidget({
     Key? key,
@@ -26,7 +28,7 @@ class _CostWidgetState extends State<CostWidget> {
   void initState() {
     super.initState();
     amountController =
-        TextEditingController(text: widget.amount?.toStringAsFixed(2));
+        TextEditingController(text: widget.amount?.toStringAsFixed(2) ?? "0");
   }
 
   @override
@@ -69,9 +71,16 @@ class _CostWidgetState extends State<CostWidget> {
   }
 
   void _onSave() {
-    // TODO: Add Validation to input just number or double
-    context.read<CreateCampaignDataCubit>().setAmount(
-          amount: double.parse(amountController?.text ?? "0"),
-        );
+    if (amountController?.text.contains(',') == true) {
+      setState(() {
+        amountController =
+            TextEditingController(text: amountController?.text.removeComa());
+      });
+    }
+    if (amountController?.text != '' || amountController?.text != "0") {
+      context.read<CreateCampaignDataCubit>().setAmount(
+            amount: double.parse(amountController?.text ?? "0"),
+          );
+    }
   }
 }

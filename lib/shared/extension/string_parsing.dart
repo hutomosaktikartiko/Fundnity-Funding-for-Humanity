@@ -29,4 +29,16 @@ extension StringParsing on String? {
     int secondsLeft = seconds % 60;
     return "$minutes mins: $secondsLeft secs";
   }
+
+  String removeCharacteres() {
+    if (this == null) return "";
+    
+    return this!.replaceAll(RegExp(r'[^\w\s]+'), '');
+  }
+
+  String removeComa() {
+    if (this == null) return "";
+
+    return this!.replaceAll(',', '');
+  }
 }
