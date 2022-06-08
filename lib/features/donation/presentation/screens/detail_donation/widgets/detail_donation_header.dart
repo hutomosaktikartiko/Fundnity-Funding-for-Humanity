@@ -118,7 +118,7 @@ class DetailDonationHeader extends StatelessWidget {
                 TextSpan(
                   children: <TextSpan>[
                     TextSpan(
-                      text: (campaign?.endDate.bigIntTimeStampToIntDays() ?? 0)
+                      text: (campaign?.endDate.timestampToIntDays() ?? 0)
                           .toString(),
                       style: CustomTextStyle.gray2TextStyle.copyWith(
                         fontSize: 15,

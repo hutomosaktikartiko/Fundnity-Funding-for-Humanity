@@ -130,7 +130,8 @@ class MyCampaignCard extends StatelessWidget {
           TextSpan(
             children: <TextSpan>[
               TextSpan(
-                text: "${campaign?.balance.weiEtherToDoubleEther().toStringAsFixed(4)} ETH",
+                text:
+                    "${campaign?.balance.weiEtherToDoubleEther().toStringAsFixed(4)} ETH",
                 style: CustomTextStyle.green4TextStyle.copyWith(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -143,8 +144,7 @@ class MyCampaignCard extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: (campaign?.endDate.bigIntTimeStampToIntDays() ?? 0)
-                    .toString(),
+                text: (campaign?.endDate.timestampToIntDays() ?? 0).toString(),
                 style: CustomTextStyle.green4TextStyle.copyWith(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,

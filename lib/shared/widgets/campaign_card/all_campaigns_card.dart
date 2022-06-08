@@ -67,10 +67,9 @@ class AllCampaignsCard extends StatelessWidget {
                         height: 10,
                       ),
                       LinearPercentIndicator(
-                        percent: campaign?.balance
-                                    ?.bigIntToPercentTargetMax1(
-                                        target: campaign?.target) ??
-                                0,
+                        percent: campaign?.balance?.bigIntToPercentTargetMax1(
+                                target: campaign?.target) ??
+                            0,
                         lineHeight: 5,
                         barRadius: Radius.circular(1),
                         padding: EdgeInsets.only(right: 5),
@@ -89,10 +88,9 @@ class AllCampaignsCard extends StatelessWidget {
                       ),
                       buildOther(
                         title: "Days left",
-                        value: campaign?.endDate
-                                .bigIntTimeStampToIntDays()
-                                .toString() ??
-                            "-",
+                        value:
+                            campaign?.endDate.timestampToIntDays().toString() ??
+                                "-",
                         crossAxisAlignment: CrossAxisAlignment.end,
                       ),
                     ],

@@ -12,7 +12,9 @@ extension BigIntParsing on BigInt? {
     if (this == null) return 0.0;
     if (target == null) return 0.0;
 
-    final double result = this!.weiEtherToDoubleEther() / target.weiEtherToDoubleEther().toDouble() * 100;
+    final double result = this!.weiEtherToDoubleEther() /
+        target.weiEtherToDoubleEther().toDouble() *
+        100;
     if (result > 100.0) {
       return 100;
     }
@@ -27,8 +29,10 @@ extension BigIntParsing on BigInt? {
     if (this == null) return 0.0;
     if (target == null) return 0.0;
 
-    final double result =
-        (this!.weiEtherToDoubleEther() / target.weiEtherToDoubleEther().toDouble() * 100) / 100;
+    final double result = (this!.weiEtherToDoubleEther() /
+            target.weiEtherToDoubleEther().toDouble() *
+            100) /
+        100;
     if (result > 1.0) {
       return 1.0;
     }
@@ -45,9 +49,15 @@ extension BigIntParsing on BigInt? {
     return this!.toInt() / 1000000000;
   }
 
-  int? bigIntTimeStampToIntDays() {
-    if (this == null) return null;
-    return DateTime.fromMillisecondsSinceEpoch(this!.toInt()).daysBetween();
+  int timestampToIntDays() {
+    if (this == null) return 0;
+
+    final int days =
+        DateTime.fromMillisecondsSinceEpoch(this!.toInt()).daysBetween() ?? 0;
+
+    if (days < 1) return 0;
+
+    return days;
   }
 
   BigInt etherInGweiToWei() {
