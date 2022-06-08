@@ -10,10 +10,11 @@ class LatestCampaignsCubit extends Cubit<LatestCampaignsState> {
   void getLatestCampaigns({
     required List<CampaignModel> campaigns,
   }) {
-    if (campaigns.length < 1) {
+    final List<CampaignModel> _campaigns = List.from(campaigns.where((element) => element.status == CampaignStatus.Active).toList().reversed);
+    if (_campaigns.length < 1) {
       emit(LatestCampaignsEmpty());
     } else {
-      emit(LatestCampaignsLoaded(campaigns: List.from(campaigns.reversed)));
+      emit(LatestCampaignsLoaded(campaigns: _campaigns));
     }
   }
 }

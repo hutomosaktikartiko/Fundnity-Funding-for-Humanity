@@ -11,7 +11,7 @@ class MainCampaignCubit extends Cubit<MainCampaignState> {
   void getMainCampaigns({
     required List<CampaignModel> campaigns,
   }) {
-    final List<CampaignModel> _campaigns = List.from(campaigns);
+    final List<CampaignModel> _campaigns = List.from(campaigns.where((element) => element.status == CampaignStatus.Active));
     
     _campaigns.sort((a, b) => (a.endDate ??
             BigInt.from(DateTime.now().millisecondsSinceEpoch))
