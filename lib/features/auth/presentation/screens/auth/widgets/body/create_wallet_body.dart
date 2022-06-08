@@ -15,8 +15,10 @@ import '../../../../../../../shared/config/size_config.dart';
 import '../../../../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../../../shared/widgets/custom_text_field.dart';
+import '../../../../../../../shared/widgets/obsecure_password_icon.dart';
 import '../../../../../../../shared/widgets/show_svg/show_svg_asset.dart';
 import '../../../../cubit/auth_body/auth_body_cubit.dart';
+import '../../../../cubit/obsecure_password/obsecure_password_cubit.dart';
 import '../../../../cubit/save_wallet/save_wallet_cubit.dart';
 import '../../../../cubit/wallet/wallet_cubit.dart';
 import '../custom_back_button.dart';
@@ -84,10 +86,21 @@ class _CreateWalletBodyState extends State<CreateWalletBody> {
                 SizedBox(
                   height: 22,
                 ),
-                CustomTextField(
-                  controller: passwordController,
-                  hintText: "Enter your password",
-                  onEditingComplete: _checkLastWallet,
+                BlocBuilder<ObsecurePasswordCubit, ObsecurePasswordState>(
+                  builder: (context, state) {
+                    return CustomTextField(
+                      obscureText: state.isObsecure,
+                      controller: passwordController,
+                      hintText: "Enter your password",
+                      suffixWidget: GestureDetector(
+                        onTap: _obsecurePasswordTap,
+                        child: ObscurePasswordIcon(
+                          isObscure: state.isObsecure,
+                        ),
+                      ),
+                      onEditingComplete: _checkLastWallet,
+                    );
+                  },
                 ),
                 SizedBox(
                   height: 10,
@@ -125,6 +138,10 @@ class _CreateWalletBodyState extends State<CreateWalletBody> {
         ),
       ),
     );
+  }
+
+  void _obsecurePasswordTap() {
+    context.read<ObsecurePasswordCubit>().changeObsecureState();
   }
 
   void _checkLastWallet() {

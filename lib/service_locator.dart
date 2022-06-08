@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:crowdfunding/shared/config/urls_config.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -26,6 +25,7 @@ import 'features/auth/data/repositories/auth_repository.dart';
 import 'features/auth/presentation/cubit/auth_body/auth_body_cubit.dart';
 import 'features/auth/presentation/cubit/biometric_auth/biometric_auth_cubit.dart';
 import 'features/auth/presentation/cubit/connection_checker/connection_checker_cubit.dart';
+import 'features/auth/presentation/cubit/obsecure_password/obsecure_password_cubit.dart';
 import 'features/auth/presentation/cubit/save_wallet/save_wallet_cubit.dart';
 import 'features/auth/presentation/cubit/selected_onboarding/selected_onboarding_cubit.dart';
 import 'features/auth/presentation/cubit/wallet/wallet_cubit.dart';
@@ -67,6 +67,7 @@ import 'features/main/presentation/cubit/my_campaigns/my_campaigns_cubit.dart';
 import 'features/main/presentation/cubit/selected_filter_campaign/selected_filter_campaign_cubit.dart';
 import 'features/main/presentation/cubit/web3client/web3client_cubit.dart';
 import 'features/search_donation/presentation/cubit/recommended_campaign/recommended_campaign_cubit.dart';
+import 'shared/config/urls_config.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -210,6 +211,7 @@ Future<void> _main() async {
   sl.registerFactory(() => HistoryCubit(historyRepository: sl()));
   sl.registerFactory(() => BiometricAuthCubit(localAuth: sl()));
   sl.registerFactory(() => FilteredCampaignsCubit());
+  sl.registerFactory(() => ObsecurePasswordCubit());
 }
 
 Future<void> _notification() async {

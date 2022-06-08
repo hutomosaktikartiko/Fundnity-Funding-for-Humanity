@@ -17,9 +17,11 @@ import '../../../../../../../shared/config/size_config.dart';
 import '../../../../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../../../shared/widgets/custom_text_field.dart';
+import '../../../../../../../shared/widgets/obsecure_password_icon.dart';
 import '../../../../../../../shared/widgets/show_svg/show_svg_asset.dart';
 import '../../../../../../main/presentation/screens/main/main_screen.dart';
 import '../../../../cubit/auth_body/auth_body_cubit.dart';
+import '../../../../cubit/obsecure_password/obsecure_password_cubit.dart';
 import '../../../../cubit/wallet/wallet_cubit.dart';
 import '../custom_back_button.dart';
 import '../decription_text.dart';
@@ -109,20 +111,28 @@ class _ImportWalletBodyState extends State<ImportWalletBody> {
                     const SizedBox(
                       width: 10,
                     ),
-                    Expanded(
-                      child: CustomTextField(
-                        controller: passwordController,
-                        hintText: "Enter your password",
-                        onEditingComplete: _onLoading,
-                      ),
+                    BlocBuilder<ObsecurePasswordCubit, ObsecurePasswordState>(
+                      builder: (context, state) {
+                        return Expanded(
+                          child: CustomTextField(
+                            obscureText: state.isObsecure,
+                            controller: passwordController,
+                            hintText: "Enter your password",
+                            suffixWidget: GestureDetector(
+                              onTap: _obsecurePasswordTap,
+                              child: ObscurePasswordIcon(
+                                isObscure: state.isObsecure,
+                              ),
+                            ),
+                            onEditingComplete: _onLoading,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 6,
-                ),
-                SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 CustomButtonLabel(
                   label: "Import Wallet",
@@ -167,6 +177,10 @@ class _ImportWalletBodyState extends State<ImportWalletBody> {
         ),
       ),
     );
+  }
+
+  void _obsecurePasswordTap() {
+    context.read<ObsecurePasswordCubit>().changeObsecureState();
   }
 
   void _onGetStartedTap() {
