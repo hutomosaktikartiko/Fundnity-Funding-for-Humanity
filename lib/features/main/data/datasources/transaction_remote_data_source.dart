@@ -1,10 +1,11 @@
-import 'package:crowdfunding/features/main/data/models/transaction_receipt_model.dart';
-import 'package:crowdfunding/shared/config/keys_config.dart';
-import 'package:crowdfunding/shared/config/urls_config.dart';
 import 'package:dio/dio.dart';
 
+import '../../../../shared/config/keys_config.dart';
+import '../../../../shared/config/urls_config.dart';
+import '../models/transaction_status_model.dart';
+
 abstract class TransactionRemoteDataSource {
-  Future<TransactionReceiptModel?> getTransactionReceipt({
+  Future<TransactionStatusModel> getTransactionStatus({
     required String? transactionHash,
   });
 }
@@ -17,27 +18,23 @@ class TransactionRemoteDataSourceImpl implements TransactionRemoteDataSource {
   });
 
   @override
-  Future<TransactionReceiptModel?> getTransactionReceipt({
+  Future<TransactionStatusModel> getTransactionStatus({
     required String? transactionHash,
   }) async {
     try {
-      final result = await dio.post(
-        UrlsConfig.infuraRinkbeyProvider + KeysConfig.infuraEthereumProjectId,
-        data: {
-          "jsonrpc": "2.0",
-          "method": "eth_getTransactionReceipt",
-          "params": [
-            transactionHash,
-          ],
-          "id": 1
+      final result = await dio.get(
+        UrlsConfig.etherScanRinkeby,
+        queryParameters: {
+          "module": "transaction",
+          "action": "getstatus",
+          "txhash": transactionHash,
+          "apiKey": KeysConfig.etherScanApiKey,
         },
       );
 
-      if (result.data['result'] == null) {
-        return null;
-      }
+      if (result.data['result'] == null) throw 'No transaction found';
 
-      return TransactionReceiptModel.fromJson(result.data['result']);
+      return TransactionStatusModel.fromJson(result.data['result']);
     } on DioError catch (error) {
       throw error;
     }

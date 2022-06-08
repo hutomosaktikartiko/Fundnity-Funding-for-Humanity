@@ -23,7 +23,7 @@ class Loading extends StatelessWidget {
                     ),
                     child: CustomShimmer.circular(
                       width: SizeConfig.screenWidth,
-                      height: 80,
+                      height: 100,
                       shapeBorder: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),

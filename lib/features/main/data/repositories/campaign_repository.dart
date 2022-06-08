@@ -17,7 +17,6 @@ abstract class CampaignRepository {
     required Web3Client web3Client,
   });
   Future<ReturnValueModel<List<CampaignFirestoreModel>>> getMyCampaigns({
-    required Web3Client web3Client,
     required EthereumAddress? address,
   });
 }
@@ -83,14 +82,12 @@ class CampaignRepositoryImpl implements CampaignRepository {
 
   @override
   Future<ReturnValueModel<List<CampaignFirestoreModel>>> getMyCampaigns({
-    required Web3Client web3Client,
     required EthereumAddress? address,
   }) async {
     if (await networkInfo.isConnected) {
       try {
         final List<CampaignFirestoreModel> result =
             await campaignRemoteDataSource.getMyCampaigns(
-          web3Client: web3Client,
           address: address,
         );
 

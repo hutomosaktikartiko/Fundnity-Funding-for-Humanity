@@ -8,6 +8,7 @@ import '../../cubit/account_balance/account_balance_cubit.dart';
 import '../../cubit/campaigns/campaigns_cubit.dart';
 import '../../cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
 import '../../cubit/history/history_cubit.dart';
+import '../../cubit/my_campaigns/my_campaigns_cubit.dart';
 import '../../cubit/web3client/web3client_cubit.dart';
 
 class MainScreen extends StatefulWidget {
@@ -71,7 +72,7 @@ class _MainScreenState extends State<MainScreen> {
       _getCampaigns();
     } else if (index == 1) {
       // My Campaign Page
-      _getCampaigns();
+      _getMyCampaignsFirestore();
     } else if (index == 2) {
       // Get Hisory
       _getHistory();
@@ -102,6 +103,17 @@ class _MainScreenState extends State<MainScreen> {
                   .state as CrowdfundingDeployedContractLoaded)
               .deployedContract,
         );
+  }
+
+  void _getMyCampaignsFirestore() {
+    if (context.read<WalletCubit>().state is WalletLoaded) {
+      context.read<MyCampaignsCubit>().getMyCampaigns(
+            address: (context.read<WalletCubit>().state as WalletLoaded)
+                .wallet
+                .privateKey
+                .address,
+          );
+    }
   }
 
   void _getHistory() {

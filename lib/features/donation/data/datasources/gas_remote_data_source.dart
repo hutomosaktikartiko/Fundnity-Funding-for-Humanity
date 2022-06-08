@@ -21,7 +21,7 @@ class GasRemoteDataSourceImpl implements GasRemoteDataSource {
   Future<GasTrackerModel> getGasTracker() async {
     try {
       final response = await dio.get(
-          "${UrlsConfig.etherScan}?module=gastracker&action=gasoracle&apikey=${KeysConfig.etherScanApiKey}");
+          "${UrlsConfig.etherScanApi}?module=gastracker&action=gasoracle&apikey=${KeysConfig.etherScanApiKey}");
       
       return GasTrackerModel.fromJson(response.data['result']);
     } on DioError catch (error) {
@@ -35,7 +35,7 @@ class GasRemoteDataSourceImpl implements GasRemoteDataSource {
   }) async {
     try {
       final response = await dio.get(
-          "${UrlsConfig.etherScan}?module=gastracker&action=gasestimate&gasprice=$gasPriceInWei&apikey=${KeysConfig.etherScanApiKey}");
+          "${UrlsConfig.etherScanApi}?module=gastracker&action=gasestimate&gasprice=$gasPriceInWei&apikey=${KeysConfig.etherScanApiKey}");
       
       return GasEstimationTimeModel.fromJson(response.data);
     } on DioError catch (error) {

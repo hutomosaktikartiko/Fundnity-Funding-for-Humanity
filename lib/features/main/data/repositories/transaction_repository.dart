@@ -2,10 +2,10 @@ import '../../../../core/models/return_value_model.dart';
 import '../../../../core/utils/network_info.dart';
 import '../../../../shared/config/label_config.dart';
 import '../datasources/transaction_remote_data_source.dart';
-import '../models/transaction_receipt_model.dart';
+import '../models/transaction_status_model.dart';
 
 abstract class TransactionRepository {
-  Future<ReturnValueModel<TransactionReceiptModel?>> getTransactionReceipt({
+  Future<ReturnValueModel<TransactionStatusModel>> getTransactionStatus({
     required String? transactionHash,
   });
 }
@@ -20,19 +20,19 @@ class TransactionRepositoryImpl implements TransactionRepository {
   });
 
   @override
-  Future<ReturnValueModel<TransactionReceiptModel?>> getTransactionReceipt({
+  Future<ReturnValueModel<TransactionStatusModel>> getTransactionStatus({
     required String? transactionHash,
   }) async {
     if (await networkInfo.isConnected) {
       try {
-        final TransactionReceiptModel? transactionReceipt =
-            await transactionRemoteDataSource.getTransactionReceipt(
+        final TransactionStatusModel transactionStatus =
+            await transactionRemoteDataSource.getTransactionStatus(
           transactionHash: transactionHash,
         );
 
         return ReturnValueModel(
           isSuccess: true,
-          value: transactionReceipt,
+          value: transactionStatus,
         );
       } catch (error) {
         return ReturnValueModel(

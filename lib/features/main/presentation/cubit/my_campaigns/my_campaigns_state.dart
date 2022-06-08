@@ -12,7 +12,7 @@ class MyCampaignsInitial extends MyCampaignsState {}
 class MyCampaignsLoading extends MyCampaignsState {}
 
 class MyCampaignsLoaded extends MyCampaignsState {
-  final List<CampaignModel?> campaigns;
+  final List<CampaignFirestoreModel?> campaigns;
 
   const MyCampaignsLoaded({
     required this.campaigns,

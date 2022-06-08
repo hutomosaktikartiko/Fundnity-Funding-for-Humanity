@@ -19,7 +19,6 @@ abstract class CampaignRemoteDataSource {
 
   // Get My Campaigns
   Future<List<CampaignFirestoreModel>> getMyCampaigns({
-    required Web3Client web3Client,
     required EthereumAddress? address,
   });
 }
@@ -73,7 +72,6 @@ class CampaignRemoteDataSourceImpl implements CampaignRemoteDataSource {
 
   @override
   Future<List<CampaignFirestoreModel>> getMyCampaigns({
-    required Web3Client web3Client,
     required EthereumAddress? address,
   }) async {
     try {

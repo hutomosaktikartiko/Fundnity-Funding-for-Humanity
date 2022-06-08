@@ -5,16 +5,16 @@ import '../../../../../../../../core/utils/screen_navigator.dart';
 import '../../../../../../../../shared/config/custom_color.dart';
 import '../../../../../../../../shared/config/custom_text_style.dart';
 import '../../../../../../../../shared/config/size_config.dart';
-import '../../../../../../../../shared/widgets/campaign_card/my_campaign_card.dart';
 import '../../../../../../../../shared/widgets/widget_with_default_horizontal_padding.dart';
 import '../../../../../../../create_campaign/presentation/screens/create_campaign/create_campaign_screen.dart';
-import '../../../../../../data/models/campaign_model.dart';
+import '../../../../../../data/models/campaign_firestore_model.dart';
 import '../../../../../cubit/campaigns/campaigns_cubit.dart';
 import '../../../../../cubit/crowdfunding_deployed_contract/crowdfunding_deployed_contract_cubit.dart';
 import '../../../../../cubit/filtered_campaigns/filtered_campaigns_cubit.dart';
 import '../../../../../cubit/selected_filter_campaign/selected_filter_campaign_cubit.dart';
 import '../../../../../cubit/web3client/web3client_cubit.dart';
 import '../widgets/filter_widget.dart';
+import '../widgets/my_campaign_widget/my_campaign_widget.dart';
 
 class Loaded extends StatefulWidget {
   const Loaded({
@@ -22,7 +22,7 @@ class Loaded extends StatefulWidget {
     required this.campaigns,
   }) : super(key: key);
 
-  final List<CampaignModel?> campaigns;
+  final List<CampaignFirestoreModel?> campaigns;
 
   @override
   _LoadedState createState() => _LoadedState();
@@ -34,7 +34,7 @@ class _LoadedState extends State<Loaded> {
     super.initState();
     context
         .read<FilteredCampaignsCubit>()
-        .setDefaultFilteredCampaigns(campaigns: widget.campaigns);
+        .setDefaultFilteredCampaigns(campaigns: []);
   }
 
   @override
@@ -164,39 +164,47 @@ class _LoadedState extends State<Loaded> {
             const SizedBox(
               height: 15,
             ),
-            BlocConsumer<SelectedFilterCampaignCubit,
-                    SelectedFilterCampaignState>(
-                listener: (context, selectedFilterCampaign) {
-              context.read<FilteredCampaignsCubit>().setFilteredCampaigns(
-                    campaigns: widget.campaigns,
-                    filter: selectedFilterCampaign.filter?.filter,
-                  );
-            }, builder: (context, selectedFilterCampaign) {
-              return BlocBuilder<FilteredCampaignsCubit,
-                      FilteredCampaignsState>(
-                  builder: (context, filteredCampaignsState) {
-                return WidgetWithDefaultHorizontalPadding(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: filteredCampaignsState.campaigns
-                        .asMap()
-                        .map(
-                          (key, campaign) => MapEntry(
-                            key,
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 10),
-                              child: MyCampaignCard(
-                                campaign: campaign,
-                              ),
+            BlocBuilder<CampaignsCubit, CampaignsState>(
+              builder: (context, campaignState) {
+                if (campaignState is CampaignsLoaded) {
+                  return BlocConsumer<SelectedFilterCampaignCubit,
+                      SelectedFilterCampaignState>(
+                    listener: (context, selectedFilterCampaign) {
+                      context
+                          .read<FilteredCampaignsCubit>()
+                          .setFilteredCampaigns(
+                              campaigns: campaignState.campaigns,
+                              filter: selectedFilterCampaign.filter?.filter);
+                    },
+                    builder: (context, selectedFilterCampaignState) {
+                      return BlocBuilder<FilteredCampaignsCubit,
+                          FilteredCampaignsState>(
+                        builder: (context, filteredCampaignsState) {
+                          return WidgetWithDefaultHorizontalPadding(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: widget.campaigns
+                                  .map(
+                                    (campaign) => Padding(
+                                      padding: EdgeInsets.only(bottom: 10),
+                                      child: MyCampaignWidget(
+                                        campaigns: campaignState.campaigns,
+                                        campaignFirestore: campaign,
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
                             ),
-                          ),
-                        )
-                        .values
-                        .toList(),
-                  ),
-                );
-              });
-            })
+                          );
+                        },
+                      );
+                    },
+                  );
+                }
+
+                return SizedBox.shrink();
+              },
+            ),
           ],
         ),
       ),
