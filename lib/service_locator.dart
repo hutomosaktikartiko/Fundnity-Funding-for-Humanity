@@ -205,6 +205,7 @@ Future<void> _main() async {
   sl.registerFactory(() => MyCampaignsCubit(
         campaignRepository: sl(),
         transactionRepository: sl(),
+        campaignDeployedContractCubit: sl(),
       ));
   sl.registerFactory(() => MainCampaignCubit());
   sl.registerFactory(() => SelectedFilterCampaignCubit());

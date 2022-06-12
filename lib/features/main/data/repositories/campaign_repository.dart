@@ -19,6 +19,12 @@ abstract class CampaignRepository {
   Future<ReturnValueModel<List<CampaignFirestoreModel>>> getMyCampaigns({
     required EthereumAddress? address,
   });
+  Future<ReturnValueModel> claimCampaign({
+    required DeployedContract contract,
+    required Web3Client web3Client,
+    required EthPrivateKey walletPrivateKey,
+    required CampaignModel campaign,
+  });
 }
 
 class CampaignRepositoryImpl implements CampaignRepository {
@@ -94,6 +100,35 @@ class CampaignRepositoryImpl implements CampaignRepository {
         return ReturnValueModel(
           isSuccess: true,
           value: result,
+        );
+      } catch (error) {
+        return ReturnValueModel(message: error.toString());
+      }
+    } else {
+      return ReturnValueModel(message: LabelConfig.noInternet);
+    }
+  }
+
+  @override
+  Future<ReturnValueModel> claimCampaign({
+    required DeployedContract contract,
+    required Web3Client web3Client,
+    required EthPrivateKey walletPrivateKey,
+    required CampaignModel campaign,
+  }) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final String result =
+            await campaignRemoteDataSource.claimCampaign(
+          contract: contract,
+          web3Client: web3Client,
+          walletPrivateKey: walletPrivateKey,
+          campaign: campaign,
+        );
+
+        return ReturnValueModel(
+          isSuccess: true,
+          message: result,
         );
       } catch (error) {
         return ReturnValueModel(message: error.toString());

@@ -2,6 +2,8 @@ class LabelConfig {
   static const String noInternet = "Failed connecting to the server";
   static const String notLogin = "Please login to continue";
   static const String createCampaignPending = "Campaign creation is in progress, please wait a moment";
+  static const String claimCampaignPending = "Campaign claiming is in progress, please wait a moment";
+  static const String claimCampaignFailed = "Campaign claiming failed";
   
   // Onboarding
   static const String onboarding1Label = "Funding for #Humanity";

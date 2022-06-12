@@ -4,11 +4,13 @@ import 'package:equatable/equatable.dart';
 import 'package:web3dart/web3dart.dart';
 
 import '../../../../../core/models/return_value_model.dart';
+import '../../../../../shared/config/label_config.dart';
 import '../../../data/models/campaign_firestore_model.dart';
 import '../../../data/models/campaign_model.dart';
 import '../../../data/models/transaction_status_model.dart';
 import '../../../data/repositories/campaign_repository.dart';
 import '../../../data/repositories/transaction_repository.dart';
+import '../campaign_deployed_contract/campaign_deployed_contract_cubit.dart';
 
 part 'my_campaigns_state.dart';
 
@@ -16,12 +18,14 @@ class MyCampaignsCubit extends Cubit<MyCampaignsState> {
   MyCampaignsCubit({
     required this.campaignRepository,
     required this.transactionRepository,
+    required this.campaignDeployedContractCubit,
   }) : super(MyCampaignsInitial());
 
   final CampaignRepository campaignRepository;
   final TransactionRepository transactionRepository;
+  final CampaignDeployedContractCubit campaignDeployedContractCubit;
 
-   Future<void> getMyCampaigns({
+  Future<void> getMyCampaigns({
     required EthereumAddress? address,
   }) async {
     emit(MyCampaignsLoading());
@@ -48,7 +52,8 @@ class MyCampaignsCubit extends Cubit<MyCampaignsState> {
   }) async {
     // Check if campaign from firebase is in the list campaign from smart contract
     CampaignModel? _campaign = campaigns.firstWhereOrNull((element) =>
-        element.title?.toLowerCase() == campaignFirestore?.title?.toLowerCase());
+        element.title?.toLowerCase() ==
+        campaignFirestore?.title?.toLowerCase());
 
     // Campaign is not in the list
     if (_campaign == null) {
@@ -90,5 +95,33 @@ class MyCampaignsCubit extends Cubit<MyCampaignsState> {
     }
 
     return CampaignStatus.Inactive;
+  }
+
+  // Claim Campaign
+  Future<ReturnValueModel> claimCampaign({
+    required Web3Client web3Client,
+    required EthPrivateKey walletPrivateKey,
+    required CampaignModel campaign,
+    required EthereumAddress? address,
+  }) async {
+    final ReturnValueModel<DeployedContract> deployedContract =
+        await campaignDeployedContractCubit.getDeployedContract(
+            address: address);
+
+    if (deployedContract.isSuccess && deployedContract.value != null) {
+      // Claim
+      final ReturnValueModel result = await campaignRepository.claimCampaign(
+        web3Client: web3Client,
+        walletPrivateKey: walletPrivateKey,
+        campaign: campaign,
+        contract: deployedContract.value!,
+      );
+
+      return result;
+    }
+
+    return ReturnValueModel(
+      message: LabelConfig.claimCampaignFailed,
+    );
   }
 }
