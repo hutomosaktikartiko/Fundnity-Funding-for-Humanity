@@ -47,4 +47,3 @@ app.*.map.json
 
 # Keys
 lib/shared/config/keys_config.dart
-lib/shared/config/urls_config.dart

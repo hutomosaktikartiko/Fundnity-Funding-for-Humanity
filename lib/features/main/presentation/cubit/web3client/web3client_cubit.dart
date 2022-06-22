@@ -13,7 +13,7 @@ class Web3ClientCubit extends Cubit<Web3ClientState> {
     required this.client,
   }) : super(Web3ClientState(
           web3client: Web3Client(
-            UrlsConfig.infuraRinkbeyProvider +
+            UrlsConfig.infuraRinkbeyProvider + '/' +
                 KeysConfig.infuraEthereumProjectId,
             client,
           ),
@@ -26,7 +26,7 @@ class Web3ClientCubit extends Cubit<Web3ClientState> {
   void setDefaultNetwork() {
     emit(Web3ClientState(
       web3client: Web3Client(
-        UrlsConfig.infuraRinkbeyProvider + KeysConfig.infuraEthereumProjectId,
+        UrlsConfig.infuraRinkbeyProvider + '/'  + KeysConfig.infuraEthereumProjectId,
         client,
       ),
     ));

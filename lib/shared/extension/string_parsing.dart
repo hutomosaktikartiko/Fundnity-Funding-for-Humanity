@@ -14,7 +14,7 @@ extension StringParsing on String? {
 
   String stringHashImageToImageUrl() {
     if (this == null) return "";
-    return "https://$this" + UrlsConfig.infuraIPFSClient;
+    return "https://$this." + UrlsConfig.infuraIPFSClient;
   }
 
   String stringGweiToWei() {
