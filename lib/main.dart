@@ -8,6 +8,7 @@ import 'features/auth/presentation/cubit/auth_body/auth_body_cubit.dart';
 import 'features/auth/presentation/cubit/biometric_auth/biometric_auth_cubit.dart';
 import 'features/auth/presentation/cubit/connection_checker/connection_checker_cubit.dart';
 import 'features/auth/presentation/cubit/obsecure_password/obsecure_password_cubit.dart';
+import 'features/auth/presentation/cubit/onesignal/one_signal_cubit.dart';
 import 'features/auth/presentation/cubit/save_wallet/save_wallet_cubit.dart';
 import 'features/auth/presentation/cubit/selected_onboarding/selected_onboarding_cubit.dart';
 import 'features/auth/presentation/cubit/wallet/wallet_cubit.dart';
@@ -91,6 +92,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<FilteredCampaignsCubit>()),
         BlocProvider(create: (context) => di.sl<RecommendedCampaignCubit>()),
         BlocProvider(create: (context) => di.sl<ObsecurePasswordCubit>()),
+        BlocProvider(create: (context) => di.sl<OneSignalCubit>()),
       ],
       child: MaterialApp(
         home: SplashScreen(),

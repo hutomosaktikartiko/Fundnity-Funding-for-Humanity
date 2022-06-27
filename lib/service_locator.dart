@@ -10,6 +10,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:new_version/new_version.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -26,6 +27,7 @@ import 'features/auth/presentation/cubit/auth_body/auth_body_cubit.dart';
 import 'features/auth/presentation/cubit/biometric_auth/biometric_auth_cubit.dart';
 import 'features/auth/presentation/cubit/connection_checker/connection_checker_cubit.dart';
 import 'features/auth/presentation/cubit/obsecure_password/obsecure_password_cubit.dart';
+import 'features/auth/presentation/cubit/onesignal/one_signal_cubit.dart';
 import 'features/auth/presentation/cubit/save_wallet/save_wallet_cubit.dart';
 import 'features/auth/presentation/cubit/selected_onboarding/selected_onboarding_cubit.dart';
 import 'features/auth/presentation/cubit/wallet/wallet_cubit.dart';
@@ -126,6 +128,8 @@ Future<void> _auth() async {
   sl.registerFactory(() => ConnectionCheckerCubit(connectivity: sl()));
   sl.registerFactory(
       () => SaveWalletCubit(directoryInfo: sl(), permissionInfo: sl()));
+
+  sl.registerFactory(() => OneSignalCubit(oneSignal: sl()));
 }
 
 Future<void> _createCampaign() async {
@@ -284,4 +288,6 @@ Future<void> _external() async {
   sl.registerLazySingleton<LocalAuthentication>(() => LocalAuthentication());
   // Secure Storage
   sl.registerLazySingleton<FlutterSecureStorage>(() => FlutterSecureStorage());
+  // One Signal
+  sl.registerLazySingleton<OneSignal>(() => OneSignal.shared);
 }

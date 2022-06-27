@@ -15,6 +15,7 @@ import '../../../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../../../shared/widgets/custom_numeric_keyboard.dart';
 import '../../../../../../../shared/widgets/show_svg/show_svg_asset.dart';
 import '../../../../../../main/presentation/screens/main/main_screen.dart';
+import '../../../../cubit/onesignal/one_signal_cubit.dart';
 import '../../../../cubit/wallet/wallet_cubit.dart';
 import '../decription_text.dart';
 import '../label_text.dart';
@@ -146,7 +147,8 @@ class _CreatePinBodyState extends State<CreatePinBody> {
         }
 
         // Save pin to local
-        sl<SecureStorageInfo>().setValue(key: SecureStorageKey.pin,value: newPins);
+        sl<SecureStorageInfo>()
+            .setValue(key: SecureStorageKey.pin, value: newPins);
 
         // Login to wallet
         _onLoading();
@@ -174,7 +176,9 @@ class _CreatePinBodyState extends State<CreatePinBody> {
     final ReturnValueModel<Wallet> result = await context
         .read<WalletCubit>()
         .login(
-            password: await sl<SecureStorageInfo>().getValue(key: SecureStorageKey.password) ?? "");
+            password: await sl<SecureStorageInfo>()
+                    .getValue(key: SecureStorageKey.password) ??
+                "");
 
     // Dimiss progressDialog
     progressDialog.dismiss();
@@ -182,6 +186,8 @@ class _CreatePinBodyState extends State<CreatePinBody> {
     // Check result
     if (result.isSuccess) {
       // Login wallet Success
+      // Init One Signal
+      context.read<OneSignalCubit>().init();
       // Navigator to MainScreen
       ScreenNavigator.removeAllScreen(context, MainScreen());
     } else {

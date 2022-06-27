@@ -4,7 +4,7 @@ class LabelConfig {
   static const String createCampaignPending = "Campaign creation is in progress, please wait a moment";
   static const String claimCampaignPending = "Campaign claiming is in progress, please wait a moment";
   static const String claimCampaignFailed = "Campaign claiming failed";
-  
+  static const String connectOneSignalFailed = "Failed to connect with notification!";  
   // Onboarding
   static const String onboarding1Label = "Funding for #Humanity";
   static const String onboarding1Description = "help others to achieve their happiness";
