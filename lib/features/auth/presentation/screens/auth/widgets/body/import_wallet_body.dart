@@ -218,15 +218,20 @@ class _ImportWalletBodyState extends State<ImportWalletBody> {
       progressDialog.show();
 
       // Process importWallet
-      final ReturnValueModel<Wallet> result = await context
-          .read<WalletCubit>()
-          .importWallet(file: walletFile!, password: passwordController.text);
+      ReturnValueModel<Wallet>? result;
+      await Future.delayed(
+        Duration(seconds: 2),
+        () async {
+          result = await context.read<WalletCubit>().importWallet(
+              file: walletFile!, password: passwordController.text);
+        },
+      );
 
       // Dimiss progressDialog
       progressDialog.dismiss();
 
       // Check result
-      if (result.isSuccess) {
+      if (result?.isSuccess == true) {
         // Import Wallet Success
         // Create pin
         context.read<AuthBodyCubit>().emit(AuthBodyCreatePin());
@@ -234,7 +239,7 @@ class _ImportWalletBodyState extends State<ImportWalletBody> {
         // Import Wallet failed
         // Show toast
         CustomDialog.showToast(
-          message: result.message,
+          message: result?.message,
           context: context,
           backgroundColor: UniversalColor.red,
         );

@@ -16,11 +16,13 @@ class CustomDialog {
     required BuildContext context,
     required String message,
     String? title,
+    bool? dismissable,
   }) {
     return ProgressDialog(
       context,
       message: Text(message),
       title: Text(title ?? "Loading..."),
+      dismissable: dismissable ?? true,
     );
   }
 

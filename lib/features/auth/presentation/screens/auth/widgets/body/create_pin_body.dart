@@ -146,7 +146,8 @@ class _CreatePinBodyState extends State<CreatePinBody> {
         }
 
         // Save pin to local
-        sl<SecureStorageInfo>().setValue(key: SecureStorageKey.pin,value: newPins);
+        sl<SecureStorageInfo>()
+            .setValue(key: SecureStorageKey.pin, value: newPins);
 
         // Login to wallet
         _onLoading();
@@ -171,16 +172,22 @@ class _CreatePinBodyState extends State<CreatePinBody> {
     progressDialog.show();
 
     // Process login wallet
-    final ReturnValueModel<Wallet> result = await context
-        .read<WalletCubit>()
-        .login(
-            password: await sl<SecureStorageInfo>().getValue(key: SecureStorageKey.password) ?? "");
+    ReturnValueModel<Wallet>? result;
+    await Future.delayed(
+      Duration(seconds: 2),
+      () async {
+        result = await context.read<WalletCubit>().login(
+            password: await sl<SecureStorageInfo>()
+                    .getValue(key: SecureStorageKey.password) ??
+                "");
+      },
+    );
 
     // Dimiss progressDialog
     progressDialog.dismiss();
 
     // Check result
-    if (result.isSuccess) {
+    if (result?.isSuccess == true) {
       // Login wallet Success
       // Navigator to MainScreen
       ScreenNavigator.removeAllScreen(context, MainScreen());
@@ -188,7 +195,7 @@ class _CreatePinBodyState extends State<CreatePinBody> {
       // Login wallet failed
       // Show toast
       CustomDialog.showToast(
-        message: result.message,
+        message: result?.message,
         context: context,
         backgroundColor: UniversalColor.red,
       );

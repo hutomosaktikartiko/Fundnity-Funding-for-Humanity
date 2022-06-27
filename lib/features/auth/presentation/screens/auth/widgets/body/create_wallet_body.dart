@@ -230,15 +230,21 @@ class _CreateWalletBodyState extends State<CreateWalletBody> {
     progressDialog.show();
 
     // Request create wallet
-    final ReturnValueModel<Wallet> result = await context
-        .read<WalletCubit>()
-        .createWallet(password: passwordController.text);
+    ReturnValueModel<Wallet>? result;
+    await Future.delayed(
+      Duration(seconds: 2),
+      () async {
+        result = await context
+            .read<WalletCubit>()
+            .createWallet(password: passwordController.text);
+      },
+    );
 
     // Dismiss progressDialog
     progressDialog.dismiss();
 
     // Check result create wallet
-    if (result.isSuccess) {
+    if (result?.isSuccess == true) {
       // Success create wallet
       // Create pin
       context.read<AuthBodyCubit>().emit(AuthBodyCreatePin());
@@ -246,7 +252,7 @@ class _CreateWalletBodyState extends State<CreateWalletBody> {
       // Failed create wallet
       // Show toast
       CustomDialog.showToast(
-        message: result.message,
+        message: result?.message,
         context: context,
         backgroundColor: UniversalColor.red,
       );

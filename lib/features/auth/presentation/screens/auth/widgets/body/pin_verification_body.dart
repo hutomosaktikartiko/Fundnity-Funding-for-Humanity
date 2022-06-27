@@ -209,19 +209,29 @@ class _PinVerificationBodyState extends State<PinVerificationBody> {
     ProgressDialog progressDialog = CustomDialog.showProgressDialog(
       context: context,
       message: "Checking your wallet",
+      dismissable: false,
     );
+
     // Show progressDialog
     progressDialog.show();
 
     // Process login wallet
-    final ReturnValueModel<Wallet> result =
-        await context.read<WalletCubit>().login(password: await sl<SecureStorageInfo>().getValue(key: SecureStorageKey.password) ?? "");
+    ReturnValueModel<Wallet>? result;
+    await Future.delayed(
+      Duration(seconds: 2),
+      () async {
+        result = await context.read<WalletCubit>().login(
+            password: await sl<SecureStorageInfo>()
+                    .getValue(key: SecureStorageKey.password) ??
+                "");
+      },
+    );
 
     // Dimiss progressDialog
     progressDialog.dismiss();
 
     // Check result
-    if (result.isSuccess) {
+    if (result?.isSuccess == true) {
       // Login wallet Success
       // Navigator to MainScreen
       ScreenNavigator.removeAllScreen(context, MainScreen());
@@ -229,7 +239,7 @@ class _PinVerificationBodyState extends State<PinVerificationBody> {
       // Login wallet failed
       // Show toast
       CustomDialog.showToast(
-        message: result.message,
+        message: result?.message,
         context: context,
         backgroundColor: UniversalColor.red,
       );
