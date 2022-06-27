@@ -12,6 +12,7 @@ import '../../../../../../../../shared/config/custom_color.dart';
 import '../../../../../../../../shared/widgets/button/custom_button_label.dart';
 import '../../../../../../../../shared/widgets/custom_dialog.dart';
 import '../../../../../../../auth/presentation/cubit/auth_body/auth_body_cubit.dart';
+import '../../../../../../../auth/presentation/cubit/onesignal/one_signal_cubit.dart';
 import '../../../../../../../auth/presentation/cubit/save_wallet/save_wallet_cubit.dart';
 import '../../../../../../../auth/presentation/cubit/selected_onboarding/selected_onboarding_cubit.dart';
 import '../../../../../../../auth/presentation/cubit/wallet/wallet_cubit.dart';
@@ -110,6 +111,9 @@ class LogoutButton extends StatelessWidget {
     // TODO: Migrate sharedPref to secureStorage
     // Delete all shared preferences data
     await sl<SharedPreferences>().clear();
+
+    // Remove external userId OneSignal
+    await context.read<OneSignalCubit>().removeExternalUserId();
 
     // Set AuthBodyCubit to initial state
     context.read<AuthBodyCubit>().initialState();

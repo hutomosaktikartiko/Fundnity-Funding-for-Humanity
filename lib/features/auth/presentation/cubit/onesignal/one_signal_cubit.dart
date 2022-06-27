@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
+import '../../../../../service_locator.dart';
 import '../../../../../shared/config/keys_config.dart';
 import '../../../../../shared/config/label_config.dart';
 
@@ -33,5 +34,9 @@ class OneSignalCubit extends Cubit<OneSignalState> {
     } else {
       return null;
     }
+  }
+
+  Future<void> removeExternalUserId() async {
+    await sl<OneSignal>().removeExternalUserId();
   }
 }
