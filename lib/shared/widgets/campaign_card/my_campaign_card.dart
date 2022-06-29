@@ -120,9 +120,7 @@ class MyCampaignCard extends StatelessWidget {
     } else if (campaign?.status == CampaignStatus.Claimed) {
       return CustomButtonLabel(
         label: "Balance Has Been Claimed",
-        onTap: () {
-          // TODO: Balance has been claimed
-        },
+        onTap: () => _onBalanceHasBeenClaimed(context),
         backgroundColor: Colors.white,
         borderColor: UniversalColor.green4,
         labelColor: UniversalColor.green4,
@@ -203,55 +201,65 @@ class MyCampaignCard extends StatelessWidget {
 
   void _onClaimBalance(BuildContext context) {
     CustomDialog.alertDialogConfirmation(
+      context: context,
+      onConfirmation: () async {
+        CustomProgressDialog progressDialog =
+            CustomDialog.showCustomProgressDialog(context: context);
+
+        // Show progressDialog
+        progressDialog.show();
+
+        // Claim balance
+        final ReturnValueModel result =
+            await context.read<MyCampaignsCubit>().claimCampaign(
+                  web3Client: context.read<Web3ClientCubit>().state.web3client,
+                  walletPrivateKey:
+                      (context.read<WalletCubit>().state as WalletLoaded)
+                          .wallet
+                          .privateKey,
+                  campaign: campaign,
+                  address: campaign?.address,
+                );
+
+        // Close progressDialog
+        progressDialog.dismiss();
+
+        // Close ConfirmationDialog
+        ScreenNavigator.closeScreen(context);
+
+        // Check status claim campaign
+        if (result.isSuccess) {
+          // Success claim
+          CustomDialog.showToast(
+            message: result.message,
             context: context,
-            onConfirmation: () async {
-              CustomProgressDialog progressDialog =
-                  CustomDialog.showCustomProgressDialog(context: context);
+            backgroundColor: UniversalColor.green4,
+          );
+        } else {
+          // Failed claim
+          CustomDialog.showToast(
+            message: result.message,
+            context: context,
+            backgroundColor: UniversalColor.red,
+          );
+        }
+      },
+      buttonOkLabel: "Claim",
+      icon: Icons.attach_money,
+      iconColor: UniversalColor.green4,
+      label: "Are your sure want claim this campaign balance?",
+    ).show(context);
+  }
 
-              // Show progressDialog
-              progressDialog.show();
-
-              // Claim balance
-              final ReturnValueModel result =
-                  await context.read<MyCampaignsCubit>().claimCampaign(
-                        web3Client:
-                            context.read<Web3ClientCubit>().state.web3client,
-                        walletPrivateKey:
-                            (context.read<WalletCubit>().state as WalletLoaded)
-                                .wallet
-                                .privateKey,
-                        campaign: campaign,
-                        address: campaign?.address,
-                      );
-
-              // Close progressDialog
-              progressDialog.dismiss();
-
-              // Close ConfirmationDialog
-              ScreenNavigator.closeScreen(context);
-
-              // Check status claim campaign
-              if (result.isSuccess) {
-                // Success claim
-                CustomDialog.showToast(
-                  message: result.message,
-                  context: context,
-                  backgroundColor: UniversalColor.green4,
-                );
-              } else {
-                // Failed claim
-                CustomDialog.showToast(
-                  message: result.message,
-                  context: context,
-                  backgroundColor: UniversalColor.red,
-                );
-              }
-            },
-            buttonOkLabel: "Claim",
-            icon: Icons.attach_money,
-            iconColor: UniversalColor.green4,
-            label: "Are your sure want claim this campaign balance?")
-        .show(context);
+  void _onBalanceHasBeenClaimed(BuildContext context) {
+    CustomDialog.alertDialogInfo(
+      context: context,
+      label: "Your campaign balance is Claimed",
+      icon: Icons.done,
+      iconColor: UniversalColor.blue1,
+      onTap: () => ScreenNavigator.closeScreen(context),
+      buttonLabel: "Close",
+    ).show(context);
   }
 
   void _onBalanceEmpty(BuildContext context) {

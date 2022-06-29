@@ -46,6 +46,8 @@ extension CampaignStatusParsing on CampaignStatus? {
         return "Draft";
       case CampaignStatus.EmptyBalance:
         return "Complete";
+      case CampaignStatus.Claimed:
+        return "Claimed";
       default:
         return "Pending";
     }
