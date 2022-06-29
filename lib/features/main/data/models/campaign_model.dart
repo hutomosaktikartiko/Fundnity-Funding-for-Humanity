@@ -7,6 +7,7 @@ enum CampaignStatus {
   Inactive,
   Complete,
   Claimed,
+  EmptyBalance,
 }
 
 // class CampaignModel {
@@ -118,6 +119,10 @@ class CampaignModel {
       return CampaignStatus.Complete;
     }
     if (BigInt.from(DateTime.now().millisecondsSinceEpoch) > endDate) {
+      if (balance <= BigInt.zero) {
+        return CampaignStatus.EmptyBalance;
+      }
+
       return CampaignStatus.Complete;
     }
 

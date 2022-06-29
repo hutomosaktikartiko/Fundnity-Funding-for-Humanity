@@ -12,6 +12,8 @@ extension CampaignStatusParsing on CampaignStatus? {
         return UniversalColor.green4;
       case CampaignStatus.Inactive:
         return UniversalColor.red;
+      case CampaignStatus.EmptyBalance:
+        return UniversalColor.gray4;
       default:
         return UniversalColor.gray4;
     }
@@ -25,6 +27,8 @@ extension CampaignStatusParsing on CampaignStatus? {
         return BackgroundColor.bgGreen;
       case CampaignStatus.Inactive:
         return BackgroundColor.bgRed;
+      case CampaignStatus.EmptyBalance:
+        return BackgroundColor.bgGray;
       default:
         return BackgroundColor.bgGray;
     }
@@ -40,6 +44,8 @@ extension CampaignStatusParsing on CampaignStatus? {
         return "Failed";
       case CampaignStatus.Draft:
         return "Draft";
+      case CampaignStatus.EmptyBalance:
+        return "Complete";
       default:
         return "Pending";
     }

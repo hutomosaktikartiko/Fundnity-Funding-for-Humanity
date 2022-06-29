@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../../../core/utils/screen_navigator.dart';
 import '../../../features/main/data/models/campaign_model.dart';
 import '../../config/custom_color.dart';
 import '../../config/custom_text_style.dart';
@@ -8,6 +9,7 @@ import '../../extension/big_int_parsing.dart';
 import '../../extension/campaign_status_parsing.dart';
 import '../../extension/string_parsing.dart';
 import '../button/custom_button_label.dart';
+import '../custom_dialog.dart';
 import '../show_image/show_image_network.dart';
 
 class MyCampaignCard extends StatelessWidget {
@@ -83,13 +85,13 @@ class MyCampaignCard extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          buildBottomWidget(),
+          buildBottomWidget(context),
         ],
       ),
     );
   }
 
-  Widget buildBottomWidget() {
+  Widget buildBottomWidget(BuildContext context) {
     if (campaign?.status == CampaignStatus.Inactive) {
       return CustomButtonLabel(
         label: "Re-Create Campaign",
@@ -120,6 +122,14 @@ class MyCampaignCard extends StatelessWidget {
         backgroundColor: Colors.white,
         borderColor: UniversalColor.green4,
         labelColor: UniversalColor.green4,
+      );
+    } else if (campaign?.status == CampaignStatus.EmptyBalance) {
+      return CustomButtonLabel(
+        label: "Balance is Empty",
+        onTap: () => _onBalanceEmpty(context),
+        backgroundColor: UniversalColor.gray6,
+        borderColor: UniversalColor.gray4,
+        labelColor: UniversalColor.gray4,
       );
     }
 
@@ -185,5 +195,16 @@ class MyCampaignCard extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _onBalanceEmpty(BuildContext context) {
+    CustomDialog.alertDialogInfo(
+      context: context,
+      label: "Your campaign balance is Empty",
+      icon: Icons.money_off,
+      iconColor: UniversalColor.yellow,
+      onTap: () => ScreenNavigator.closeScreen(context),
+      buttonLabel: "Close",
+    ).show(context);
   }
 }
