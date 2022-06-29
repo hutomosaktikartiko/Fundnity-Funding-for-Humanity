@@ -29,7 +29,7 @@ abstract class CampaignRemoteDataSource {
     required DeployedContract contract,
     required Web3Client web3Client,
     required EthPrivateKey walletPrivateKey,
-    required CampaignModel campaign,
+    required CampaignModel? campaign,
   });
 }
 
@@ -106,14 +106,14 @@ class CampaignRemoteDataSourceImpl implements CampaignRemoteDataSource {
     required DeployedContract contract,
     required Web3Client web3Client,
     required EthPrivateKey walletPrivateKey,
-    required CampaignModel campaign,
+    required CampaignModel? campaign,
   }) async {
     try {
       final String result = await web3Client.sendTransaction(
         walletPrivateKey,
         Transaction.callContract(
           contract: contract,
-          function: contract.function('deliverCampaign'),
+          function: contract.function('deliverBalance'),
           parameters: [],
           maxGas: 1500000,
         ),
@@ -127,8 +127,8 @@ class CampaignRemoteDataSourceImpl implements CampaignRemoteDataSource {
       _saveToFirestore(
         address: walletPrivateKey.address.toString(),
         transactionHash: result,
-        campaignTitle: campaign.title,
-        amount: campaign.balance.toString(),
+        campaignTitle: campaign?.title,
+        amount: campaign?.balance.toString(),
       );
 
       return LabelConfig.claimCampaignPending;

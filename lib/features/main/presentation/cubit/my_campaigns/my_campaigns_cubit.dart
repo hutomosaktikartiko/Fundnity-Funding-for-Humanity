@@ -101,7 +101,7 @@ class MyCampaignsCubit extends Cubit<MyCampaignsState> {
   Future<ReturnValueModel> claimCampaign({
     required Web3Client web3Client,
     required EthPrivateKey walletPrivateKey,
-    required CampaignModel campaign,
+    required CampaignModel? campaign,
     required EthereumAddress? address,
   }) async {
     final ReturnValueModel<DeployedContract> deployedContract =

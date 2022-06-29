@@ -86,7 +86,8 @@ class CustomDialog {
     Color? borderColor,
     Color? labelColor,
     String? label,
-    Widget? icon,
+    IconData? icon,
+    Color? iconColor,
     String? description,
     Color? descriptionColor,
     double? buttonWidth,
@@ -102,7 +103,14 @@ class CustomDialog {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          (icon != null) ? icon : SizedBox.shrink(),
+          (icon != null) ? Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Icon(
+                    icon,
+                    size: 48,
+                    color: iconColor,
+                  ),
+                ) : SizedBox.shrink(),
           (label != null)
               ? Padding(
                   padding: const EdgeInsets.only(bottom: 10),

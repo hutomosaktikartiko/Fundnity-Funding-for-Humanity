@@ -1,5 +1,11 @@
+import 'package:crowdfunding/core/models/return_value_model.dart';
+import 'package:crowdfunding/features/auth/presentation/cubit/wallet/wallet_cubit.dart';
+import 'package:crowdfunding/features/main/presentation/cubit/my_campaigns/my_campaigns_cubit.dart';
+import 'package:crowdfunding/features/main/presentation/cubit/web3client/web3client_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:ndialog/ndialog.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/utils/screen_navigator.dart';
 import '../../../features/main/data/models/campaign_model.dart';
@@ -109,9 +115,7 @@ class MyCampaignCard extends StatelessWidget {
     } else if (campaign?.status == CampaignStatus.Complete) {
       return CustomButtonLabel(
         label: "Claim Balance",
-        onTap: () {
-          // TODO: Claim balance
-        },
+        onTap: () => _onClaimBalance(context),
       );
     } else if (campaign?.status == CampaignStatus.Claimed) {
       return CustomButtonLabel(
@@ -195,6 +199,59 @@ class MyCampaignCard extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _onClaimBalance(BuildContext context) {
+    CustomDialog.alertDialogConfirmation(
+            context: context,
+            onConfirmation: () async {
+              CustomProgressDialog progressDialog =
+                  CustomDialog.showCustomProgressDialog(context: context);
+
+              // Show progressDialog
+              progressDialog.show();
+
+              // Claim balance
+              final ReturnValueModel result =
+                  await context.read<MyCampaignsCubit>().claimCampaign(
+                        web3Client:
+                            context.read<Web3ClientCubit>().state.web3client,
+                        walletPrivateKey:
+                            (context.read<WalletCubit>().state as WalletLoaded)
+                                .wallet
+                                .privateKey,
+                        campaign: campaign,
+                        address: campaign?.address,
+                      );
+
+              // Close progressDialog
+              progressDialog.dismiss();
+
+              // Close ConfirmationDialog
+              ScreenNavigator.closeScreen(context);
+
+              // Check status claim campaign
+              if (result.isSuccess) {
+                // Success claim
+                CustomDialog.showToast(
+                  message: result.message,
+                  context: context,
+                  backgroundColor: UniversalColor.green4,
+                );
+              } else {
+                // Failed claim
+                CustomDialog.showToast(
+                  message: result.message,
+                  context: context,
+                  backgroundColor: UniversalColor.red,
+                );
+              }
+            },
+            buttonOkLabel: "Claim",
+            icon: Icons.attach_money,
+            iconColor: UniversalColor.green4,
+            label: "Are your sure want claim this campaign balance?")
+        .show(context);
   }
 
   void _onBalanceEmpty(BuildContext context) {

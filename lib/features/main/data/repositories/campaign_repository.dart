@@ -23,7 +23,7 @@ abstract class CampaignRepository {
     required DeployedContract contract,
     required Web3Client web3Client,
     required EthPrivateKey walletPrivateKey,
-    required CampaignModel campaign,
+    required CampaignModel? campaign,
   });
 }
 
@@ -114,7 +114,7 @@ class CampaignRepositoryImpl implements CampaignRepository {
     required DeployedContract contract,
     required Web3Client web3Client,
     required EthPrivateKey walletPrivateKey,
-    required CampaignModel campaign,
+    required CampaignModel? campaign,
   }) async {
     if (await networkInfo.isConnected) {
       try {
