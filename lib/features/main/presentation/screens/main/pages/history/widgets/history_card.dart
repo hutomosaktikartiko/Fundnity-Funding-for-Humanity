@@ -5,7 +5,7 @@ import '../../../../../../../../shared/config/custom_text_style.dart';
 import '../../../../../../../../shared/extension/big_int_parsing.dart';
 import '../../../../../../../../shared/extension/int_parsing.dart';
 import '../../../../../../../../shared/widgets/custom_box_shadow.dart';
-import '../../../../../../../../shared/widgets/show_image/show_image_local.dart';
+import '../../../../../../../../shared/widgets/show_svg/show_svg_asset.dart';
 import '../../../../../../data/models/history_model.dart';
 
 class HistoryCard extends StatelessWidget {
@@ -32,8 +32,8 @@ class HistoryCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          ShowImageLocal(
-            imageUrl: iconPath(),
+          ShowSvgAsset(
+            assetUrl: iconPath(),
             height: 40,
             width: 40,
           ),
@@ -87,17 +87,27 @@ class HistoryCard extends StatelessWidget {
 
   String iconPath() {
     if (history?.category == 1) {
+      // Donation
       return AssetPathConfig.iconDonation;
-    } else {
+    } else if (history?.category == 2) {
+      // Create campaign
       return AssetPathConfig.iconCreateCampaign;
     }
+
+    // Claim balance of campaign
+    return AssetPathConfig.iconClaimBalance;
   }
 
   String title() {
     if (history?.category == 1) {
+      // Donation
       return 'You donation ${BigInt.from(int.parse(history?.amount ?? "0")).weiEtherToDoubleEther()} ETH';
-    } else {
+    } else if (history?.category == 2) {
+      // Create campaign
       return 'You create campaign';
     }
+
+    // Claim balance of campaign
+    return 'You claim balance of campaign ${BigInt.from(int.parse(history?.amount ?? "0")).weiEtherToDoubleEther()} ETH';
   }
 }

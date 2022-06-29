@@ -11,8 +11,9 @@ class AssetPathConfig {
   static const String lockPath = 'assets/images/lock.svg';
   static const String warningPath = 'assets/images/warning.svg';
   static const String transferfilePath = 'assets/images/transfer_file.svg';
-  static const String iconCreateCampaign = 'assets/icons/create_campaign.png';
-  static const String iconDonation = 'assets/icons/donation.png';
+  static const String iconCreateCampaign = 'assets/icons/create-campaign.svg';
+  static const String iconDonation = 'assets/icons/donation.svg';
+  static const String iconClaimBalance = 'assets/icons/claim-balance.svg';
   static const String appLogo = 'assets/icons/app-logo.png';
 
   // onboarding
