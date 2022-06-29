@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/utils.dart';
+import '../../../../../shared/config/custom_color.dart';
 import '../../../../../shared/config/size_config.dart';
 import '../../../../../shared/widgets/custom_app_bar_with_search_form.dart';
 import '../../../../main/presentation/cubit/campaigns/campaigns_cubit.dart';
@@ -36,6 +37,7 @@ class _CampaignSearchScreenState extends State<CampaignSearchScreen> {
         isAutoFocus: true,
         textEditingController: searchController,
         onChanged: _onChanged,
+        suffixWidget: buildSuffixWidget(),
       ).build(context),
       body: GestureDetector(
         onTap: () => Utils.hideKeyboard(context),
@@ -87,7 +89,25 @@ class _CampaignSearchScreenState extends State<CampaignSearchScreen> {
     );
   }
 
+  Widget? buildSuffixWidget() {
+    // Check searchController.text != ""
+    if (searchController.text != "") {
+      // Show close button
+      return GestureDetector(
+        // Clear  searchController.text to ""
+        onTap: () => setState(() => searchController.text = ""),
+        child: Icon(
+          Icons.close,
+          color: UniversalColor.gray4,
+        ),
+      );
+    }
+
+    return null;
+  }
+
   void _onChanged() {
+    // Set RecommendedCampaignCubit result
     if (context.read<CampaignsCubit>().state is CampaignsLoaded) {
       context.read<RecommendedCampaignCubit>().getSearchCampaigns(
             keyword: searchController.text,
@@ -95,11 +115,8 @@ class _CampaignSearchScreenState extends State<CampaignSearchScreen> {
                 .campaigns,
           );
     }
-    // Sudah berhasil search
-    // Tapi
-    // FIXME
-    // Tapi Ketika keyword searhing dihapus,
-    // status isSearching tidak berubah menjadi false
-    // masih tetap true
+
+    // Rebuild Widget
+    setState(() {});
   }
 }
