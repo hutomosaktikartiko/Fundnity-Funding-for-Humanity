@@ -1,3 +1,4 @@
+import 'package:crowdfunding/features/create_campaign/presentation/cubit/create_campaign_target_data/create_campaign_data_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -244,6 +245,10 @@ class _LoadedState extends State<Loaded> {
   }
 
   void _onCreateCampaign(BuildContext context) {
+    // Clear value in CreateCampaignDataState
+    context.read<CreateCampaignDataCubit>().clear();
+
+    // Navigator to CreateCampaignScreen
     ScreenNavigator.startScreen(context, CreateCampaignScreen());
   }
 
