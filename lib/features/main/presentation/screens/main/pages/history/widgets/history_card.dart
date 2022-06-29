@@ -101,13 +101,13 @@ class HistoryCard extends StatelessWidget {
   String title() {
     if (history?.category == 1) {
       // Donation
-      return 'You donation ${BigInt.from(int.parse(history?.amount ?? "0")).weiEtherToDoubleEther()} ETH';
+      return 'Donation ${BigInt.from(int.parse(history?.amount ?? "0")).weiEtherToDoubleEther()} ETH';
     } else if (history?.category == 2) {
       // Create campaign
-      return 'You create campaign';
+      return 'Create campaign';
     }
 
     // Claim balance of campaign
-    return 'You claim balance of campaign ${BigInt.from(int.parse(history?.amount ?? "0")).weiEtherToDoubleEther()} ETH';
+    return 'Claim balance of campaign ${BigInt.from(int.parse(history?.amount ?? "0")).weiEtherToDoubleEther()} ETH';
   }
 }
