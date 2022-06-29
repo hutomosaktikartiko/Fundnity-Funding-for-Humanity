@@ -10,6 +10,24 @@ part 'create_campaign_data_state.dart';
 class CreateCampaignDataCubit extends Cubit<CreateCampaignDataState> {
   CreateCampaignDataCubit() : super(CreateCampaignDataState());
 
+  void clear() {
+    emit(CreateCampaignDataState());
+  }
+
+  void reCreateCampaign({
+    double? amount,
+    String? description,
+    String? title,
+    int? time,
+  }) {
+    emit(CreateCampaignDataState(
+      amount: (amount == 0) ? null : amount,
+      description: description,
+      time: (time == 0) ? null : time,
+      title: title,
+    ));
+  }
+
   void setAmount({required double? amount}) {
     emit(CreateCampaignDataState(
       amount: amount,

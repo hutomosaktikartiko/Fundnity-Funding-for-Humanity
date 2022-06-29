@@ -1,11 +1,14 @@
 import 'package:crowdfunding/core/models/return_value_model.dart';
 import 'package:crowdfunding/features/auth/presentation/cubit/wallet/wallet_cubit.dart';
+import 'package:crowdfunding/features/create_campaign/presentation/cubit/create_campaign_target_data/create_campaign_data_cubit.dart';
+import 'package:crowdfunding/features/create_campaign/presentation/screens/create_campaign/create_campaign_screen.dart';
 import 'package:crowdfunding/features/main/presentation/cubit/my_campaigns/my_campaigns_cubit.dart';
 import 'package:crowdfunding/features/main/presentation/cubit/web3client/web3client_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:ndialog/ndialog.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:crowdfunding/shared/extension/big_int_parsing.dart';
 
 import '../../../core/utils/screen_navigator.dart';
 import '../../../features/main/data/models/campaign_model.dart';
@@ -91,19 +94,20 @@ class MyCampaignCard extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          buildBottomWidget(context),
+          buildBottomWidget(context, campaign: campaign),
         ],
       ),
     );
   }
 
-  Widget buildBottomWidget(BuildContext context) {
+  Widget buildBottomWidget(
+    BuildContext context, {
+    required CampaignModel? campaign,
+  }) {
     if (campaign?.status == CampaignStatus.Inactive) {
       return CustomButtonLabel(
         label: "Re-Create Campaign",
-        onTap: () {
-          // TODO: Re-create campaign
-        },
+        onTap: () => _onReCreateCampaign(context, campaign: campaign),
       );
     } else if (campaign?.status == CampaignStatus.Draft) {
       return CustomButtonLabel(
@@ -176,7 +180,7 @@ class MyCampaignCard extends StatelessWidget {
         ),
         LinearPercentIndicator(
           percent: campaign?.balance
-                  .bigIntToPercentTargetMax1(target: campaign?.target) ??
+                  .bigIntToPercentTargetMax1(target: campaign.target) ??
               0,
           lineHeight: 8,
           barRadius: Radius.circular(3),
@@ -185,7 +189,7 @@ class MyCampaignCard extends StatelessWidget {
           animation: true,
           trailing: Text(
             (campaign?.balance
-                        ?.bigIntToPercentTarget(target: campaign?.target)
+                        ?.bigIntToPercentTarget(target: campaign.target)
                         .toStringAsFixed(1) ??
                     "0") +
                 "%",
@@ -260,6 +264,22 @@ class MyCampaignCard extends StatelessWidget {
       onTap: () => ScreenNavigator.closeScreen(context),
       buttonLabel: "Close",
     ).show(context);
+  }
+
+  void _onReCreateCampaign(
+    BuildContext context, {
+    required CampaignModel? campaign,
+  }) {
+    // Set value to createCampaignDataCubitState
+    context.read<CreateCampaignDataCubit>().reCreateCampaign(
+          amount: campaign?.target?.toDouble(),
+          description: campaign?.description,
+          title: campaign?.title,
+          time: campaign?.endDate.timestampToIntDays(),
+        );
+
+    // Navigator to CreateCampaignScreen
+    ScreenNavigator.startScreen(context, CreateCampaignScreen());
   }
 
   void _onBalanceEmpty(BuildContext context) {
