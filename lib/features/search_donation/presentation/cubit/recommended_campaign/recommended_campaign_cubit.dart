@@ -11,7 +11,8 @@ class RecommendedCampaignCubit extends Cubit<RecommendedCampaignState> {
     required String keyword,
     required List<CampaignModel> campaigns,
   }) {
-    final List<CampaignModel> _campaigns = campaigns
+    final List<CampaignModel> _activeCampaign = List.from(campaigns.where((element) => element.status == CampaignStatus.Active));
+    final List<CampaignModel> _campaigns = _activeCampaign
         .where((element) =>
             element.title?.toLowerCase().contains(keyword.toLowerCase()) ??
             false)
@@ -30,7 +31,7 @@ class RecommendedCampaignCubit extends Cubit<RecommendedCampaignState> {
   void getRecommendedCampaigns({
     required List<CampaignModel> campaigns,
   }) {
-    final List<CampaignModel> _campaigns = List.from(campaigns);
+    final List<CampaignModel> _campaigns = List.from(campaigns.where((element) => element.status == CampaignStatus.Active));
 
     // Randomly sort the campaigns
     _campaigns..shuffle();
