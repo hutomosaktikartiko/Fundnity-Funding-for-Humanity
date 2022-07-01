@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/utils.dart';
 import '../../../../../shared/config/custom_color.dart';
-import '../../../../../shared/config/size_config.dart';
 import '../../../../../shared/widgets/custom_app_bar_with_search_form.dart';
 import '../../../../main/presentation/cubit/campaigns/campaigns_cubit.dart';
 import '../../cubit/recommended_campaign/recommended_campaign_cubit.dart';
 import 'states/empty.dart';
+import 'states/empty_search_results.dart';
 import 'states/error.dart';
 import 'states/loaded.dart';
 import 'states/loading.dart';
@@ -21,6 +21,12 @@ class CampaignSearchScreen extends StatefulWidget {
 
 class _CampaignSearchScreenState extends State<CampaignSearchScreen> {
   TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    _initalValue();
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -43,17 +49,19 @@ class _CampaignSearchScreenState extends State<CampaignSearchScreen> {
         onTap: () => Utils.hideKeyboard(context),
         onPanDown: (_) => Utils.hideKeyboard(context),
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: SizeConfig.defaultMargin),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20),
-              BlocBuilder<CampaignsCubit, CampaignsState>(
-                builder: (context, state) {
+              BlocConsumer<CampaignsCubit, CampaignsState>(
+                listener: (context, state) {
                   if (state is CampaignsLoaded) {
                     context
                         .read<RecommendedCampaignCubit>()
                         .getRecommendedCampaigns(campaigns: state.campaigns);
+                  }
+                },
+                builder: (context, state) {
+                  if (state is CampaignsLoaded) {
                     return BlocBuilder<RecommendedCampaignCubit,
                             RecommendedCampaignState>(
                         builder: (context, recommendedCampaignState) {
@@ -61,12 +69,13 @@ class _CampaignSearchScreenState extends State<CampaignSearchScreen> {
                           is RecommendedCampaignLoaded) {
                         return Loaded(
                           campaigns: recommendedCampaignState.campaigns,
-                          label: recommendedCampaignState.isSearching
-                              ? "Results"
-                              : "Campaigns for you",
                         );
-                      } else if (state is RecommendedCampaignEmpty) {
-                        return Empty();
+                      } else if (recommendedCampaignState
+                          is RecommendedCampaignEmpty) {
+                        return EmptySearchResults(
+                          campaigns: recommendedCampaignState.campaigns,
+                          isSearching: searchController.text != "",
+                        );
                       }
 
                       return SizedBox.shrink();
@@ -89,13 +98,28 @@ class _CampaignSearchScreenState extends State<CampaignSearchScreen> {
     );
   }
 
+  void _initalValue() {
+    if (context.read<CampaignsCubit>().state is CampaignsLoaded) {
+      context.read<RecommendedCampaignCubit>().getRecommendedCampaigns(
+            campaigns: (context.read<CampaignsCubit>().state as CampaignsLoaded)
+                .campaigns,
+          );
+    }
+  }
+
   Widget? buildSuffixWidget() {
     // Check searchController.text != ""
     if (searchController.text != "") {
       // Show close button
       return GestureDetector(
         // Clear  searchController.text to ""
-        onTap: () => setState(() => searchController.text = ""),
+        onTap: () {
+          // Set searchController to ""
+          setState(() => searchController.text = "");
+
+          // Get initial Value
+          _initalValue();
+        },
         child: Icon(
           Icons.close,
           color: UniversalColor.gray4,
@@ -108,12 +132,17 @@ class _CampaignSearchScreenState extends State<CampaignSearchScreen> {
 
   void _onChanged() {
     // Set RecommendedCampaignCubit result
-    if (context.read<CampaignsCubit>().state is CampaignsLoaded) {
-      context.read<RecommendedCampaignCubit>().getSearchCampaigns(
-            keyword: searchController.text,
-            campaigns: (context.read<CampaignsCubit>().state as CampaignsLoaded)
-                .campaigns,
-          );
+    if (searchController.text == "") {
+      _initalValue();
+    } else {
+      if (context.read<CampaignsCubit>().state is CampaignsLoaded) {
+        context.read<RecommendedCampaignCubit>().getSearchCampaigns(
+              keyword: searchController.text,
+              campaigns:
+                  (context.read<CampaignsCubit>().state as CampaignsLoaded)
+                      .campaigns,
+            );
+      }
     }
 
     // Rebuild Widget

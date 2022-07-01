@@ -8,12 +8,24 @@ class RecommendedCampaignInitial extends RecommendedCampaignState {}
 
 class RecommendedCampaignLoaded extends RecommendedCampaignState {
   final List<CampaignModel> campaigns;
-  final bool isSearching;
 
   RecommendedCampaignLoaded({
     required this.campaigns,
-    this.isSearching = false,
   });
 }
 
-class RecommendedCampaignEmpty extends RecommendedCampaignState {}
+class RecommendedCampaignEmpty extends RecommendedCampaignState {
+  final List<CampaignModel> campaigns;
+
+  RecommendedCampaignEmpty({
+    required this.campaigns,
+  });
+}
+
+// class SearchingResult extends RecommendedCampaignState {
+//   final List<CampaignModel> campaigns;
+
+//   SearchingResult({
+//     required this.campaigns,
+//   });
+// }
