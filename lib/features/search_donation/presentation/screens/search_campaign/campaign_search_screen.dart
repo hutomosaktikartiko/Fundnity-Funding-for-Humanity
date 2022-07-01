@@ -81,6 +81,7 @@ class _CampaignSearchScreenState extends State<CampaignSearchScreen> {
                       return SizedBox.shrink();
                     });
                   } else if (state is CampaignsEmpty) {
+                    Utils.hideKeyboard(context);
                     return Empty();
                   } else if (state is CampaignsLoadingFailure) {
                     return Error(
@@ -131,10 +132,11 @@ class _CampaignSearchScreenState extends State<CampaignSearchScreen> {
   }
 
   void _onChanged() {
-    // Set RecommendedCampaignCubit result
     if (searchController.text == "") {
+      // Get initial value
       _initalValue();
     } else {
+      // Get campaign by searching keyword
       if (context.read<CampaignsCubit>().state is CampaignsLoaded) {
         context.read<RecommendedCampaignCubit>().getSearchCampaigns(
               keyword: searchController.text,

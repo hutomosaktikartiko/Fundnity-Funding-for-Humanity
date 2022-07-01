@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-// TODO: Handle campaign empty
+import '../../../../../../shared/config/size_config.dart';
+import '../../../../../../shared/widgets/states/empty_campaign.dart';
+
 class Empty extends StatelessWidget {
   const Empty({
     Key? key,
@@ -8,6 +10,13 @@ class Empty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Campaign Empty"));
+    return SizedBox(
+      height: SizeConfig.screenHeight / 1.5,
+      child: EmptyCampaign(
+        height: 200,
+        title: "Campaign is empty",
+        description: "Please try again later after a few minutes",
+      ),
+    );
   }
 }
