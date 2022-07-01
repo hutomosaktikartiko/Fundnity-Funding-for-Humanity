@@ -6,7 +6,11 @@ class LabelConfig {
   static const String claimCampaignFailed = "Campaign claiming failed";
 
   // Empty
-  static const String targetCostEmpty = "The target cost can't be empty";
+  static const String targetCostEmpty = "The target cost of campaign can't be empty";
+  static const String targetTimeEmpty = "The target time of campaign can't be empty";
+  static const String titleEmpty = "The title of campaign can't be empty";
+  static const String imageEmpty = "The image of campaign can't be empty";
+  static const String descriptionEmpty = "The description of campaign can't be empty";
   
   // Onboarding
   static const String onboarding1Label = "Funding for #Humanity";

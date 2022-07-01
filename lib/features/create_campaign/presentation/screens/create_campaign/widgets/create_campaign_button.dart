@@ -70,11 +70,19 @@ class CreateCampaignButton extends StatelessWidget {
         backgroundColor: UniversalColor.gray4,
         borderColor: UniversalColor.gray4,
         onTap: () {
-          CustomDialog.showToast(
+          if (amount == null) {
+            CustomDialog.showToast(
             message: LabelConfig.targetCostEmpty,
             context: context,
             backgroundColor: UniversalColor.red,
           );
+          } else {
+            CustomDialog.showToast(
+            message: LabelConfig.targetTimeEmpty,
+            context: context,
+            backgroundColor: UniversalColor.red,
+          );
+          }
         },
       );
     }
@@ -103,7 +111,19 @@ class CreateCampaignButton extends StatelessWidget {
           index: 0,
         ),
         onSecondButton: () {
-          // TODO => Handle alert title data null
+          if (title == null) {
+            CustomDialog.showToast(
+              message: LabelConfig.titleEmpty,
+              context: context,
+              backgroundColor: UniversalColor.red,
+            );
+          } else {
+            CustomDialog.showToast(
+              message: LabelConfig.imageEmpty,
+              context: context,
+              backgroundColor: UniversalColor.red,
+            );
+          }
         },
         isDisableNextButon: true,
       );
@@ -132,7 +152,11 @@ class CreateCampaignButton extends StatelessWidget {
           index: 1,
         ),
         onSecondButton: () {
-          // TODO => Handle alert description data null,
+          CustomDialog.showToast(
+            message: LabelConfig.descriptionEmpty,
+            context: context,
+            backgroundColor: UniversalColor.red,
+          );
         },
         isDisableNextButon: true,
       );
