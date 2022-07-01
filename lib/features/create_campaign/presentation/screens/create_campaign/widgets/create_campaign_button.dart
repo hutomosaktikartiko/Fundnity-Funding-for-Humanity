@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import '../../../../../../shared/config/label_config.dart';
+import '../../../../../../shared/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -68,7 +70,11 @@ class CreateCampaignButton extends StatelessWidget {
         backgroundColor: UniversalColor.gray4,
         borderColor: UniversalColor.gray4,
         onTap: () {
-          // TODO => Handle alert target data null
+          CustomDialog.showToast(
+            message: LabelConfig.targetCostEmpty,
+            context: context,
+            backgroundColor: UniversalColor.red,
+          );
         },
       );
     }

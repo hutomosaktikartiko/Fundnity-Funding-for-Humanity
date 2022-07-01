@@ -4,6 +4,9 @@ class LabelConfig {
   static const String createCampaignPending = "Campaign creation is in progress, please wait a moment";
   static const String claimCampaignPending = "Campaign claiming is in progress, please wait a moment";
   static const String claimCampaignFailed = "Campaign claiming failed";
+
+  // Empty
+  static const String targetCostEmpty = "The target cost can't be empty";
   
   // Onboarding
   static const String onboarding1Label = "Funding for #Humanity";
